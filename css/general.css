@@ -1,0 +1,10 @@
+.edit-pen {
+    float: right;
+    color: #b9b9b9;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.edit-pen:hover {
+    color: #000;
+}
