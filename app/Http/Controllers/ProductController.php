@@ -127,7 +127,7 @@ class ProductController extends Controller
         $etiquetas = $objTags->listar();
         $categorias = $objCategorias->listar();
         $parroquias = $objParroquias->listar(array(
-            'id_municipio' => 462
+            'id_municipio' => 1
         ));
 
         return view('product.producto', compact('data', 'id', 'categorias', 'imagenes', 'videos', 'documentos', 'etiquetas', 'parroquias'));

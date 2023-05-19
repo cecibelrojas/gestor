@@ -436,7 +436,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="col-lg-6">
-                            <label style="font-size: 12px;font-weight: bold;">Parroquia</label>
+                            <label style="font-size: 12px;font-weight: bold;">Misión Diplomática</label>
                             <select class="form-control select2" style="border: 1px solid #b9b9b9;" name="id_parroquia">
                                 <option value="">Seleccionar</option>
                                 <?php if (count($parroquias)) : ?>

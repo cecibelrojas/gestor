@@ -478,7 +478,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-      <strong>Copyright &copy; {{ date('Y') }} <b>{{ env('APP_NAME')}}</b>. <img src="{{asset('img/guacafaviccs48.ico')}}"></strong>
+      <strong>Copyright &copy; {{ date('Y') }} <b>{{ env('APP_NAME')}}</b>. <img src="{{asset('img/guacafaviccs48.ico')}}" width="30px"></strong>
      Todos los derechos reservados. <strong></strong>
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0
