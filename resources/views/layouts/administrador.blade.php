@@ -48,7 +48,11 @@
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-select/css/select.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   
+
+
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.min.css">
+  
   <link rel="stylesheet" href="{{asset('css/tagsinput.css')}}">
   <link rel="icon" type="image/png" href="{{asset('img/guacafaviccs48.ico')}}">
 
@@ -62,8 +66,10 @@
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>
-  <!-- Bootstrap 4 -->
+    <!-- Bootstrap 4 -->
   <script src="{{asset('AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
   <!-- Sparkline -->
   <script src="{{asset('AdminLTE-3.2.0/plugins/sparklines/sparkline.js')}}"></script>
   <!-- jQuery Knob Chart -->
@@ -99,6 +105,10 @@
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+  <script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+
 
   <script src="{{asset('AdminLTE-3.2.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
 
@@ -497,6 +507,7 @@
   <script src="{{asset('js/calendarioccs.js')}}"></script>
 
   <script src="{{asset('js/codigo.js')}}"></script>
+
   <script>
    $(function () {
     //Initialize Select2 Elements
@@ -561,6 +572,58 @@
     })
 
   </script>
+ <script>
+var xValues = ["día", "semana", "mes", "año"];
+var yValues = [55, 49, 44, 24];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Notas creadas en el sistema"
+    }
+  }
+});
+
+/** */
+
+var xValues1 = ["Borrador", "Para Corrección", "Publicado"];
+var yValues1 = [107, 107, 107];
+var barColors1 = ["yellow", "purple","orange"];
+
+new Chart("myChart1", {
+  type: "bar",
+  data: {
+    labels: xValues1,
+    datasets: [{
+      backgroundColor: barColors1,
+      data: yValues1
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Estadísticas Generales"
+    }
+  }
+});
+</script>
 </body>
 @else
 

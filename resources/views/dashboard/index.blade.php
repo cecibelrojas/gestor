@@ -12,6 +12,7 @@
 @endif
 <!-- Content Header (Page header) -->
 <?php $administradores = App\Administradores::all(); ?>
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -203,10 +204,203 @@
 
         </div>
         <!-- /.row -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Estadísticas Totales</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-6">
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Estadísticas por Estado de la Nota</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Articulos</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                                    <table border="0" cellspacing="5" cellpadding="5">
+                            <tbody><tr>
+                                <td>Fecha Anterior:</td>
+                                <td><input type="text" id="min" name="min"></td>
+                            </tr>
+                            <tr>
+                                <td>Fecha Actual:</td>
+                                <td><input type="text" id="max" name="max"></td>
+                            </tr>
+                        </tbody></table>
+
+
+                <table class="table table-responsive-lg" id="maintable">
+                  <thead>
+                  <tr>
+                    <th style="font-size: 12px;">ID</th>
+                    <th style="font-size: 12px;">Titúlo</th>
+                    <th style="font-size: 12px;">Categoría</th>
+                    <th style="font-size: 12px; width: 25%;">Nombre y Apellido</th>
+                    <th style="font-size: 12px; width: 10%;">Rol</th>
+                    <th style="font-size: 12px;">Creado</th>
+                    <th style="font-size: 12px;">Estado</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                        @foreach($trabajador as $trabajador)
+                            <tr>
+                                <td style="font-size: 12px;">{{ $trabajador->id }}</td>
+                                <td style="font-size: 12px;">{{ $trabajador->nombre }}</td>
+                                <td style="font-size: 12px;">{{ $trabajador->categoriades }}</td>
+                                <td>{{ $trabajador->creador }}</td>
+                                <td><span class="badge bg-warning">Redactor</span></td>
+                                <td style="font-size: 12px;">{{ $trabajador->created_at }}</td>
+                                                                            <td><?php
+                                                switch ($trabajador['estado']) {
+                                                    case 'A':
+                                                        if (auth()->user()->rol == 'A' || auth()->user()->rol == 'B' || auth()->user()->rol == 'C' || auth()->user()->rol == 'D' || auth()->user()->rol == 'E' || auth()->user()->rol == 'V') {
+                                                            echo "<span class='right badge badge-success' style='font-size:14px; color: #fff'>Publicada</span>";
+                                                            break;
+                                                        }
+                                                    case 'I':
+                                                        if (auth()->user()->rol == 'A' || auth()->user()->rol == 'B' || auth()->user()->rol == 'C' || auth()->user()->rol == 'D' || auth()->user()->rol == 'E' || auth()->user()->rol == 'V') {
+                                                            echo "<span class='right badge badge-warning' style='font-size:14px; color: #fff'>Borrador</span>";
+                                                            break;
+                                                        }
+                                                    case 'R':
+                                                        if (auth()->user()->rol == 'A' || auth()->user()->rol == 'B' || auth()->user()->rol == 'C' || auth()->user()->rol == 'D' || auth()->user()->rol == 'E' || auth()->user()->rol == 'V') {
+                                                            echo "<span class='right badge badge-info' style='background-color:#9917b8!important; font-size:14px; color: #fff'>Para Corrección</span>";
+                                                            break;
+                                                        }
+                                                    case 'P':
+                                                        if (auth()->user()->rol == 'A' || auth()->user()->rol == 'B' || auth()->user()->rol == 'C' || auth()->user()->rol == 'D' || auth()->user()->rol == 'E' || auth()->user()->rol == 'V') {
+                                                            echo "<span class='right badge badge-primary' style='background-color:#007bff!important; font-size:14px; color: #fff'>Publicada</span>";
+                                                            break;
+                                                        }
+                                                        case 'Z':
+                                                            if (auth()->user()->rol == 'A' || auth()->user()->rol == 'B' || auth()->user()->rol == 'C' || auth()->user()->rol == 'D' || auth()->user()->rol == 'E' || auth()->user()->rol == 'V') {
+                                                                echo "<span class='right badge badge-info' style='background-color:#9917b8!important; font-size:14px; color: #fff'>Para Corrección Voces</span>";
+                                                                break;
+                                                            }
+                                                    case 'Q':
+                                                        if (auth()->user()->rol == 'A' || auth()->user()->rol == 'B' || auth()->user()->rol == 'C' || auth()->user()->rol == 'D' || auth()->user()->rol == 'E' || auth()->user()->rol == 'V') {
+                                                            echo "<span class='right badge badge-info' style='background-color:#d34915f2 !important; font-size:14px; color: #fff'>Para Publicar-Voces</span>";
+                                                            break;
+                                                        }
+                                                            
+                                                    default:
+                                                        echo "----";
+                                                        break;
+                                                }
+                                                ?>
+                                            </td>
+                            </tr>
+                        @endforeach
+                
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- /.card-body -->
+            </div>
+
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+
+
+        </div>
+
     </div><!-- /.container-fluid -->
 
 </section>
     <!-- Main content -->
+<script>
+   var minDate, maxDate;
+ 
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date( data[5] );
+ 
+        if (
+            ( min === null && max === null ) ||
+            ( min === null && date <= max ) ||
+            ( min <= date   && max === null ) ||
+            ( min <= date   && date <= max )
+        ) {
+            return true;
+        }
+        return false;
+    }
+);
+    
+    $(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'YYYY-MM-DD'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'YYYY-MM-DD'
+    });
+   var table = $('#maintable').DataTable({
+            
+            order: [
+                [6, 'desc']
+            ]
+        });
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
+    });
 
+
+    });
+
+</script>
 
 @endsection

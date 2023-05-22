@@ -92,6 +92,9 @@ class User extends Authenticatable
 
         return $select->get();
     }
+
+
+
     public function listar_correctores(array $params = array())
     {
 
@@ -104,6 +107,8 @@ class User extends Authenticatable
         return $select->get();
     }
     
+
+
     public function obtener(array $params = array())
     {
 
