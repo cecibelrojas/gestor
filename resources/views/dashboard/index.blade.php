@@ -260,7 +260,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Articulos</h3>
+                <h3 class="card-title">Publicaciones</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -295,7 +295,30 @@
                                 <td style="font-size: 12px;">{{ $trabajador->nombre }}</td>
                                 <td style="font-size: 12px;">{{ $trabajador->categoriades }}</td>
                                 <td>{{ $trabajador->creador }}</td>
-                                <td><span class="badge bg-warning">Redactor</span></td>
+                                <td>
+                                      <?php
+                                        switch ($trabajador['rol']) {
+                                            case 'A':
+                                              echo "<span class='badge bg-warning'>Administrador</span>";
+                                            break;
+                                            case 'B':
+                                             echo "<span class='badge bg-warning'>Voces</span>";
+                                            break;
+                                            case 'C':
+                                             echo "<span class='badge bg-warning'>Redactor</span>";
+                                            break;
+                                            case 'D':
+                                             echo "<span class='badge bg-warning'>Corrector</span>";
+                                            break;
+                                            case 'E':
+                                             echo "<span class='badge bg-warning'>Jefe Redacción / Información</span>";
+                                            break;
+                                            default:
+                                               echo "----";
+                                            break;
+                                            }
+                                        ?>
+                                </td>
                                 <td style="font-size: 12px;">{{ $trabajador->created_at }}</td>
                                                                             <td><?php
                                                 switch ($trabajador['estado']) {
