@@ -48,7 +48,7 @@ public function listar(array $params = array())
             ->selectRaw("(select name from users as u where u.id = p.trabajando) as escritor")
             ->join('categoria as c', 'c.id', 'p.categoria')
             ->join('users as u', 'u.id', 'p.usureg')
-            ->orderBy('p.id', 'desc');
+            ->orderBy('p.created_at', 'desc');
 
         if (array_key_exists('nombre', $params)) {
             $select->where('p.nombre', 'like', '%' . $params['nombre'] . '%');
@@ -61,7 +61,7 @@ public function listar(array $params = array())
             $select->where('p.created_at', $params['created_at']);
         }
         if (array_key_exists('rol', $params)) {
-            $select->where('u.rol', '=','A');
+            $select->where('u.rol', '=','C');
         }
         if (array_key_exists('limite', $params)) {
             if (!empty($params['limite'])) {

@@ -204,6 +204,7 @@
 
         </div>
         <!-- /.row -->
+        <?php if (in_array(auth()->user()->rol, array('A','E'))) : ?> 
         <div class="row">
           <div class="col-md-6">
             <div class="card card-success">
@@ -375,7 +376,7 @@
 
 
         </div>
-
+      <?php endif; ?>
     </div><!-- /.container-fluid -->
 
 </section>

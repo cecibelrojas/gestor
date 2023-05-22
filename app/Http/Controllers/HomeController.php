@@ -34,7 +34,7 @@ class HomeController extends Controller
         $listcorrectores = $objUsers->listar_correctores();
         
         $trabajador = $objProducto->listar_trabajador(array(
-            'rol' => 'A',
+            'rol' => 'C',
             'create_at' => date('d')
         )
         );
