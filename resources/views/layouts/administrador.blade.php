@@ -424,8 +424,54 @@
                 @endif
 
                 @endforeach
-
-
+            <li class="nav-header" style="font-size: 12px;">Campaña publicitaria</li>    
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-image"></i>
+                <p class="text">Campañas</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Vídeos
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Imegen
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-header" style="font-size: 12px;">Librería Digital</li>    
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-book"></i>
+                <p class="text">Libros</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Ver Lista
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Añadir Nuevo
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
 
             
@@ -454,7 +500,38 @@
                 <p class="text">Usuarios</p>
               </a>
             </li>
-            <li class="nav-header" style="font-size: 12px;">Toma de Decisiones</li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa-solid fa-gear"></i>
+                <p class="text">Ajustes</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Redes Sociales
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Imegen Institutcional
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Logo Principal
+                    </p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-header" style="font-size: 12px;">Reportes</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-bezier-curve"></i>
