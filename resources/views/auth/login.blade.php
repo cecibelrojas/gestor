@@ -21,8 +21,12 @@
                                     <form class="my-4" method="POST" action="{{ route('login') }}">
                                       @csrf            
                                         <div class="form-group mb-2">
-                                            <label class="form-label" for="username">Correo Electrónico</label>
-                                            <input type="email" id="email"  class="form-control email_login @error('email') is-invalid @enderror" placeholder="Correo Electrónico" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <i class="zmdi zmdi-email text-muted" aria-hidden="true"></i>
+                                                </a>
+                                                <input class="input100 border-start-0 form-control ms-0 email_login @error('email') is-invalid @enderror" type="email" id="email" placeholder="Correo Electrónico" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            </div>
                                              @error('email')
                                               <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -31,17 +35,24 @@
                                         </div><!--end form-group--> 
             
                                         <div class="form-group">
-                                            <label class="form-label" for="userpassword">Contraseña</label>                                            
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Contraseña">@error('password')
+                                          <div class="wrap-input100 validate-input input-group" id="Password-toggle">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
+                                                </a>
+                                                <input class="input100 border-start-0 form-control ms-0 @error('password') is-invalid @enderror" type="password" id="password"name="password" required autocomplete="current-password" placeholder="Contraseña">
+                                                @error('password')
                                             <span class="invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
+                                            </div>
                                         </div><!--end form-group--> 
             
                                         <div class="form-group row mt-3">
                                             <div class="col-sm-12 text-end">
-                                                <a href="auth-recover-pw.html" class="text-muted font-13"><i class="dripicons-lock"></i> Has olvidado tu contraseña?</a>                                    
+                                                @if (Route::has('password.request'))
+                                                <a href="{{ route('password.request') }}" class="text-muted font-13"><i class="dripicons-lock"></i> Has olvidado tu contraseña?</a>
+                                                @endif 
                                             </div><!--end col--> 
                                         </div><!--end form-group--> 
             
