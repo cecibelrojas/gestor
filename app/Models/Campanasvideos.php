@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Campanas extends Model
+class Campanasvideos extends Model
 {
-    protected $table = 'campanas';
+    protected $table = 'campanasvideos';
 
-    protected $fillable = ['id', 'imagen_campana','titulo', 'usureg', 'usumod', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'url_video', 'titulo' ,'usureg', 'usumod', 'created_at', 'updated_at'];
 
     protected $hidden = [
         '_token'
@@ -19,7 +19,7 @@ class Campanas extends Model
     {
 
 
-        $select = $this->from('campanas as c')
+        $select = $this->from('campanasvideos as c')
             ->selectRaw("(select name from users as u where u.id = c.usureg) as creador")
             ->selectRaw("(select name from users as u where u.id = c.usumod) as editor")
             ->selectRaw('c.*')
@@ -36,7 +36,7 @@ class Campanas extends Model
     public function obtener(array $params = array())
     {
 
-        $select = $this->from('campanas as c')
+        $select = $this->from('campanasvideos as c')
             ->select('c.*');
 
         if (array_key_exists('id', $params)) {
@@ -80,7 +80,7 @@ class Campanas extends Model
     public function eliminar(array $params)
     {
         try {
-            $delete = DB::table('campanas')->where('id', $params['id'])->delete();
+            $delete = DB::table('campanasvideos')->where('id', $params['id'])->delete();
             return $delete;
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -89,7 +89,7 @@ class Campanas extends Model
 
     public function obtenerId()
     {
-        $select = $this->from('campanas as c')
+        $select = $this->from('campanasvideos as c')
             ->selectRaw('MAX(id) as ultimo');
 
         $data = $select->first();

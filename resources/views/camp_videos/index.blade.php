@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Campañas</h1>
+                <h1 class="m-0">Campañas Videos</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">Inicio</a></li>
-                    <li class="breadcrumb-item active">Campañas</li>
+                    <li class="breadcrumb-item active">Campañas Videos</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,17 +24,17 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Campañas</h3>
+                        <h3 class="card-title">Lista de Videos</h3>
                         <div class="card-tools">
-                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nueva Campaña</button>
+                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo Video</button>
                         </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
-                                    <th style="width: 10%;">Título de la Campaña</th>
-                                    <th style="width: 30%;">Imagen</th>
+                                    <th style="width: 60%;">Título de la Campaña</th>
+                                    <th style="width: 10%;">Video</th>
                                     <th style="text-align: center;width: 20%;">Estado</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
@@ -44,7 +44,8 @@
                                     <?php foreach ($lista as $key) : ?>
                                         <tr>
                                             <td><?php echo $key['titulo']; ?></td>
-                                            <td><?php echo $key['imagen_campana']; ?></td>
+                                            <td><img src="{{asset('images/icons/add-video.png')}}" style="width: 40px;height: 40px;" class="imgpreview" title="<?php echo $key['url_video']; ?>">
+                                            </td>
                                             <td style="text-align: center;"><?php echo ($key['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-info" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
@@ -98,7 +99,7 @@
 
     function formulario(id = null) {
         $.ajax({
-            url: '<?php echo url('/etiqueta') ?>',
+            url: '<?php echo url('/campanasvideos') ?>',
             type: 'POST',
             data: {
                 id: id
@@ -128,7 +129,7 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: '<?php echo url('/eliminar-etiqueta') ?>',
+                    url: '<?php echo url('/eliminarcvideos') ?>',
                     type: 'POST',
                     data: {
                         id: id

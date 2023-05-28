@@ -433,14 +433,14 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/campanasvideos')}}" class="nav-link">
                     <p>
                       Vídeos
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/campanas')}}" class="nav-link">
                     <p>
                       Imegen
                     </p>

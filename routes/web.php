@@ -31,7 +31,8 @@ Route::get('/especiales', 'ImpresosController@especiales');
 Route::get('/libros', 'ImpresosController@libros');
 Route::get('/videos', 'VideosController@index');
 Route::get('/waika', 'WaikaController@index');
-Route::get('/etten', 'EttenController@index');
+Route::get('/campanas', 'CampanasController@index');
+Route::get('/campanasvideos', 'CampanasVideosController@index');
 Route::get('/medios', 'MediosController@index');
 Route::get('/categoria_galerias', 'Categoria_galeriasController@index');
 Route::get('/fotografias', 'GaleriasController@index');
@@ -185,5 +186,7 @@ Route::post('/eliminarobituario', 'ObituariosController@delete');
 Route::post('/updatescore_rr', 'Round_robinController@updatescore');
 Route::post('/updatescore_final', 'FinaltemporadaController@updatescore');
 
-
-
+Route::post('/campanasvideos', 'CampanasVideosController@campanasvideos');
+Route::post('/guardarcvideos', 'CampanasVideosController@store');
+Route::post('/eliminarcvideos', 'CampanasVideosController@delete');
+Route::get('/listar-videos', 'CampanasVideosController@listar');
