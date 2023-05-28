@@ -307,7 +307,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a  href="https://ciudadccs.info" class="brand-link" target="_blank">
+      <a  href="http://tusitio.web.ve/" class="brand-link" target="_blank">
         <img src="{{ asset('img/escudo2.png') }}" alt="MPPRE" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-bold">{{ env('APP_NAME','Laravel') }}</span>
       </a>

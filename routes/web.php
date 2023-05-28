@@ -185,3 +185,5 @@ Route::post('/eliminarobituario', 'ObituariosController@delete');
 Route::post('/updatescore_rr', 'Round_robinController@updatescore');
 Route::post('/updatescore_final', 'FinaltemporadaController@updatescore');
 
+
+
