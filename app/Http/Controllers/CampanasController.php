@@ -3,33 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\BancoDatos;
-use App\Models\Etten;
+use App\Models\Campanas;
 use Exception;
 use Illuminate\Http\Request;
 
-class EttenController extends Controller
+class CampanasController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
+        $this->middleware('admin')->except('');
     }
 
     public function index()
     {
-        $objEtten = new Etten();
-        $lista = $objEtten->listar();
+        $objCampanas = new Campanas();
+        $lista = $objCampanas->listar();
 
-        return view('etten.index', compact('lista'));
+        return view('campanas.index', compact('lista'));
     }
 
-    public function etten(Request $request)
+    public function campanas(Request $request)
     {
 
-        $objEtten = new Etten();
-        $data = $objEtten->obtener(array(
+        $objCampanas = new Campanas();
+        $data = $objCampanas->obtener(array(
             'id' => $request['id']
         ));
-        return view('etten.form', compact('data'));
+        return view('campanas.form', compact('data'));
     }
     public function store(Request $request)
     {
@@ -37,31 +38,33 @@ class EttenController extends Controller
         $response = array();
 
         try {
-            $objEtten = new Etten();
+            $objCampanas = new Campanas();
 
             $params = array(
-                'imagen_etten' => $request['imagen_etten']
+                'titulo' => $request['titulo'],
+                'url_video' => $request['url_video'],
+                'imagen_campana' => $request['imagen_campana']
             );
 
-            if ($request->hasFile('imagen_etten')) {
-                $adjunto = $request->file('imagen_etten');
+            if ($request->hasFile('imagen_campana')) {
+                $adjunto = $request->file('imagen_campana');
                 $extension = $adjunto->getClientOriginalExtension();
-                $fileName = "fotoetten_" . date('ymdhis') . "." . $extension;
-                $adjunto->move(base_path('archivos/etten'), $fileName);
-                $params['imagen_etten'] = "/archivos/etten/" . $fileName;
+                $fileName = "fotocampana_" . date('ymdhis') . "." . $extension;
+                $adjunto->move(base_path('archivos/campana'), $fileName);
+                $params['imagen_campana'] = "/archivos/campana/" . $fileName;
             }
 
             if (isset($request['id']) && !empty($request['id'])) {
                 $params['usumod'] = auth()->user()->id;
                 $params['updated_at'] = date('Y-m-d H:i:s');
-                $update = $objEtten->actualizar($params, array('id' => $request['id']));
+                $update = $objCampanas->actualizar($params, array('id' => $request['id']));
                 if (!is_numeric($update)) {
                     throw new Exception($update);
                 }
             } else {
                 $params['usureg'] = auth()->user()->id;
                 $params['created_at'] = date('Y-m-d H:i:s');
-                $insert = $objEtten->insertar($params);
+                $insert = $objCampanas->insertar($params);
                 if (!is_numeric($insert)) {
                     throw new Exception($insert);
                 }
@@ -78,8 +81,8 @@ class EttenController extends Controller
         $response = array();
 
         try {
-            $objEtten = new Etten();
-            $insert = $objEtten->eliminar(array(
+            $objCampanas = new Campanas();
+            $insert = $objCampanas->eliminar(array(
                 'id' => $request['id']
             ));
             if (!$insert) {

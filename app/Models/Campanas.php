@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Etten extends Model
+class Campanas extends Model
 {
-    protected $table = 'etten';
+    protected $table = 'campanas';
 
-    protected $fillable = ['id', 'imagen_etten', 'usureg', 'usumod', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'imagen_campana', 'url_video', 'titulo' 'usureg', 'usumod', 'created_at', 'updated_at'];
 
     protected $hidden = [
         '_token'
