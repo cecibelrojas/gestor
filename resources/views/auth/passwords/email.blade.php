@@ -23,6 +23,7 @@
                                     </div>
                                 @endif
                                 <form class="my-4"  method="POST" action="{{ route('password.email') }}">
+                                    @csrf
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="username">Correo Electrónico</label>
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="Correo Electrónico" placeholder="Correo Electrónico" autofocus>   
