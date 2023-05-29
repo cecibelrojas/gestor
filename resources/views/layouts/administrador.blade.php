@@ -424,6 +424,12 @@
                 @endif
 
                 @endforeach
+            @foreach ($administradores as $element)
+
+            @if ($_COOKIE["email_login"] == $element->email)
+
+                   @if ($element->rol == "A" || $element->rol == "E")
+                
             <li class="nav-header" style="font-size: 12px;">Campaña publicitaria</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -472,7 +478,11 @@
                 </li>
               </ul>
             </li>
+                @endif
 
+                @endif
+
+                @endforeach
 
             
             @foreach ($administradores as $element)
