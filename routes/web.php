@@ -25,9 +25,6 @@ Route::get('/categorias', 'CategoryController@index');
 Route::get('/publicaciones', 'ProductController@index');
 Route::get('/publicacion/{id?}', 'ProductController@producto');
 Route::get('/impresos', 'ImpresosController@index');
-Route::get('/revista_epale', 'ImpresosController@cuentos');
-Route::get('/especulador', 'ImpresosController@especulador');
-Route::get('/especiales', 'ImpresosController@especiales');
 Route::get('/libros', 'ImpresosController@libros');
 Route::get('/videos', 'VideosController@index');
 Route::get('/waika', 'WaikaController@index');
@@ -39,14 +36,7 @@ Route::get('/fotografias', 'GaleriasController@index');
 Route::get('/avisos', 'AvisosController@index');
 Route::get('/papelera_publicaciones', 'ProductController@papelera_total');
 Route::get('/usuario-contrasena_individual/{id?}', 'UsuariosController@usuario_contrasena_extrerna');
-Route::get('/team', 'TeamController@index');
-Route::get('/programacion', 'ProgramacionController@index');
-Route::get('/posiciones', 'PosicionesController@index');
-Route::get('/resultados', 'Programacion_detController@index');
 Route::get('/obituarios', 'ObituariosController@index');
-Route::get('/semifinal', 'Round_robinController@index');
-Route::get('/final', 'FinaltemporadaController@index');
-
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
@@ -103,18 +93,9 @@ Route::post('/mancheta_etten', 'EttenController@etten');
 Route::post('/guardar-etten', 'EttenController@store');
 Route::post('/eliminar-etten', 'EttenController@delete');
 
-Route::get('/cursos', 'CursosController@index')->name('index');
-Route::get('/load-events', 'EventController@loadEvents')->name('routeLoadEvents');
-Route::put('/event-update', 'EventController@update')->name('routeEventUpdate');
-Route::post('/event-store', 'EventController@store')->name('routeEventStore');
-Route::delete('/event-destroy', 'EventController@destroy')->name('routeEventDelete');
-
 /**
  * Rutas para Eventos Rápidos
  */
-Route::delete('/fast-event-destroy', 'FastEventController@destroy')->name('routeFastEventDelete');
-Route::put('/fast-event-update', 'FastEventController@update')->name('routeFastEventUpdate');
-Route::post('/fast-event-store', 'FastEventController@store')->name('routeFastEventStore');
 
 Route::post('/bancodatos-cabeceras', 'BancoDatosController@listarcabeceras');
 Route::post('/bancodatos-detalles', 'BancoDatosController@listardetalles');
@@ -156,35 +137,9 @@ Route::post('/eliminaraviso', 'AvisosController@delete');
 Route::post('/trabajando_ocupar', 'ProductController@trabajando_cambiado');
 Route::post('/guardar-trabajando', 'ProductController@store_trabajando');
 
-Route::post('/equipo', 'TeamController@equipo');
-Route::post('/guardar-equipo', 'TeamController@store');
-Route::post('/eliminar-equipo', 'TeamController@delete');
-Route::get('/listar-equipo', 'TeamController@listar');
-
-Route::post('/nueva-programacion', 'ProgramacionController@evento');
-Route::post('/guardar-programacion', 'ProgramacionController@store');
-Route::post('/eliminar-programacion', 'ProgramacionController@delete');
-Route::post('/teams', 'ProgramacionController@teams');
-
-
-Route::post('/posicion', 'PosicionesController@posicion');
-Route::post('/guardar-posicion', 'PosicionesController@store');
-Route::post('/eliminar-posicion', 'PosicionesController@delete');
-Route::get('/listar-posicion', 'PosicionesController@listar');
-Route::post('/updatescore', 'PosicionesController@updatescore');
-
-Route::post('/result', 'Programacion_detController@result');
-Route::post('/guardar-result', 'Programacion_detController@store');
-Route::post('/eliminar-result', 'Programacion_detController@delete');
-Route::get('/listar-result', 'Programacion_detController@listar');
-Route::post('/updatescoreresult', 'Programacion_detController@updatescoreresult');
-
 Route::post('/obituario', 'ObituariosController@obituario');
 Route::post('/guardarobituario', 'ObituariosController@store');
 Route::post('/eliminarobituario', 'ObituariosController@delete');
-
-Route::post('/updatescore_rr', 'Round_robinController@updatescore');
-Route::post('/updatescore_final', 'FinaltemporadaController@updatescore');
 
 Route::post('/campanasvideos', 'CampanasVideosController@campanasvideos');
 Route::post('/guardarcvideos', 'CampanasVideosController@store');
