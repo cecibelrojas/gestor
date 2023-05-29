@@ -33,8 +33,8 @@
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
-                                    <th style="width: 10%;">Título de la Campaña</th>
-                                    <th style="width: 30%;">Imagen</th>
+                                    <th style="width: 60%;">Título de la Campaña</th>
+                                    <th style="width: 10%;">Imagen</th>
                                     <th style="text-align: center;width: 20%;">Estado</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
@@ -44,7 +44,7 @@
                                     <?php foreach ($lista as $key) : ?>
                                         <tr>
                                             <td><?php echo $key['titulo']; ?></td>
-                                            <td><?php echo $key['imagen_campana']; ?></td>
+                                            <td><img src="{{asset('images/icons/imagen2.png')}}" style="width: 40px;height: 40px;" class="imgpreview"></td>
                                             <td style="text-align: center;"><?php echo ($key['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-info" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
@@ -98,7 +98,7 @@
 
     function formulario(id = null) {
         $.ajax({
-            url: '<?php echo url('/etiqueta') ?>',
+            url: '<?php echo url('/campanas') ?>',
             type: 'POST',
             data: {
                 id: id
@@ -128,7 +128,7 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: '<?php echo url('/eliminar-etiqueta') ?>',
+                    url: '<?php echo url('/eliminarcampana') ?>',
                     type: 'POST',
                     data: {
                         id: id

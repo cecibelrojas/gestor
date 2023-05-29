@@ -42,8 +42,17 @@ class CampanasVideosController extends Controller
 
             $params = array(
                 'titulo' => $request['titulo'],
-                'url_video' => $request['url_video']
+                'url_video' => $request['url_video'],
+                'img_video' => $request['img_video']
             );
+
+            if ($request->hasFile('img_video')) {
+                $adjunto = $request->file('img_video');
+                $extension = $adjunto->getClientOriginalExtension();
+                $fileName = "fotocampanavideo_" . date('ymdhis') . "." . $extension;
+                $adjunto->move(base_path('archivos/campanavideo'), $fileName);
+                $params['img_video'] = "/archivos/campanavideo/" . $fileName;
+            }
 
             if (isset($request['id']) && !empty($request['id'])) {
                 $params['usumod'] = auth()->user()->id;

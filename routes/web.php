@@ -189,4 +189,7 @@ Route::post('/updatescore_final', 'FinaltemporadaController@updatescore');
 Route::post('/campanasvideos', 'CampanasVideosController@campanasvideos');
 Route::post('/guardarcvideos', 'CampanasVideosController@store');
 Route::post('/eliminarcvideos', 'CampanasVideosController@delete');
-Route::get('/listar-videos', 'CampanasVideosController@listar');
+
+Route::post('/campanas', 'CampanasController@campanas');
+Route::post('/guardarcampana', 'CampanasController@store');
+Route::post('/eliminarcampana', 'CampanasController@delete');

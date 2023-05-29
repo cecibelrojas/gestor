@@ -3,27 +3,22 @@
 <!-- -->
 <div class="row">
     <div class="col-lg-12 text-center">
-    <img onclick="$('#img_video').trigger('click');" src="<?php echo ($data && !empty($data['img_video'])) ? url('/') . $data['img_video'] : asset('archivos/campanavideo/video.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer;width: 300px;height: 168px;" class="imgpreview">
+    <img onclick="$('#imagen_campana').trigger('click');" src="<?php echo ($data && !empty($data['imagen_campana'])) ? url('/') . $data['imagen_campana'] : asset('archivos/campanavideo/video.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer;width: 300px;height: 168px;" class="imgpreview">
     <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 300px * 168px | Peso Max. 2MB <br> Formato: JPG o PNG</p>
-    <input type="file" id="img_video" name="img_video" style="display: none;">
+    <input type="file" id="imagen_campana" name="imagen_campana" style="display: none;">
     </div>
-
-
     <div class="col-lg-12">
         <label style="font-size: 12px;font-weight: bold;">Título</label>
         <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo'] : ''; ?>" maxlength="100" id="titulo" style="border: 1px solid #b9b9b9;">
     </div>
-    <div class="col-lg-12">
-        <label style="font-size: 12px;font-weight: bold;">Video</label>
-        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['url_video'] : ''; ?>"  id="url_video" style="border: 1px solid #b9b9b9;">
-    </div>
+
     <div class="col-lg-12 text-right">
         <hr>
         <button id="btnSave" class="btn btn-sm btn-success">Guardar Cambios</button>
     </div>
 </div>
 <script>
-        $("#img_video").change(function() {
+        $("#imagen_campana").change(function() {
 
         var imagen = this.files[0];
         var documento = this.files[0];
@@ -57,28 +52,18 @@
             return false;
         }
 
-        if ($('#url_video').val() == '') {
-            swal({
-                type: "info",
-                title: "¡El campo Video es requerido!",
-                showConfirmButton: true
-            });
-            return false;
-        }
-
         var formData = new FormData();
         
         formData.append('id', $('#id').val());
         formData.append('titulo', $('#titulo').val());
-        formData.append('url_video', $('#url_video').val());
 
-        formData.append('img_video', $('#img_video').val());
+        formData.append('imagen_campana', $('#imagen_campana').val());
 
-        var files = $('#img_video').get(0).files;
-        formData.append('img_video', files[0]);
+        var files = $('#imagen_campana').get(0).files;
+        formData.append('imagen_campana', files[0]);
 
         $.ajax({
-            url: '<?php echo url('/guardarcvideos') ?>',
+            url: '<?php echo url('/guardarcampana') ?>',
             type: 'POST',
             cache: false,
             contentType: false,

@@ -42,7 +42,6 @@ class CampanasController extends Controller
 
             $params = array(
                 'titulo' => $request['titulo'],
-                'url_video' => $request['url_video'],
                 'imagen_campana' => $request['imagen_campana']
             );
 

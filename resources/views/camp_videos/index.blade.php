@@ -33,7 +33,8 @@
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
-                                    <th style="width: 60%;">Título de la Campaña</th>
+                                    <th style="width: 50%;">Título de la Campaña</th>
+                                    <th style="width: 10%;">Imagen</th>
                                     <th style="width: 10%;">Video</th>
                                     <th style="text-align: center;width: 20%;">Estado</th>
                                     <th style="width: 10%;"></th>
@@ -44,6 +45,8 @@
                                     <?php foreach ($lista as $key) : ?>
                                         <tr>
                                             <td><?php echo $key['titulo']; ?></td>
+                                            <td><img src="{{asset('images/icons/imagen2.png')}}" style="width: 40px;height: 40px;" class="imgpreview">
+                                            </td>
                                             <td><img src="{{asset('images/icons/add-video.png')}}" style="width: 40px;height: 40px;" class="imgpreview" title="<?php echo $key['url_video']; ?>">
                                             </td>
                                             <td style="text-align: center;"><?php echo ($key['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?></td>
@@ -55,6 +58,7 @@
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
