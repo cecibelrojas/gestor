@@ -9,7 +9,7 @@ class Campanas extends Model
 {
     protected $table = 'campanas';
 
-    protected $fillable = ['id', 'imagen_campana','titulo', 'usureg', 'usumod', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'imagen_campana','titulo', 'estado','usureg', 'usumod', 'created_at', 'updated_at'];
 
     protected $hidden = [
         '_token'
@@ -30,8 +30,6 @@ class Campanas extends Model
 
         return $select->get();
     }
-
-
 
     public function obtener(array $params = array())
     {

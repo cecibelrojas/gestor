@@ -42,7 +42,7 @@ class CampanasController extends Controller
 
             $params = array(
                 'titulo' => $request['titulo'],
-                'imagen_campana' => $request['imagen_campana']
+                'estado' => $request['estado']
             );
 
             if ($request->hasFile('imagen_campana')) {

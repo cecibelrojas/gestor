@@ -9,7 +9,7 @@ class Campanasvideos extends Model
 {
     protected $table = 'campanasvideos';
 
-    protected $fillable = ['id', 'img_video','url_video', 'titulo' ,'usureg', 'usumod', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'img_video','url_video', 'titulo' , 'estado','usureg', 'usumod', 'created_at', 'updated_at'];
 
     protected $hidden = [
         '_token'

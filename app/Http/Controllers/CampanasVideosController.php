@@ -43,7 +43,7 @@ class CampanasVideosController extends Controller
             $params = array(
                 'titulo' => $request['titulo'],
                 'url_video' => $request['url_video'],
-                'img_video' => $request['img_video']
+                'estado' => $request['estado']
             );
 
             if ($request->hasFile('img_video')) {

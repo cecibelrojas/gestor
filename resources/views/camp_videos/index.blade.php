@@ -33,10 +33,12 @@
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
-                                    <th style="width: 50%;">Título de la Campaña</th>
+                                    <th style="width: 20%;">Título de la Campaña</th>
                                     <th style="width: 10%;">Imagen</th>
                                     <th style="width: 10%;">Video</th>
-                                    <th style="text-align: center;width: 20%;">Estado</th>
+                                    <th style="width: 20%;">Creado por</th>
+                                    <th style="width: 20%;">Modificado por</th>
+                                    <th style="text-align: center;width: 10%;">Estado</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
@@ -49,6 +51,15 @@
                                             </td>
                                             <td><img src="{{asset('images/icons/add-video.png')}}" style="width: 40px;height: 40px;" class="imgpreview" title="<?php echo $key['url_video']; ?>">
                                             </td>
+                                            <td style="font-size: 12px">
+                                            <?php echo $key['creador']; ?> / <span><?php echo $key['created_at']; ?>
+                                            </td>
+                                            <td style="font-size: 12px">
+                                            <?php
+                                            if($key['editor'] != ''){ 
+                                             echo $key['editor']; ?> / <span><?php echo $key['updated_at']; ?>
+                                           <?php } ?>
+                                            </td>
                                             <td style="text-align: center;"><?php echo ($key['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-info" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
@@ -58,6 +69,8 @@
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

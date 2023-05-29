@@ -11,7 +11,13 @@
         <label style="font-size: 12px;font-weight: bold;">Título</label>
         <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo'] : ''; ?>" maxlength="100" id="titulo" style="border: 1px solid #b9b9b9;">
     </div>
-
+    <div class="col-lg-12">
+        <label style="font-size: 12px;font-weight: bold;">Estatus<span style="color: red;">*</span></label>
+        <select class="form-control form-select" aria-label="estado" id="estado">
+            <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>Activo</option>
+            <option value="I" <?php if ($data && 'I' == $data['estado']) { ?> selected <?php } ?>>Inactivo</option>
+        </select>
+    </div>
     <div class="col-lg-12 text-right">
         <hr>
         <button id="btnSave" class="btn btn-sm btn-success">Guardar Cambios</button>
@@ -56,6 +62,7 @@
         
         formData.append('id', $('#id').val());
         formData.append('titulo', $('#titulo').val());
+        formData.append('estado', $('#estado').val());
 
         formData.append('imagen_campana', $('#imagen_campana').val());
 
