@@ -25,7 +25,7 @@ Route::get('/categorias', 'CategoryController@index');
 Route::get('/publicaciones', 'ProductController@index');
 Route::get('/publicacion/{id?}', 'ProductController@producto');
 Route::get('/libreria_digital', 'LibreriaController@index');
-Route::get('/libros', 'ImpresosController@libros');
+Route::get('/libreria_digital_campanas', 'LibreriaController@lib_campanas');
 Route::get('/videos', 'VideosController@index');
 Route::get('/waika', 'WaikaController@index');
 Route::get('/campanas', 'CampanasController@index');
@@ -74,12 +74,9 @@ Route::post('/verificar-ocupacion', 'ProductController@verificarocupacion');
 Route::post('/deshabilitar', 'ProductController@deshabilitar');
 Route::post('/restaurar-pub', 'ProductController@restaurar');
 
-Route::post('/impreso', 'ImpresosController@impreso');
-Route::post('/guardar-impreso', 'ImpresosController@store');
-Route::post('/eliminar-impreso', 'ImpresosController@delete');
-Route::post('/impreso_cuentos', 'ImpresosController@impreso_cuentos');
-Route::post('/impreso_especulador', 'ImpresosController@impreso_especulador');
-Route::post('/impreso_especiales', 'ImpresosController@impreso_especiales');
+Route::post('/libros', 'LibreriaController@libros');
+Route::post('/guardar-libros', 'LibreriaController@store');
+Route::post('/eliminar-libros', 'LibreriaController@delete');
 
 Route::post('/video', 'VideosController@video');
 Route::post('/guardar-video', 'VideosController@store');

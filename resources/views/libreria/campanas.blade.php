@@ -6,16 +6,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Revista ÉpaleCCS</h1>
+                <h1 class="m-0">Campañas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>"><i class="fas fa-home"></i> Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/revista_epale') ?>"><i class="fas fa-image"></i>Revista ÉpaleCCS</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/especulador') ?>"><i class="fas fa-image"></i> El Especulador Precoz</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/especiales') ?>"><i class="fas fa-image"></i> Especiales</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/libros') ?>"><i class="fas fa-image"></i> Libros Digitales</a></li>
-
+                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>"> Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital_campanas'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -28,7 +25,7 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Revista ÉpaleCCS</h3>
+                        <h3 class="card-title">Lista de Campañas</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-sm btn-light" onclick="history.back()"><i class="fas fa-angle-left"></i> Volver</button>
                         </div>
@@ -38,16 +35,16 @@
                             <thead>
                                 <tr>
                                     <th>Título</th>
-                                    <th>Foto Impreso</th>
-                                    <th>Tipo de Impreso</th>
+                                    <th>Foto Campañas</th>
+                                    <th>Tipo de Campañas</th>
                                     <th>Creado por</th>
                                     <th>Estado</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (count($listar_cuentos) > 0) : ?>
-                                    <?php foreach ($listar_cuentos as $key) : ?>
+                                <?php if (count($listar_campanas) > 0) : ?>
+                                    <?php foreach ($listar_campanas  as $key) : ?>
                                         <tr>
                                             <td><?php echo $key['titulo']; ?></td>
                                             <td>
@@ -57,13 +54,10 @@
                                             <td><?php
                                                 switch ($key['tipo']) {
                                                     case 'A':
-                                                        echo "Revista ÉpaleCCS";
+                                                        echo "Campañas";
                                                         break;
                                                     case 'B':
-                                                        echo "El Especulador Precoz";
-                                                        break;
-                                                    case 'C':
-                                                        echo "Especiales";
+                                                        echo "Libros";
                                                         break;
                                                     default:
                                                         echo "----";

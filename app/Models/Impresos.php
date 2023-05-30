@@ -25,45 +25,13 @@ class Impresos extends Model
 
         return $select->get();
     }
-    public function listar_cuentos(array $params = array())
+
+    public function listar_campanas(array $params = array())
     {
 
         $select = $this->from('impresos as i')
             ->select('i.*')
             ->where('tipo','=', 'A');
-
-        $select->orderByRaw('i.titulo');
-
-        return $select->get();
-    }
-    public function listar_especulador(array $params = array())
-    {
-
-        $select = $this->from('impresos as i')
-            ->select('i.*')
-            ->where('tipo','=', 'B');
-
-        $select->orderByRaw('i.titulo');
-
-        return $select->get();
-    }
-    public function listar_especiales(array $params = array())
-    {
-
-        $select = $this->from('impresos as i')
-            ->select('i.*')
-            ->where('tipo','=', 'C');
-
-        $select->orderByRaw('i.titulo');
-
-        return $select->get();
-    }
-    public function listar_libros(array $params = array())
-    {
-
-        $select = $this->from('impresos as i')
-            ->select('i.*')
-            ->where('tipo','=', 'D');
 
         $select->orderByRaw('i.titulo');
 

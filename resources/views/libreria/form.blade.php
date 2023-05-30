@@ -13,7 +13,7 @@
         <input type="file" id="foto_portada_libro" name="foto_portada_libro" style="display: none;">
     </div>
     <div class="col-lg-12">
-        <label style="font-size: 12px;font-weight: bold;">Título del Impreso <span style="color: red;">*</span></label>
+        <label style="font-size: 12px;font-weight: bold;">Título<span style="color: red;">*</span></label>
         <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo'] : ''; ?>" maxlength="50" id="titulo" style="border: 1px solid #b9b9b9;">
     </div>
     <div class="col-lg-12">
@@ -25,13 +25,11 @@
         <input type="file" class="form-control input-sm" value="<?php echo $data ? $data['url'] : ''; ?>" maxlength="100" id="url" style="border: 1px solid #b9b9b9;">
     </div>
     <div class="col-lg-12">
-        <label style="font-size: 12px;font-weight: bold;">Tipo de Impreso <span style="color: red;">*</span></label>
+        <label style="font-size: 12px;font-weight: bold;">Tipo<span style="color: red;">*</span></label>
         <select class="form-control form-select" aria-label="tipo" id="tipo">
             <option value="">Seleccione</option>
-            <option value="A" <?php if ($data && 'A' == $data['tipo']) { ?> selected <?php } ?>>Revista ÉpaleCCS</option>
-            <option value="B" <?php if ($data && 'B' == $data['tipo']) { ?> selected <?php } ?>>El Especulador Precoz</option>
-            <option value="C" <?php if ($data && 'C' == $data['tipo']) { ?> selected <?php } ?>>Especiales</option>
-            <option value="D" <?php if ($data && 'D' == $data['tipo']) { ?> selected <?php } ?>>Libros</option>
+            <option value="A" <?php if ($data && 'A' == $data['tipo']) { ?> selected <?php } ?>>Campañas</option>
+            <option value="B" <?php if ($data && 'B' == $data['tipo']) { ?> selected <?php } ?>>Libros</option>
         </select>
     </div>
     @if ($data && $data["estado"] != "")
@@ -145,7 +143,7 @@
         formData.append('url', filespdf[0]);
 
         $.ajax({
-            url: '<?php echo url('/guardar-impreso') ?>',
+            url: '<?php echo url('/guardar-libros') ?>',
             type: 'POST',
             cache: false,
             contentType: false,

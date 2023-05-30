@@ -6,12 +6,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Libros</h1>
+                <h1 class="m-0">Libros y Campañas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>"> Inicio</a></li>
-                    <li class="breadcrumb-item"><i class="fas fa-book"></i> Librería Digital</li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital_campanas'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,7 +25,7 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Libros</h3>
+                        <h3 class="card-title">Lista de Libros y Campañas</h3>
                         <div class="card-tools">
                             <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo Impreso</button>
                         </div>
@@ -55,18 +56,11 @@
                                             <td><?php
                                                 switch ($key['tipo']) {
                                                     case 'A':
-                                                        echo "Revista ÉpaleCCS";
+                                                        echo "Campañas";
                                                         break;
                                                     case 'B':
-                                                        echo "El Especulador Precoz";
-                                                        break;
-                                                    case 'C':
-                                                        echo "Especiales";
-                                                        break;
-                                                    case 'D':
                                                         echo "Libros";
                                                         break;
-
                                                     default:
                                                         echo "----";
                                                         break;
@@ -142,7 +136,7 @@
 
     function formulario(id = null) {
         $.ajax({
-            url: '<?php echo url('/impreso') ?>',
+            url: '<?php echo url('/libros') ?>',
             type: 'POST',
             data: {
                 id: id
@@ -172,7 +166,7 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: '<?php echo url('/eliminar-impreso') ?>',
+                    url: '<?php echo url('/eliminar-libros') ?>',
                     type: 'POST',
                     data: {
                         id: id

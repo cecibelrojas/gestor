@@ -23,7 +23,15 @@ class LibreriaController extends Controller
         return view('libreria.index', compact('lista'));
     }
 
-    public function impreso(Request $request)
+    public function lib_campanas()
+    {
+        $objCampanas = new Impresos();
+        $listar_campanas = $objCampanas->listar_campanas();
+
+        return view('libreria.campanas', compact('listar_campanas'));
+    }
+
+    public function libros(Request $request)
     {
 
         $objImpresos = new Impresos();
