@@ -37,6 +37,17 @@ class Impresos extends Model
 
         return $select->get();
     }
+    public function listar_libros(array $params = array())
+    {
+
+        $select = $this->from('impresos as i')
+            ->select('i.*')
+            ->where('tipo','=', 'B');
+
+        $select->orderByRaw('i.titulo');
+
+        return $select->get();
+    }
 
     public function obtener(array $params = array())
     {
