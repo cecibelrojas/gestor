@@ -24,7 +24,7 @@ Route::get('/usuarios', 'UsuariosController@index');
 Route::get('/categorias', 'CategoryController@index');
 Route::get('/publicaciones', 'ProductController@index');
 Route::get('/publicacion/{id?}', 'ProductController@producto');
-Route::get('/impresos', 'ImpresosController@index');
+Route::get('/libreria_digital', 'LibreriaController@index');
 Route::get('/libros', 'ImpresosController@libros');
 Route::get('/videos', 'VideosController@index');
 Route::get('/waika', 'WaikaController@index');

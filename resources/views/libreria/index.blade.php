@@ -6,16 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Impresos</h1>
+                <h1 class="m-0">Libros</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>"><i class="fas fa-home"></i> Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/revista_epale') ?>"><i class="fas fa-image"></i>Revista ÉpaleCCS</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/especulador') ?>"><i class="fas fa-image"></i> El Especulador Precoz</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/especiales') ?>"><i class="fas fa-image"></i> Especiales</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/libros') ?>"><i class="fas fa-image"></i> Libros Digitales</a></li>
-
+                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>"> Inicio</a></li>
+                    <li class="breadcrumb-item"><i class="fas fa-book"></i> Librería Digital</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -28,7 +24,7 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Impresos</h3>
+                        <h3 class="card-title">Lista de Libros</h3>
                         <div class="card-tools">
                             <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo Impreso</button>
                         </div>
@@ -103,6 +99,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -118,7 +115,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Impresos</h4>
+                <h4 class="modal-title">Librería Digital</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

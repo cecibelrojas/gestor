@@ -199,6 +199,29 @@
       margin: 0;
       vertical-align: middle;
     }
+    .thumb-xxs {
+    height: 24px!important;
+    width: 24px!important;
+    font-size: 10px;
+    font-weight: 700;
+}
+.idioma{
+    width: 36px;
+    height: 36px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #f5f5f9;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
   </style>
 
 </head>
@@ -223,57 +246,14 @@
       <ul class="navbar-nav ml-auto">
 
         <!-- Messages Dropdown Menu -->
-   <!--     <li class="nav-item dropdown">
+    <li class="nav-item dropdown idioma">
           <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-comments"></i>
-            <span class="badge badge-danger navbar-badge">3</span>
+           <img src="{{asset('assets/images/flags/venezuela.png')}}" alt="" class="thumb-xxs rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <div class="media">
-                <img src="{{asset('AdminLTE-3.2.0/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <div class="media">
-                <img src="{{asset('AdminLTE-3.2.0/dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <div class="media">
-                <img src="{{asset('AdminLTE-3.2.0/dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+              <a class="dropdown-item" href="#"><img src="{{asset('assets/images/flags/us_flag.jpg')}}" alt="" height="15" class="me-2"> Inglés</a>
           </div>
-        </li> -->
+        </li> 
 
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
@@ -429,7 +409,7 @@
             @if ($_COOKIE["email_login"] == $element->email)
 
                    @if ($element->rol == "A" || $element->rol == "E")
-                
+
             <li class="nav-header" style="font-size: 12px;">Campaña publicitaria</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -463,16 +443,9 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/libreria_digital')}}" class="nav-link">
                     <p>
                       Ver Lista
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <p>
-                      Añadir Nuevo
                     </p>
                   </a>
                 </li>
@@ -484,6 +457,109 @@
 
                 @endforeach
 
+            <li class="nav-header" style="font-size: 12px;">Servicios Consulares</li>    
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-tags"></i>
+                <p class="text">Apostilla</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('/legalizacion')}}" class="nav-link">
+                    <p>
+                      Legalización
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/apostillas')}}" class="nav-link">
+                    <p>
+                      Apostillas
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/apostillas_electronicas')}}" class="nav-link">
+                    <p>
+                      Apostillas electrónicas
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/validacion_documentos')}}" class="nav-link">
+                    <p>
+                      Validación de Documentos
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/validacion_documentos')}}" class="nav-link">
+                    <p>
+                     Métodos de pago
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/instructivos')}}" class="nav-link">
+                    <p>
+                     Instructivos
+                    </p>
+                  </a>
+                </li>
+
+
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-edit"></i>
+                <p class="text">Trámites Consulares</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('/servicios')}}" class="nav-link">
+                    <p>
+                      Lista de Servicios
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-users"></i>
+                <p class="text">Atención Consular</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Por definir
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-globe"></i>
+                <p class="text">Registro Consular</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Por definir
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
             
             @foreach ($administradores as $element)
 
@@ -494,25 +570,25 @@
             <li class="nav-header" style="font-size: 12px;">Configuración</li>
             <li class="nav-item">
               <a href="{{url('bancodatos')}}" class="nav-link">
-                <i class="nav-icon fa-solid fa-database"></i>
+                <i class="fa-solid fa-database"></i>
                 <p class="text">Banco de Datos</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{url('widgets')}}" class="nav-link">
-                <i class="nav-icon fas fa-text-width"></i>
+                <i class="fas fa-text-width"></i>
                 <p class="text">Widgets</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{url('usuarios')}}" class="nav-link">
-                <i class="nav-icon fa-solid fa-users"></i>
+                <i class="fa-solid fa-users"></i>
                 <p class="text">Usuarios</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fa-solid fa-gear"></i>
+                <i class="fa-solid fa-gear"></i>
                 <p class="text">Ajustes</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
@@ -538,19 +614,40 @@
                     </p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Feed Twitter Institucional
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Banner Servicios Consulares
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Card Servicios Consulares
+                    </p>
+                  </a>
+                </li>
 
               </ul>
             </li>
             <li class="nav-header" style="font-size: 12px;">Reportes</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-bezier-curve"></i>
+                <i class="fas fa-bezier-curve"></i>
                 <p class="text">Org Institucional</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-chart-pie"></i>
+                <i class="fas fa-chart-pie"></i>
                 <p class="text">Estadisticas</p>
               </a>
             </li>

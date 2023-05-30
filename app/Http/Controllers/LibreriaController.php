@@ -7,11 +7,12 @@ use App\Models\Impresos;
 use Exception;
 use Illuminate\Http\Request;
 
-class ImpresosController extends Controller
+class LibreriaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
+        $this->middleware('admin')->except(''); 
     }
 
     public function index()
@@ -19,73 +20,7 @@ class ImpresosController extends Controller
         $objImpresos = new Impresos();
         $lista = $objImpresos->listar();
 
-        return view('impresos.index', compact('lista'));
-    }
-    public function cuentos()
-    {
-        $objCuentos = new Impresos();
-        $listar_cuentos = $objCuentos->listar_cuentos();
-
-        return view('impresos.cuentos', compact('listar_cuentos'));
-    }
-    public function especulador()
-    {
-        $objEsp = new Impresos();
-        $listar_especulador = $objEsp->listar_especulador();
-
-        return view('impresos.especulador', compact('listar_especulador'));
-    }
-    public function especiales()
-    {
-        $objEspeciales = new Impresos();
-        $listar_especiales = $objEspeciales->listar_especiales();
-
-        return view('impresos.especiales', compact('listar_especiales'));
-    }
-
-    public function libros()
-    {
-        $objLibros = new Impresos();
-        $listar_libros = $objLibros->listar_libros();
-
-        return view('impresos.libros', compact('listar_libros'));
-    }
-
-    public function impreso_cuentos(Request $request)
-    {
-
-        $objImpresosCuentos = new Impresos();
-        $data = $objImpresosCuentos->obtener(array(
-            'id' => $request['id']
-        ));
-        return view('impresos.form_cuentos', compact('data'));
-    }
-    public function impreso_especulador(Request $request)
-    {
-
-        $objImpresosEspeculador = new Impresos();
-        $data = $objImpresosEspeculador->obtener(array(
-            'id' => $request['id']
-        ));
-        return view('impresos.form_especulador', compact('data'));
-    }
-    public function impreso_especiales(Request $request)
-    {
-
-        $objImpresosEspeciales = new Impresos();
-        $data = $objImpresosEspeciales->obtener(array(
-            'id' => $request['id']
-        ));
-        return view('impresos.form_especiales', compact('data'));
-    }
-    public function impreso_libros(Request $request)
-    {
-
-        $objImpresosLibros = new Impresos();
-        $data = $objImpresosLibros->obtener(array(
-            'id' => $request['id']
-        ));
-        return view('impresos.form_libros', compact('data'));
+        return view('libreria.index', compact('lista'));
     }
 
     public function impreso(Request $request)
@@ -95,7 +30,7 @@ class ImpresosController extends Controller
         $data = $objImpresos->obtener(array(
             'id' => $request['id']
         ));
-        return view('impresos.form', compact('data'));
+        return view('libreria.form', compact('data'));
     }
     public function store(Request $request)
     {
