@@ -10,9 +10,9 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>"> Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital_campanas'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"> Todas</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/libros_search'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/campanas_search'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->

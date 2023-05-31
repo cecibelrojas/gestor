@@ -34,9 +34,9 @@ class LibreriaController extends Controller
     public function lib_libros()
     {
         $objCampanas = new Impresos();
-        $listar_campanas = $objCampanas->listar_campanas();
+        $listar_libros = $objCampanas->listar_libros();
 
-        return view('libreria.campanas', compact('listar_campanas'));
+        return view('libreria.libros', compact('listar_libros'));
     }
 
 
@@ -48,6 +48,25 @@ class LibreriaController extends Controller
             'id' => $request['id']
         ));
         return view('libreria.form', compact('data'));
+    }
+
+    public function libros_search(Request $request)
+    {
+
+        $objImpresosCuentos = new Impresos();
+        $data = $objImpresosCuentos->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('libreria.form_libros', compact('data'));
+    }
+    public function campana_search(Request $request)
+    {
+
+        $objImpresosEspeculador = new Impresos();
+        $data = $objImpresosEspeculador->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('libreria.form_campanas', compact('data'));
     }
     public function store(Request $request)
     {
@@ -61,7 +80,7 @@ class LibreriaController extends Controller
                 'titulo' => $request['titulo'],
                 'descripcion_especulador' => $request['descripcion_especulador'],
                 'tipo' => $request['tipo'],
-                'estado' => 'A'
+                'estado' => $request['estado']
             );
 
             if ($request->hasFile('foto_impreso')) {

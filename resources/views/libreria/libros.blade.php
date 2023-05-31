@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Campañas</h1>
+                <h1 class="m-0">Libros Digitales</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -25,7 +25,7 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Campañas</h3>
+                        <h3 class="card-title">Lista Libros Digitales</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-sm btn-light" onclick="history.back()"><i class="fas fa-angle-left"></i> Volver</button>
                         </div>
@@ -43,8 +43,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (count($listar_campanas) > 0) : ?>
-                                    <?php foreach ($listar_campanas  as $key) : ?>
+                                <?php if (count($listar_libros) > 0) : ?>
+                                    <?php foreach ($listar_libros  as $key) : ?>
                                         <tr>
                                             <td><?php echo $key['titulo']; ?></td>
                                             <td>
@@ -101,7 +101,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Campañas</h4>
+                <h4 class="modal-title">Libros Digitales</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -121,7 +121,7 @@
     });
     function formulario_cuentos(id = null) {
         $.ajax({
-            url: '<?php echo url('/campanas_formsearch') ?>',
+            url: '<?php echo url('/libros_formsearch') ?>',
             type: 'POST',
             data: {
                 id: id
