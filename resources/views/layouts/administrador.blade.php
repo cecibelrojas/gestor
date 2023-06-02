@@ -434,11 +434,11 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-header" style="font-size: 12px;">Librería Digital</li>    
+            <li class="nav-header" style="font-size: 12px;">Libros y Campañas</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-book"></i>
-                <p class="text">Libros</p>
+                <p class="text">Libros y Campañas</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
