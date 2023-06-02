@@ -406,9 +406,9 @@
                 @endforeach
             @foreach ($administradores as $element)
 
-            @if ($_COOKIE["email_login"] == $element->email)
+              @if ($_COOKIE["email_login"] == $element->email)
 
-                   @if ($element->rol == "A" || $element->rol == "E")
+                @if ($element->rol == "A" || $element->rol == "E")
 
             <li class="nav-header" style="font-size: 12px;">Campaña publicitaria</li>    
             <li class="nav-item">
@@ -434,6 +434,30 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-edit"></i>
+                <p class="text">Trabajo Especial</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Ver todos
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/campanas')}}" class="nav-link">
+                    <p>
+                      Nuevo
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
             <li class="nav-header" style="font-size: 12px;">Libros y Campañas</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -451,11 +475,6 @@
                 </li>
               </ul>
             </li>
-                @endif
-
-                @endif
-
-                @endforeach
 
             <li class="nav-header" style="font-size: 12px;">Servicios Consulares</li>    
             <li class="nav-item">
@@ -559,6 +578,57 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-header" style="font-size: 12px;">Geoportal</li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-globe"></i>
+                <p class="text">Geoportal Embajadas</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Embajadas
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-header" style="font-size: 12px;">Organigrama Institucional</li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-user-tag"></i>
+                <p class="text">Organigrama</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Organigrama
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Equipo laboral
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+                @endif
+
+                @endif
+
+                @endforeach
+
+
+
 
             
             @foreach ($administradores as $element)
@@ -635,7 +705,13 @@
                     </p>
                   </a>
                 </li>
-
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      Footer
+                    </p>
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="nav-header" style="font-size: 12px;">Reportes</li>
