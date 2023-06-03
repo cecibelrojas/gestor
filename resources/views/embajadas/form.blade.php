@@ -101,18 +101,79 @@
             });
             return false;
         }
+        if ($('#pais').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo País es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
+        if ($('#embajador').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo Embajador es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
+        if ($('#direccion').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo Direccion es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
+        if ($('#telefono').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo Télefono es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
+        if ($('#lat').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo Latitud es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
+        if ($('#lng').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo Longitud es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
 
         var formData = new FormData();
         
         formData.append('id', $('#id').val());
+        formData.append('pais', $('#pais').val());
+        formData.append('embajador', $('#embajador').val());
+        formData.append('concurren', $('#concurren').val());
+        formData.append('direccion', $('#direccion').val());
+        formData.append('telefono', $('#telefono').val());
+        formData.append('web', $('#web').val());
+        formData.append('correo', $('#correo').val());
+        formData.append('twitter', $('#twitter').val());
+        formData.append('instagram', $('#instagram').val());
+        formData.append('facebook', $('#facebook').val());
+        formData.append('lat', $('#lat').val());
+        formData.append('lng', $('#lng').val());
+        formData.append('estado', $('#estado').val());
 
-        formData.append('imagen_etten', $('#imagen_etten').val());
+        formData.append('imagen', $('#imagen').val());
 
-        var files = $('#imagen_etten').get(0).files;
-        formData.append('imagen_etten', files[0]);
+        var files = $('#imagen').get(0).files;
+        formData.append('imagen', files[0]);
 
         $.ajax({
-            url: '<?php echo url('/guardar-etten') ?>',
+            url: '<?php echo url('/guardarembajada') ?>',
             type: 'POST',
             cache: false,
             contentType: false,
