@@ -148,3 +148,8 @@ Route::post('/eliminarcvideos', 'CampanasVideosController@delete');
 Route::post('/campanas', 'CampanasController@campanas');
 Route::post('/guardarcampana', 'CampanasController@store');
 Route::post('/eliminarcampana', 'CampanasController@delete');
+
+
+Route::post('/embajada', 'EmbajadasController@select_embajada');
+Route::post('/guardarembajada', 'EmbajadasController@store');
+Route::post('/eliminarembajada', 'EmbajadasController@delete');
