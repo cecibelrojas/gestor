@@ -19,9 +19,11 @@ class Embajadas extends Model
     public function listar(array $params = array())
     {
 
-        $select = $this->from('embajadas as e');
-
-        ->select('e.*');
+        $select = $this->from('embajadas as e')
+            ->selectRaw("(select name from users as u where u.id = e.usureg) as creador")
+            ->selectRaw("(select name from users as u where u.id = e.usumod) as editor")
+            ->selectRaw('e.*')
+            ->orderBy('e.id', 'desc');
 
         return $select->get();
     }

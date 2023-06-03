@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">Inicio</a></li>
-                    <li class="breadcrumb-item active">Etiquetas</li>
+                    <li class="breadcrumb-item active">Geoportal de Embajadas</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,19 +24,20 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Etiquetas</h3>
+                        <h3 class="card-title">Lista de Embajdas</h3>
                         <div class="card-tools">
-                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nueva Etiqueta</button>
+                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nueva Embajda</button>
                         </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
-                                    <th style="width: 10%;">Código</th>
-                                    <th style="width: 30%;">Nombre</th>
-                                    <th style="width: 30%;">Descripción</th>
-                                    <th style="text-align: center;width: 20%;">Estado</th>
+                                    <th style="width: 30%;">País</th>
+                                    <th>lat</th>
+                                    <th>lng</th>
+                                    <th>Creador</th>
+                                    <th style="text-align: center;">Estado</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
@@ -44,9 +45,10 @@
                                 <?php if (count($lista) > 0) : ?>
                                     <?php foreach ($lista as $key) : ?>
                                         <tr>
-                                            <td><?php echo $key['codigo']; ?></td>
-                                            <td><?php echo $key['nombre']; ?></td>
-                                            <td><?php echo $key['descripcion']; ?></td>
+                                            <td><?php echo $key['pais']; ?></td>
+                                            <td><?php echo $key['lat']; ?></td>
+                                            <td><?php echo $key['lng']; ?></td>
+                                            <td><?php echo $key['creador']; ?> <br> <span><?php echo $key['created_at']; ?></span></td>
                                             <td style="text-align: center;"><?php echo ($key['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-info" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
@@ -56,6 +58,7 @@
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

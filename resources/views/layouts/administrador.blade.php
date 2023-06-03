@@ -587,7 +587,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/embajadas')}}" class="nav-link">
                     <p>
                       Embajadas
                     </p>

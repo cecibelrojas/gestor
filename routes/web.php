@@ -35,7 +35,7 @@ Route::get('/fotografias', 'GaleriasController@index');
 Route::get('/avisos', 'AvisosController@index');
 Route::get('/papelera_publicaciones', 'ProductController@papelera_total');
 Route::get('/usuario-contrasena_individual/{id?}', 'UsuariosController@usuario_contrasena_extrerna');
-Route::get('/obituarios', 'ObituariosController@index');
+Route::get('/embajadas', 'EmbajadasController@index');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
