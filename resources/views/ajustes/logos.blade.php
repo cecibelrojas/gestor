@@ -45,7 +45,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-sm-6 col-md-6 d-flex align-items-stretch flex-column">
+            <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column">
               <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
                   Logo Institucional Right
@@ -64,6 +64,26 @@
                 </div>
               </div>
             </div>
+            <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column">
+              <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0">
+                  Logo Principal Institucional
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-12">
+                      <img src="<?php echo env('APP_ADMIN') . "" . $key['img3']; ?>" class="imgpreview">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <button class="btn btn-sm btn-info" onclick="formulario2(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
         <!-- /.card-body -->
@@ -102,6 +122,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-nuevo2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Logo Top Button</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function() {
 
@@ -113,7 +150,9 @@
         $('#btnNuevo1').click(function() {
             formulario1();
         });
-
+        $('#btnNuevo2').click(function() {
+            formulario2();
+        });
 
     });
 
@@ -155,5 +194,25 @@
             }
         });
     }
+    function formulario2(id = null) {
+        $.ajax({
+            url: '<?php echo url('/logoprincipal') ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo2').modal('show');
+                $('#form-content2').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content2').html(view);
+            },
+            error: function() {
+                $('#form-content2').html("Error al cargar ventana.");
+            }
+        });
+    }
+
 </script>
 @endsection

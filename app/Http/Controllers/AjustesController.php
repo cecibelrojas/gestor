@@ -29,6 +29,7 @@ class AjustesController extends Controller
 
         return view('ajustes.logos', compact('lista1'));
     }
+
     public function feed(Request $request)
     {
 
@@ -58,6 +59,17 @@ class AjustesController extends Controller
         ));
         return view('ajustes.formright', compact('data'));
     }
+    public function logoprincipal(Request $request)
+    {
+
+        $objFeed = new Ajustes();
+        $data = $objFeed->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('ajustes.formlogo', compact('data'));
+    }
+
+
     public function store(Request $request)
     {
 
@@ -172,4 +184,45 @@ class AjustesController extends Controller
 
         return $response;
     }
+
+    public function store_principal(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objFeed = new Ajustes();
+
+
+            if ($request->hasFile('img3')) {
+                $adjunto3 = $request->file('img3');
+                $extension3 = $adjunto3->getClientOriginalExtension();
+                $fileName3 = "logo_" . date('ymdhis') . "." . $extension3;
+                $adjunto3->move(base_path('archivos/logo'), $fileName3);
+                $params['img3'] = "/archivos/logo/" . $fileName3;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objFeed->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objFeed->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+
 }

@@ -678,13 +678,6 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{url('/logo')}}" class="nav-link">
-                    <p>
-                      Logo Principal
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
                   <a href="{{url('/feed')}}" class="nav-link">
                     <p>
                       Feed Twitter Institucional

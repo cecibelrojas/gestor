@@ -170,3 +170,6 @@ Route::post('/guardar-logoleft', 'AjustesController@store_left');
 
 Route::post('/logoright', 'AjustesController@logoright');
 Route::post('/guardar-logoright', 'AjustesController@store_right');
+
+Route::post('/logoprincipal', 'AjustesController@logoprincipal');
+Route::post('/guardar-logoprincipal', 'AjustesController@store_principal');
