@@ -38,6 +38,7 @@ Route::get('/usuario-contrasena_individual/{id?}', 'UsuariosController@usuario_c
 Route::get('/embajadas', 'EmbajadasController@index');
 Route::get('/redes', 'RedesController@index');
 Route::get('/feed', 'AjustesController@index');
+Route::get('/logos_institucionales', 'AjustesController@logoinstitucional');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');

@@ -22,7 +22,13 @@ class AjustesController extends Controller
 
         return view('ajustes.feed', compact('lista'));
     }
+    public function logoinstitucional()
+    {
+        $objFeed = new Ajustes();
+        $lista1 = $objFeed->listar_feed();
 
+        return view('ajustes.logos', compact('lista1'));
+    }
     public function feed(Request $request)
     {
 

@@ -671,14 +671,14 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{url('/logotipos')}}" class="nav-link">
+                  <a href="{{url('/logos_institucionales')}}" class="nav-link">
                     <p>
                       Imegen Institutcional
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/logo')}}" class="nav-link">
                     <p>
                       Logo Principal
                     </p>
