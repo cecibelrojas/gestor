@@ -664,14 +664,14 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/redes')}}" class="nav-link">
                     <p>
                       Redes Sociales
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/logotipos')}}" class="nav-link">
                     <p>
                       Imegen Institutcional
                     </p>
@@ -685,7 +685,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/feed')}}" class="nav-link">
                     <p>
                       Feed Twitter Institucional
                     </p>

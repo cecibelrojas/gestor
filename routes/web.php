@@ -36,6 +36,8 @@ Route::get('/avisos', 'AvisosController@index');
 Route::get('/papelera_publicaciones', 'ProductController@papelera_total');
 Route::get('/usuario-contrasena_individual/{id?}', 'UsuariosController@usuario_contrasena_extrerna');
 Route::get('/embajadas', 'EmbajadasController@index');
+Route::get('/redes', 'RedesController@index');
+Route::get('/feed', 'AjustesController@index');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
@@ -153,3 +155,11 @@ Route::post('/eliminarcampana', 'CampanasController@delete');
 Route::post('/embajada', 'EmbajadasController@select_embajada');
 Route::post('/guardarembajada', 'EmbajadasController@store');
 Route::post('/eliminarembajada', 'EmbajadasController@delete');
+
+
+Route::post('/redsocial', 'RedesController@redes_sociales');
+Route::post('/guardar-redsocial', 'RedesController@store');
+Route::post('/eliminar-redsocial', 'RedesController@delete');
+
+Route::post('/feed_twitter', 'AjustesController@feed');
+Route::post('/guardar-feed', 'AjustesController@store');

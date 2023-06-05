@@ -520,7 +520,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label style="font-size: 12px;font-weight: bold;">Autor</label>
-                            <input type="text" class="form-control" name="nombre_autor" id="nombre_autor" value="{{ @$data->nombre_autor}}" maxlength="100" placeholder="Solo para ser usado por la categoría VOCES">
+                            <input type="text" class="form-control" name="nombre_autor" id="nombre_autor" value="{{ @$data->nombre_autor}}" maxlength="100" placeholder="Nombre de Autor">
                         </div>
                         <div class="col-lg-12">
                             <label style="font-size: 12px;font-weight: bold;">Etiquetas</label>
