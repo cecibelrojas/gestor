@@ -97,7 +97,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="form-content"></div>
+                <div id="form-content1"></div>
             </div>
         </div>
     </div>
@@ -145,13 +145,13 @@
             },
             beforeSend: function() {
                 $('#modal-nuevo1').modal('show');
-                $('#form-content').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+                $('#form-content1').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
             },
             success: function(view) {
-                $('#form-content').html(view);
+                $('#form-content1').html(view);
             },
             error: function() {
-                $('#form-content').html("Error al cargar ventana.");
+                $('#form-content1').html("Error al cargar ventana.");
             }
         });
     }

@@ -164,3 +164,9 @@ Route::post('/eliminar-redsocial', 'RedesController@delete');
 
 Route::post('/feed_twitter', 'AjustesController@feed');
 Route::post('/guardar-feed', 'AjustesController@store');
+
+Route::post('/logoleft', 'AjustesController@logoleft');
+Route::post('/guardar-logoleft', 'AjustesController@store_left');
+
+Route::post('/logoright', 'AjustesController@logoright');
+Route::post('/guardar-logoright', 'AjustesController@store_right');
