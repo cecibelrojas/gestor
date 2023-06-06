@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Ajustes extends Model
+class Empleado extends Model
 {
-    protected $table = 'ajustes';
+    protected $table = 'empleado';
 
-    protected $fillable = ['id','img1', 'img2', 'img3', 'feed', 'organigrama', 'ubicacion','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','nombres', 'apellidos', 'sexo', 'cargo', 'resumen', 'estado', 'tipo','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'
@@ -18,35 +18,22 @@ class Ajustes extends Model
     public function listar(array $params = array())
     {
 
-        $select = $this->from('ajustes as a')
-            ->select('a.*');
+        $select = $this->from('empleado as e')
+            ->select('e.*');
 
-        $select->orderByRaw('a.id');
+        $select->orderByRaw('e.tipo');
 
         return $select->get();
     }
 
-    public function listar_feed(array $params = array())
-    {
-
-        $select = $this->from('ajustes as a')
-            ->selectRaw("(select name from users as u where u.id = a.usureg) as creador")
-            ->selectRaw("(select name from users as u where u.id = a.usumod) as editor")
-            ->selectRaw('a.*');
-
-        $select->orderByRaw('a.id');
-
-        return $select->get();
-    }    
-
     public function obtener(array $params = array())
     {
 
-        $select = $this->from('ajustes as a')
-            ->select('a.*');
+        $select = $this->from('empleado as e')
+            ->select('e.*');
 
         if (array_key_exists('id', $params)) {
-            $select->where('a.id', $params['id']);
+            $select->where('e.id', $params['id']);
         }
 
         return $select->first();
@@ -86,7 +73,7 @@ class Ajustes extends Model
     public function eliminar(array $params)
     {
         try {
-            $delete = DB::table('ajustes')->where('id', $params['id'])->delete();
+            $delete = DB::table('empleado')->where('id', $params['id'])->delete();
             return $delete;
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -95,7 +82,7 @@ class Ajustes extends Model
 
     public function obtenerId()
     {
-        $select = $this->from('ajustes as a')
+        $select = $this->from('empleado as e')
             ->selectRaw('MAX(id) as ultimo');
 
         $data = $select->first();

@@ -604,16 +604,16 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/organigrama')}}" class="nav-link">
                     <p>
                       Organigrama
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/ficha')}}" class="nav-link">
                     <p>
-                      Equipo laboral
+                      Ficha 
                     </p>
                   </a>
                 </li>

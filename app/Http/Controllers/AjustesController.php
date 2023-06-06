@@ -69,6 +69,24 @@ class AjustesController extends Controller
         return view('ajustes.formlogo', compact('data'));
     }
 
+    public function organigrama(Request $request)
+    {
+
+        $objFeed = new Ajustes();
+        $lista2 = $objFeed->listar_feed();
+
+        return view('organigrama.home', compact('lista2'));
+    }
+
+    public function organigrama_institucional(Request $request)
+    {
+
+        $objFeed = new Ajustes();
+        $data = $objFeed->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('organigrama.form', compact('data'));
+    }
 
     public function store(Request $request)
     {
@@ -201,6 +219,46 @@ class AjustesController extends Controller
                 $fileName3 = "logo_" . date('ymdhis') . "." . $extension3;
                 $adjunto3->move(base_path('archivos/logo'), $fileName3);
                 $params['img3'] = "/archivos/logo/" . $fileName3;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objFeed->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objFeed->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+
+        public function store_organigrama(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objFeed = new Ajustes();
+
+
+            if ($request->hasFile('organigrama')) {
+                $adjunto4 = $request->file('organigrama');
+                $extension4 = $adjunto4->getClientOriginalExtension();
+                $fileName4 = "organigrama_" . date('ymdhis') . "." . $extension4;
+                $adjunto4->move(base_path('archivos/organigrama'), $fileName4);
+                $params['organigrama'] = "/archivos/organigrama/" . $fileName4;
             }
 
             if (isset($request['id']) && !empty($request['id'])) {

@@ -39,6 +39,8 @@ Route::get('/embajadas', 'EmbajadasController@index');
 Route::get('/redes', 'RedesController@index');
 Route::get('/feed', 'AjustesController@index');
 Route::get('/logos_institucionales', 'AjustesController@logoinstitucional');
+Route::get('/organigrama', 'AjustesController@organigrama');
+Route::get('/ficha', 'EmpleadosController@index');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
@@ -173,3 +175,8 @@ Route::post('/guardar-logoright', 'AjustesController@store_right');
 
 Route::post('/logoprincipal', 'AjustesController@logoprincipal');
 Route::post('/guardar-logoprincipal', 'AjustesController@store_principal');
+
+Route::post('/organigrama_new', 'AjustesController@organigrama_institucional');
+Route::post('/guardar-organigrama', 'AjustesController@store_organigrama');
+
+Route::post('/empleado', 'EmpleadosController@empleado');
