@@ -180,3 +180,4 @@ Route::post('/organigrama_new', 'AjustesController@organigrama_institucional');
 Route::post('/guardar-organigrama', 'AjustesController@store_organigrama');
 
 Route::post('/empleado', 'EmpleadosController@empleado');
+Route::post('/guardar-empleado', 'EmpleadosController@store');

@@ -55,7 +55,7 @@
     </div>
 </div>
 <script>
-    $("input[type='file']").change(function() {
+        $("#foto").change(function() {
 
         var imagen = this.files[0];
         var documento = this.files[0];
@@ -64,6 +64,7 @@
         /*=============================================
         VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
         =============================================*/
+
 
         var datosImagen = new FileReader;
         datosImagen.readAsDataURL(imagen);
@@ -79,57 +80,73 @@
 
     $('#btnSave').click(function() {
 
-        if ($('#name').val() == '') {
+        if ($('#nombres').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo Nombre y Apellido es requerido!",
+                title: "¡El campo Nombres es requerido!",
                 showConfirmButton: true
             });
             return false;
         }
 
-        if ($('#email').val() == '') {
+        if ($('#apellidos').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo Correo Electrónico es requerido!",
+                title: "¡El campo Apellidos es requerido!",
                 showConfirmButton: true
             });
             return false;
         }
-        if ($('#rol').val() == '') {
+        if ($('#sexo').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo Perfil es requerido!",
+                title: "¡El campo sexo es requerido!",
                 showConfirmButton: true
             });
             return false;
         }
-        if ($('#password').val() == '') {
+        if ($('#cargo').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo password es requerido!",
-                showConfirmButton: true
-            });
-            return false;
-        }
-        if ($('#password-confirm').val() == '') {
-            swal({
-                type: "info",
-                title: "¡El campo Confirmar password es requerido!",
+                title: "¡El campo Cargo es requerido!",
                 showConfirmButton: true
             });
             return false;
         }
 
+        if ($('#tipo').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo Tipo es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
+        if ($('#estado').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo estado es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
+        if ($('#resumen').val() == '') {
+            swal({
+                type: "info",
+                title: "¡El campo Resumen es requerido!",
+                showConfirmButton: true
+            });
+            return false;
+        }
         var formData = new FormData();
 
         formData.append('id', $('#id').val());
-        formData.append('name', $('#name').val());
-        formData.append('email', $('#email').val());
-        formData.append('telefono', $('#telefono').val());        
-        formData.append('rol', $('#rol').val());
+        formData.append('nombres', $('#nombres').val());
+        formData.append('apellidos', $('#apellidos').val());
+        formData.append('sexo', $('#sexo').val());        
+        formData.append('cargo', $('#cargo').val());
+        formData.append('tipo', $('#tipo').val());
         formData.append('estado', $('#estado').val());
-        formData.append('password', $('#password').val());
 
         var files = $('#foto').get(0).files;
         formData.append('foto', files[0]);

@@ -29,6 +29,8 @@
         </div>
         <div class="card-body pb-0">
           <div class="row">
+            <?php if (count($lista) > 0) : ?>
+                <?php foreach ($lista as $key) : ?>
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
               <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
@@ -61,6 +63,14 @@
                 </div>
               </div>
             </div>
+                <?php endforeach; ?>
+                <?php else : ?>
+                  <div class=" pt-40 pb-30"> 
+                    <div class="alert alert-warning" role="alert">
+                     <i class="fas fa-exclamation-triangle"></i> No hay Ficha para mostrar.
+                    </div>
+                  </div> 
+                <?php endif; ?> 
           </div>
         </div>
         <!-- /.card-body -->
