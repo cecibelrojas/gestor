@@ -9,7 +9,7 @@ class Empleado extends Model
 {
     protected $table = 'empleado';
 
-    protected $fillable = ['id','nombres', 'apellidos', 'sexo', 'cargo', 'resumen', 'estado', 'tipo','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','foto','nombres', 'apellidos', 'sexo', 'cargo', 'resumen', 'estado', 'tipo','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'
@@ -19,10 +19,13 @@ class Empleado extends Model
     {
 
         $select = $this->from('empleado as e')
-            ->select('e.*');
+            ->select('e.*')
+            ->orderBy('e.id', 'desc');
+        $select->orderByRaw('e.id');
 
-        $select->orderByRaw('e.tipo');
-
+        if (array_key_exists('papelera', $params)) {
+            $select->where('e.papelera', '=','P');
+        }
         return $select->get();
     }
 

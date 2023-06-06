@@ -34,7 +34,7 @@
                 <div class="card-body pt-0">
                   <div class="row">
                     <div class="col-12">
-                      <img src="<?php echo env('APP_ADMIN') . "" . $key['organigrama']; ?>" class="imgpreview" width="100%">
+                      <img src="<?php echo env('APP_ADMIN') . "" . $key['organigrama']; ?>" onerror="this.src='<?php echo asset('archivos/organigrama/img.png'); ?>'" class="imgpreview" width="100%">
                     </div>
                   </div>
                 </div>

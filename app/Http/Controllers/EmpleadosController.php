@@ -19,8 +19,13 @@ class EmpleadosController extends Controller
     {
         $objempleados = new Empleado();
         $lista = $objempleados->listar();
+       
+       $trash1 = $objempleados->listar(array(
+            'papelera' => array('P')
+        ));
 
-        return view('empleados.index', compact('lista'));
+
+        return view('empleados.index', compact('lista','trash1'));
     }
 
     public function empleado(Request $request)
@@ -32,38 +37,68 @@ class EmpleadosController extends Controller
         ));
         return view('empleados.form', compact('data'));
     }
+    public function papelera_total(Request $request)
+    {
+
+        $objempleados = new Empleado();
+
+        $params = array();
+
+        if (isset($_GET['nombres'])) {
+            $params['nombres'] = $_GET['nombres'];
+        }
+        
+        if (isset($_GET['apellidos'])) {
+            $params['apellidos'] = $_GET['apellidos'];
+        }
+
+        $lista = $objempleados->listar($params);
+
+        $trash = $objempleados->listar(array(
+            'papelera' => array('P')
+        ));
+
+        return view('empleados.papelera', compact('lista','trash'));
+    }
+
     public function store(Request $request)
     {
 
         $response = array();
 
         try {
-            $objCampanas = new Campanas();
+            
+            $objempleados = new Empleado();
 
             $params = array(
-                'titulo' => $request['titulo'],
+                'nombres' => $request['nombres'],
+                'apellidos' => $request['apellidos'],
+                'sexo' => $request['sexo'],
+                'cargo' => $request['cargo'],
+                'tipo' => $request['tipo'],
+                'resumen' => $request['resumen'],
                 'estado' => $request['estado']
             );
 
-            if ($request->hasFile('imagen_campana')) {
-                $adjunto = $request->file('imagen_campana');
+            if ($request->hasFile('foto')) {
+                $adjunto = $request->file('foto');
                 $extension = $adjunto->getClientOriginalExtension();
-                $fileName = "fotocampana_" . date('ymdhis') . "." . $extension;
-                $adjunto->move(base_path('archivos/campana'), $fileName);
-                $params['imagen_campana'] = "/archivos/campana/" . $fileName;
+                $fileName = "fotoempleado_" . date('ymdhis') . "." . $extension;
+                $adjunto->move(base_path('archivos/empleado'), $fileName);
+                $params['foto'] = "/archivos/empleado/" . $fileName;
             }
 
             if (isset($request['id']) && !empty($request['id'])) {
                 $params['usumod'] = auth()->user()->id;
                 $params['updated_at'] = date('Y-m-d H:i:s');
-                $update = $objCampanas->actualizar($params, array('id' => $request['id']));
+                $update = $objempleados->actualizar($params, array('id' => $request['id']));
                 if (!is_numeric($update)) {
                     throw new Exception($update);
                 }
             } else {
                 $params['usureg'] = auth()->user()->id;
                 $params['created_at'] = date('Y-m-d H:i:s');
-                $insert = $objCampanas->insertar($params);
+                $insert = $objempleados->insertar($params);
                 if (!is_numeric($insert)) {
                     throw new Exception($insert);
                 }
@@ -74,14 +109,45 @@ class EmpleadosController extends Controller
 
         return $response;
     }
+
+    public function deshabilitarempleados(Request $request)
+    {
+        $objempleados = new Empleado();
+        $response = array();
+
+        $objempleados->actualizar(array(
+            'papelera' =>  'P',
+            'estado' =>  'I',
+            'usumod' => auth()->user()->id,
+            'updated_at' => date('Y-m-d H:i:s')
+        ), array('id' => $request->id));
+
+        return $response;
+    }
+    
+    public function restaurar_empleado(Request $request)
+    {
+        $objempleados = new Empleado();
+        $response = array();
+
+        $objempleados->actualizar(array(
+            'papelera' =>  Null,
+            'usumod' => auth()->user()->id,
+            'updated_at' => date('Y-m-d H:i:s')
+        ), array('id' => $request->id));
+
+        return $response;
+    }
+
+
     public function delete(Request $request)
     {
 
         $response = array();
 
         try {
-            $objCampanas = new Campanas();
-            $insert = $objCampanas->eliminar(array(
+            $objempleados = new Empleado();
+            $insert = $objempleados->eliminar(array(
                 'id' => $request['id']
             ));
             if (!$insert) {

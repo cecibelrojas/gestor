@@ -2,8 +2,8 @@
 <input type="hidden" id="id" value="<?php echo $data ? $data['id'] : ''; ?>">
 <!-- -->
 <div class="col-lg-12 text-center">
-    <img onclick="$('#foto').trigger('click');" src="<?php echo ($data && !empty($data['foto'])) ? url('/') . $data['foto'] : asset('archivos/empleado/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer;width: 200px;height: 200px;" class=" imgpreview">
-    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 400px * 400px | Peso Max. 2MB <br> Formato: JPG o PNG</p>
+    <img onclick="$('#foto').trigger('click');" src="<?php echo ($data && !empty($data['foto'])) ? url('/') . $data['foto'] : asset('archivos/empleado/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer;width: 200px;height: 200px;" class="imgpreview">
+    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 400px * 400px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
     <input type="file" id="foto" name="foto" style="display: none;">
 </div>
 <div class="row">
@@ -146,13 +146,16 @@
         formData.append('sexo', $('#sexo').val());        
         formData.append('cargo', $('#cargo').val());
         formData.append('tipo', $('#tipo').val());
+        formData.append('resumen', $('#resumen').val());
         formData.append('estado', $('#estado').val());
+
+        formData.append('foto', $('#foto').val());
 
         var files = $('#foto').get(0).files;
         formData.append('foto', files[0]);
 
         $.ajax({
-            url: '<?php echo url('/guardar-usuario') ?>',
+            url: '<?php echo url('/guardar-empleado') ?>',
             type: 'POST',
             cache: false,
             contentType: false,

@@ -24,6 +24,10 @@
       <div class="card card-solid">
         <div class="card-header">
             <div class="card-tools">
+                    <?php if (auth()->user()->rol == 'A' ||  auth()->user()->rol == 'E') { ?>
+                        <button class="btn btn-sm btn-danger" style="background-color: #ffffff;color: #dc3545;font-weight: bold;border: 1px solid #dc3545;" onclick="location.href='<?php echo url('/papelera'); ?>'"><i class="fa fa-trash"></i> Papelera({{count($trash1)}})</button>
+                    <?php  } ?>
+
                 <button class="btn btn-sm btn-info" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo</button>
             </div>
         </div>
@@ -31,38 +35,89 @@
           <div class="row">
             <?php if (count($lista) > 0) : ?>
                 <?php foreach ($lista as $key) : ?>
+                    <?php if ($key['papelera'] != 'P') : ?>
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
               <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
-                  Canciller de la República
+                          <?php
+                                if($key['tipo']=='A' & $key['sexo']=='F'){
+
+                                     echo "Ministra";
+
+                                }if($key['tipo']=='A' & $key['sexo']=='M'){
+
+                                    echo "Ministro";
+
+                                }if($key['tipo']=='B' & $key['sexo']=='F'){
+                                     echo "Viceministra";
+
+                                }if($key['tipo']=='B' & $key['sexo']=='M'){
+                                     echo "Viceministro";
+                                }
+                           ?>
                 </div>
                 <div class="card-body pt-0">
                   <div class="row">
                     <div class="col-7">
-                      <h2 class="lead"><b>Yván Gil Pinto</b></h2>
-                      <p class="text-muted text-sm"><b>Cargo: </b> Ministro del Poder Popular para Relaciones Exteriores </p>
+                      <h2 class="lead"><b><?php echo $key['nombres'].' '.$key['apellidos']; ?></b></h2>
+                      <p class="text-muted text-sm"><b>Cargo: </b> <?php echo $key['cargo']; ?> </p>
                       <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> Tipo: <strong>Ministro</strong></li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-check"></i></span> Estatus: <span class="right badge badge-success">Activo</span></li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> Tipo: 
+                        <strong>
+                          <?php
+                                if($key['tipo']=='A' & $key['sexo']=='F'){
+
+                                     echo "Ministra";
+
+                                }if($key['tipo']=='A' & $key['sexo']=='M'){
+
+                                    echo "Ministro";
+
+                                }if($key['tipo']=='B' & $key['sexo']=='F'){
+                                     echo "Viceministra";
+
+                                }if($key['tipo']=='B' & $key['sexo']=='M'){
+                                     echo "Viceministro";
+                                }
+                           ?>
+                        </strong></li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-check"></i></span> Estatus: 
+
+                            <?php
+                                if($key['estado']=='A'){
+
+                                     echo "<span class='right badge badge-success'> Activo </span>";
+
+                                }else{
+
+                                    echo "<span class='right badge badge-danger'> Inactivo </span>";
+                                }
+                           ?>
+
+                       </li>
                       </ul>
                     </div>
                     <div class="col-5 text-center">
-                      <img src="{{asset('assets/images/users/user-10.jpg')}}" alt="user-avatar" class="img-circle img-fluid">
+                      <img src="<?php echo env('APP_ADMIN') . "" . $key['foto']; ?>" onerror="this.src='<?php echo asset('archivos/empleado/img.png'); ?>'" class="img-circle img-fluid">
                     </div>
                   </div>
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
-                    <a href="#" class="btn btn-sm bg-teal">
-                      <i class="fas fa-edit"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-primary">
-                      <i class="fas fa-cancel"></i> Deshabilitar
-                    </a>
+                    <button class="btn btn-sm btn-success" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminar(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-sm btn-warning" onclick="deshabilitando(<?php echo $key['id']; ?>)"><i class="fa fa-cancel"></i></button>
                   </div>
                 </div>
               </div>
             </div>
+            <?php else : ?>
+                  <div class=" pt-40 pb-30"> 
+                    <div class="alert alert-warning" role="alert">
+                     <i class="fas fa-exclamation-triangle"></i> No hay Ficha para mostrar.
+                    </div>
+                  </div> 
+                <?php endif; ?>
                 <?php endforeach; ?>
                 <?php else : ?>
                   <div class=" pt-40 pb-30"> 
@@ -139,6 +194,104 @@
             if (result.value) {
                 $.ajax({
                     url: '<?php echo url('/eliminar_empleado') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+
+                        if (typeof data.errorMessage != 'undefined') {
+                            swal({
+                                icon: 'error',
+                                text: data.errorMessage,
+                                showConfirmButton: true
+                            });
+                            return false;
+                        }
+
+                        swal({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El registro ha sido eliminado.',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function(result) {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+
+                    }
+                });
+            }
+        })
+
+    }
+        function deshabilitando(id = null) {
+
+        swal({
+            title: '¿Seguro desea mandar a la papelera el registro seleccionado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Deshabilitar!',
+            confirmButtonColor: '#dd3333',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '<?php echo url('/deshabilitarempleado') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+
+                        if (typeof data.errorMessage != 'undefined') {
+                            swal({
+                                icon: 'error',
+                                text: data.errorMessage,
+                                showConfirmButton: true
+                            });
+                            return false;
+                        }
+
+                        swal({
+                            icon: 'success',
+                            title: '¡Deshabilitado!',
+                            text: 'El registro ha sido deshabilitado.',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function(result) {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+
+                    }
+                });
+            }
+        })
+
+    }
+        function eliminar(id = null) {
+
+        swal({
+            title: '¿Seguro desea eliminar el registro seleccionado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+            confirmButtonColor: '#dd3333',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '<?php echo url('/eliminarficha') ?>',
                     type: 'POST',
                     data: {
                         id: id

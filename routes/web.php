@@ -41,6 +41,7 @@ Route::get('/feed', 'AjustesController@index');
 Route::get('/logos_institucionales', 'AjustesController@logoinstitucional');
 Route::get('/organigrama', 'AjustesController@organigrama');
 Route::get('/ficha', 'EmpleadosController@index');
+Route::get('/papelera', 'EmpleadosController@papelera_total');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
@@ -181,3 +182,6 @@ Route::post('/guardar-organigrama', 'AjustesController@store_organigrama');
 
 Route::post('/empleado', 'EmpleadosController@empleado');
 Route::post('/guardar-empleado', 'EmpleadosController@store');
+Route::post('/deshabilitarempleado', 'EmpleadosController@deshabilitarempleados');
+Route::post('/restaurar-empleado', 'EmpleadosController@restaurar_empleado');
+Route::post('/eliminarficha', 'EmpleadosController@delete');
