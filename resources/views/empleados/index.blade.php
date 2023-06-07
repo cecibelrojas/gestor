@@ -104,6 +104,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
+                    <button class="btn btn-sm btn-info"><i class="far fa-id-card"></i> Curriculum vitae</button>
                     <button class="btn btn-sm btn-success" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-sm btn-danger" onclick="eliminar(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
                     <button class="btn btn-sm btn-warning" onclick="deshabilitando(<?php echo $key['id']; ?>)"><i class="fa fa-cancel"></i></button>
