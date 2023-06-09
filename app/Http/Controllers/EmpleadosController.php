@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BancoDatos;
 use App\Models\Empleado;
+use App\Models\Estudios;
+use App\Models\Empleos;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -37,6 +39,7 @@ class EmpleadosController extends Controller
         ));
         return view('empleados.form', compact('data'));
     }
+
     public function papelera_total(Request $request)
     {
 
@@ -59,6 +62,83 @@ class EmpleadosController extends Controller
         ));
 
         return view('empleados.papelera', compact('lista','trash'));
+    }
+   
+
+
+    public function curriculum($id = null)
+    {
+
+        $objempleados = new Empleado();
+        $objEstudios = new Estudios();
+        $objEmpleos = new Empleos();
+        $canciller_id = $id;
+        $data = array();
+        $educacion = array();
+        if ($id != null) {
+            $data = $objempleados->obtener(array('id' => $id));
+            $educacion = $objEstudios->listar(array('id' => $id));
+            $trabajo = $objEmpleos->listar(array('id' => $id));
+            
+            if (!$data) {
+                return redirect('/curriculum');
+            }
+        }
+
+        return view('empleados.curriculum', compact('data', 'educacion','canciller_id','trabajo'));
+    }
+    
+
+
+    public function estudio_info(Request $request)
+    {
+        $objEstudios = new Estudios();
+        $canciller_id = $request['canciller_id'];
+        $data = $objEstudios->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('empleados.formestudios', compact('data','canciller_id'));
+    }
+
+    public function store_estudios(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            $objEstudios = new Estudios();
+
+            $params = array( 
+                    'canciller_id' => $request['canciller_id'],               
+                    'nombre_institucion' => $request['nombre_institucion'],
+                    'titulo' => $request['titulo'],
+                    'lugar' => $request['lugar'],
+                    'ano_inicio' => $request['ano_inicio'],
+                    'ano_fin' => $request['ano_fin']
+            );
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objEstudios->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+               
+            } else {
+              $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objEstudios->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+               
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
     }
 
     public function store(Request $request)
@@ -110,6 +190,8 @@ class EmpleadosController extends Controller
         return $response;
     }
 
+
+
     public function deshabilitarempleados(Request $request)
     {
         $objempleados = new Empleado();
@@ -159,4 +241,27 @@ class EmpleadosController extends Controller
 
         return $response;
     }
+
+public function delete_estudios(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            $objEstudios = new Estudios();
+            $insert = $objEstudios->eliminar(array(
+                'id' => $request['id']
+            ));
+
+
+            if (!$insert) {
+                throw new Exception($insert);
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+
 }

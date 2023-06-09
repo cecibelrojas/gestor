@@ -41,6 +41,7 @@ Route::get('/feed', 'AjustesController@index');
 Route::get('/logos_institucionales', 'AjustesController@logoinstitucional');
 Route::get('/organigrama', 'AjustesController@organigrama');
 Route::get('/ficha', 'EmpleadosController@index');
+Route::get('/curriculum_vitae/{id?}', 'EmpleadosController@curriculum');
 Route::get('/papelera', 'EmpleadosController@papelera_total');
 
 //POST
@@ -182,6 +183,12 @@ Route::post('/guardar-organigrama', 'AjustesController@store_organigrama');
 
 Route::post('/empleado', 'EmpleadosController@empleado');
 Route::post('/guardar-empleado', 'EmpleadosController@store');
+Route::post('/formulario_academico', 'EmpleadosController@estudio_info');
+Route::post('/eliminarestudios', 'EmpleadosController@delete_estudios');
+
+Route::post('/guardar-estudios', 'EmpleadosController@store_estudios');
+
+
 Route::post('/deshabilitarempleado', 'EmpleadosController@deshabilitarempleados');
 Route::post('/restaurar-empleado', 'EmpleadosController@restaurar_empleado');
 Route::post('/eliminarficha', 'EmpleadosController@delete');

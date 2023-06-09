@@ -104,7 +104,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
-                    <button class="btn btn-sm btn-info"><i class="far fa-id-card"></i> Curriculum vitae</button>
+                    <a href="{{ url('curriculum_vitae', ['id' => $key->id]) }}" class="btn btn-sm btn-info"><i class="far fa-id-card"></i> Curriculum vitae</a>
                     <button class="btn btn-sm btn-success" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-sm btn-danger" onclick="eliminar(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
                     <button class="btn btn-sm btn-warning" onclick="deshabilitando(<?php echo $key['id']; ?>)"><i class="fa fa-cancel"></i></button>
@@ -181,7 +181,23 @@
             }
         });
     }
-
+    function curriculum(id = null) {
+        $.ajax({
+            url: '<?php echo url('/curriculum_vitae') ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            beforeSend: function() {
+               
+            },
+            success: function(view) {
+               
+            },
+            error: function() {
+            }
+        });
+    }
     function eliminar(id = null) {
 
         swal({
