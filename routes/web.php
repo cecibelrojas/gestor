@@ -192,6 +192,9 @@ Route::post('/formulario_trabajos', 'EmpleadosController@empleo_info');
 Route::post('/guardar-empleos', 'EmpleadosController@store_empleos');
 Route::post('/eliminarempleos', 'EmpleadosController@delete_empleos');
 
+Route::post('/formulario_idiomas', 'EmpleadosController@idiomas_info');
+Route::post('/guardar-idioma', 'EmpleadosController@store_idioma');
+Route::post('/eliminaridiomas', 'EmpleadosController@delete_idioma');
 
 
 Route::post('/deshabilitarempleado', 'EmpleadosController@deshabilitarempleados');

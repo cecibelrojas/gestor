@@ -6,6 +6,7 @@ use App\Models\BancoDatos;
 use App\Models\Empleado;
 use App\Models\Estudios;
 use App\Models\Empleos;
+use App\Models\Idiomas;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -68,23 +69,25 @@ class EmpleadosController extends Controller
         $objempleados = new Empleado();
         $objEstudios = new Estudios();
         $objEmpleos = new Empleos();
+        $objIdiomas = new Idiomas();
         
         $canciller_id = $id;
 
         $data = array();
         $educacion = array();
         $trabajo = array();
+        $idiomas = array();
         if ($id != null) {
             $data = $objempleados->obtener(array('id' => $id));
             $educacion = $objEstudios->listar(array('id' => $id));
             $trabajo = $objEmpleos->listar(array('id' => $id));
-            
+            $idiomas = $objIdiomas->listar(array('id' => $id));
             if (!$data) {
                 return redirect('/curriculum');
             }
         }
 
-        return view('empleados.curriculum', compact('data', 'educacion','canciller_id','trabajo'));
+        return view('empleados.curriculum', compact('data', 'educacion','canciller_id','trabajo','idiomas'));
     }
     
     // data formulario estudios
@@ -107,7 +110,16 @@ class EmpleadosController extends Controller
         ));
         return view('empleados.formempleos', compact('data','canciller_id'));
     }
-
+    // data formulario idiomas
+    public function idiomas_info(Request $request)
+    {
+        $objIdiomas = new Idiomas();
+        $canciller_id = $request['canciller_id'];
+        $data = $objIdiomas->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('empleados.formidiomas', compact('data','canciller_id'));
+    }
     // crear y actualizar estudios del empleado
     public function store_estudios(Request $request)
     {
@@ -242,7 +254,44 @@ class EmpleadosController extends Controller
 
         return $response;
     }
+    // crear y actualizar idioma del canciller y vicecanciller
+    public function store_idioma(Request $request)
+    {
 
+        $response = array();
+
+        try {
+            $objIdiomas = new Idiomas();
+
+            $params = array( 
+                    'canciller_id' => $request['canciller_id'],               
+                    'idioma' => $request['idioma'],
+
+            );
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objIdiomas->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+               
+            } else {
+              $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objIdiomas->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+               
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
     // deshabilitar empleado
     public function deshabilitarempleados(Request $request)
     {
@@ -334,4 +383,26 @@ class EmpleadosController extends Controller
 
         return $response;
     }
+
+    public function delete_idioma(Request $request)
+    {
+        $response = array();
+
+        try {
+            $objIdiomas = new Idiomas();
+            $insert = $objIdiomas->eliminar(array(
+                'id' => $request['id']
+            ));
+
+
+            if (!$insert) {
+                throw new Exception($insert);
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+
 }

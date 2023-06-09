@@ -173,18 +173,10 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Responsive Hover Table</h3>
+                      <h3 class="card-title">Idiomas</h3>
 
                       <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fas fa-search"></i>
-                            </button>
-                          </div>
-                        </div>
+                          <button class="btn btn-sm btn-light" id="btnNuevo2"><i class="fa fa-plus-circle"></i> Nuevo</button>
                       </div>
                     </div>
                     <!-- /.card-header -->
@@ -192,42 +184,32 @@
                       <table class="table table-hover text-nowrap">
                         <thead>
                           <tr>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Reason</th>
+                            <th style="font-size: 12px;">Idioma</th>
+                            <th style="font-size: 12px;">Creado por</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-success">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          </tr>
-                          <tr>
-                            <td>219</td>
-                            <td>Alexander Pierce</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-warning">Pending</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          </tr>
-                          <tr>
-                            <td>657</td>
-                            <td>Bob Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-primary">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          </tr>
-                          <tr>
-                            <td>175</td>
-                            <td>Mike Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-danger">Denied</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          </tr>
+                          <?php if (count($idiomas) > 0) : ?>
+                                <?php foreach ($idiomas as $key) : ?>
+                                  <tr>
+                                    <td style="font-size: 12px;"><?php echo $key['idioma']; ?></td>
+                                    <td style="font-size: 12px">
+                                      <?php echo $key['creador']; ?> / <span><?php echo $key['created_at']; ?>
+                                    </td>
+                                    <td>
+                                      <button class="btn btn-sm btn-info" onclick="formulario2(<?php echo $key['id']; ?>,<?php echo $key['canciller_id']; ?>)"><i class="fa fa-edit"></i></button>
+                                      <button class="btn btn-sm btn-danger" onclick="eliminar_idioma(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
+                                    </td>
+                                  </tr>
+                                <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                <?php endif; ?>
                         </tbody>
                       </table>
                     </div>
@@ -279,6 +261,21 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-nuevo2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Idiomas</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content2"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
   var canciller_id = '<?php echo $canciller_id; ?>';
 
@@ -292,7 +289,9 @@
         $('#btnNuevo1').click(function() {
             formulario1();
         });
-
+        $('#btnNuevo2').click(function() {
+            formulario2();
+        });
     });
 
     function formulario(id = null) {
@@ -337,7 +336,27 @@
             }
         });
     }
+    function formulario2(id = null) {
 
+        $.ajax({
+            url: '<?php echo url('/formulario_idiomas') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                canciller_id: canciller_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo2').modal('show');
+                $('#form-content2').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content2').html(view);
+            },
+            error: function() {
+                $('#form-content2').html("Error al cargar ventana.");
+            }
+        });
+    }
    function eliminar(id = null) {
 
         swal({
@@ -402,6 +421,57 @@
             if (result.value) {
                 $.ajax({
                     url: '<?php echo url('/eliminarempleos') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id,
+
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+
+                        if (typeof data.errorMessage != 'undefined') {
+                            swal({
+                                icon: 'error',
+                                text: data.errorMessage,
+                                showConfirmButton: true
+                            });
+                            return false;
+                        }
+
+                        swal({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El registro ha sido eliminado.',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function(result) {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+
+                    }
+                });
+            }
+        })
+
+    }
+
+           function eliminar_idiomas(id = null) {
+
+        swal({
+            title: '¿Seguro desea eliminar el registro seleccionado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+            confirmButtonColor: '#dd3333',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '<?php echo url('/eliminaridiomas') ?>',
                     type: 'POST',
                     data: {
                         id: id,
