@@ -125,12 +125,11 @@
 			                <table class="table table-hover text-nowrap">
 			                  <thead>
 			                    <tr>
-			                      <th style="font-size: 12px;">Empresa</th>
-			                      <th style="font-size: 12px;">Cargo</th>
-			                      <th style="font-size: 12px;">Fecha</th>
-			                      <th style="font-size: 12px;">Detalle</th>
-                            <th style="font-size: 12px;">Creado por</th>
-			                      <th></th>
+			                      <th style="font-size: 12px; width: 30%">Empresa</th>
+			                      <th style="font-size: 12px; width: 40%">Cargo</th>
+			                      <th style="font-size: 12px; width: 10%">Fecha</th>
+                            <th style="font-size: 12px;width: 10%">Creado por</th>
+			                      <th style="width: 10%"></th>
 			                    </tr>
 			                  </thead>
 			                  <tbody>
@@ -140,13 +139,12 @@
                                     <td style="font-size: 12px;"><?php echo $key['empresa']; ?></td>
                                     <td style="font-size: 12px;"><?php echo $key['cargo']; ?></td>
                                     <td style="font-size: 12px;"><?php echo $key['fecha_inicio']; ?></td>
-                                    <td style="font-size: 12px;"><?php echo $key['detalle']; ?></td>
                                     <td style="font-size: 12px">
                                       <?php echo $key['creador']; ?> / <span><?php echo $key['created_at']; ?>
                                     </td>
                                     <td>
-                                      <button class="btn btn-sm btn-info" onclick="formulario(<?php echo $key['id']; ?>,<?php echo $key['canciller_id']; ?>)"><i class="fa fa-edit"></i></button>
-                                      <button class="btn btn-sm btn-danger" onclick="eliminar(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
+                                      <button class="btn btn-sm btn-info" onclick="formulario1(<?php echo $key['id']; ?>,<?php echo $key['canciller_id']; ?>)"><i class="fa fa-edit"></i></button>
+                                      <button class="btn btn-sm btn-danger" onclick="eliminar_trabajos(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
                                     </td>
                                   </tr>
                                 <?php endforeach; ?>
@@ -266,6 +264,21 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-nuevo1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Experiencia Laboral</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content1"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
   var canciller_id = '<?php echo $canciller_id; ?>';
 
@@ -276,6 +289,10 @@
         $('#btnNuevo').click(function() {
             formulario();
         });
+        $('#btnNuevo1').click(function() {
+            formulario1();
+        });
+
     });
 
     function formulario(id = null) {
@@ -299,6 +316,27 @@
             }
         });
     }
+    function formulario1(id = null) {
+
+        $.ajax({
+            url: '<?php echo url('/formulario_trabajos') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                canciller_id: canciller_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo1').modal('show');
+                $('#form-content1').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content1').html(view);
+            },
+            error: function() {
+                $('#form-content1').html("Error al cargar ventana.");
+            }
+        });
+    }
 
    function eliminar(id = null) {
 
@@ -313,6 +351,57 @@
             if (result.value) {
                 $.ajax({
                     url: '<?php echo url('/eliminarestudios') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id,
+
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+
+                        if (typeof data.errorMessage != 'undefined') {
+                            swal({
+                                icon: 'error',
+                                text: data.errorMessage,
+                                showConfirmButton: true
+                            });
+                            return false;
+                        }
+
+                        swal({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El registro ha sido eliminado.',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function(result) {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+
+                    }
+                });
+            }
+        })
+
+    }
+
+       function eliminar_trabajos(id = null) {
+
+        swal({
+            title: '¿Seguro desea eliminar el registro seleccionado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+            confirmButtonColor: '#dd3333',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '<?php echo url('/eliminarempleos') ?>',
                     type: 'POST',
                     data: {
                         id: id,

@@ -16,7 +16,7 @@ class EmpleadosController extends Controller
         //$this->middleware('auth');
         $this->middleware('admin')->except('');
     }
-
+    // vista general
     public function index()
     {
         $objempleados = new Empleado();
@@ -26,10 +26,9 @@ class EmpleadosController extends Controller
             'papelera' => array('P')
         ));
 
-
         return view('empleados.index', compact('lista','trash1'));
     }
-
+    // vista vista empleados formulario
     public function empleado(Request $request)
     {
 
@@ -39,12 +38,10 @@ class EmpleadosController extends Controller
         ));
         return view('empleados.form', compact('data'));
     }
-
+    // vista vista empleados deshabilitados
     public function papelera_total(Request $request)
     {
-
         $objempleados = new Empleado();
-
         $params = array();
 
         if (isset($_GET['nombres'])) {
@@ -64,17 +61,19 @@ class EmpleadosController extends Controller
         return view('empleados.papelera', compact('lista','trash'));
     }
    
-
-
+    // tabs de estudios, empleos, idiomas
     public function curriculum($id = null)
     {
 
         $objempleados = new Empleado();
         $objEstudios = new Estudios();
         $objEmpleos = new Empleos();
+        
         $canciller_id = $id;
+
         $data = array();
         $educacion = array();
+        $trabajo = array();
         if ($id != null) {
             $data = $objempleados->obtener(array('id' => $id));
             $educacion = $objEstudios->listar(array('id' => $id));
@@ -88,8 +87,7 @@ class EmpleadosController extends Controller
         return view('empleados.curriculum', compact('data', 'educacion','canciller_id','trabajo'));
     }
     
-
-
+    // data formulario estudios
     public function estudio_info(Request $request)
     {
         $objEstudios = new Estudios();
@@ -99,7 +97,18 @@ class EmpleadosController extends Controller
         ));
         return view('empleados.formestudios', compact('data','canciller_id'));
     }
+    // data formulario empleos
+    public function empleo_info(Request $request)
+    {
+        $objEmpleos = new Empleos();
+        $canciller_id = $request['canciller_id'];
+        $data = $objEmpleos->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('empleados.formempleos', compact('data','canciller_id'));
+    }
 
+    // crear y actualizar estudios del empleado
     public function store_estudios(Request $request)
     {
 
@@ -141,6 +150,7 @@ class EmpleadosController extends Controller
         return $response;
     }
 
+    // crear y actualizar tabla de empleado
     public function store(Request $request)
     {
 
@@ -190,8 +200,50 @@ class EmpleadosController extends Controller
         return $response;
     }
 
+    // crear y actualizar empleos del canciller y vicecanciller
+    public function store_empleos(Request $request)
+    {
 
+        $response = array();
 
+        try {
+            $objEmpleos = new Empleos();
+
+            $params = array( 
+                    'canciller_id' => $request['canciller_id'],               
+                    'empresa' => $request['empresa'],
+                    'detalle' => $request['detalle'],
+                    'cargo' => $request['cargo'],
+                    'lugar' => $request['lugar'],
+                    'fecha_inicio' => $request['fecha_inicio'],
+                    'fecha_fin' => $request['fecha_fin']
+            );
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objEmpleos->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+               
+            } else {
+              $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objEmpleos->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+               
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+
+    // deshabilitar empleado
     public function deshabilitarempleados(Request $request)
     {
         $objempleados = new Empleado();
@@ -206,7 +258,7 @@ class EmpleadosController extends Controller
 
         return $response;
     }
-    
+    // restaurar empleado
     public function restaurar_empleado(Request $request)
     {
         $objempleados = new Empleado();
@@ -221,10 +273,9 @@ class EmpleadosController extends Controller
         return $response;
     }
 
-
+    // eliminar permanente el empleado, sin carga curricular
     public function delete(Request $request)
     {
-
         $response = array();
 
         try {
@@ -241,10 +292,9 @@ class EmpleadosController extends Controller
 
         return $response;
     }
-
-public function delete_estudios(Request $request)
+    // eliminar estudios del empleado
+    public function delete_estudios(Request $request)
     {
-
         $response = array();
 
         try {
@@ -263,5 +313,25 @@ public function delete_estudios(Request $request)
 
         return $response;
     }
+    // eliminar empleos
+    public function delete_empleos(Request $request)
+    {
+        $response = array();
 
+        try {
+            $objEmpleos = new Empleos();
+            $insert = $objEmpleos->eliminar(array(
+                'id' => $request['id']
+            ));
+
+
+            if (!$insert) {
+                throw new Exception($insert);
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
 }

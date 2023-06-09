@@ -183,10 +183,15 @@ Route::post('/guardar-organigrama', 'AjustesController@store_organigrama');
 
 Route::post('/empleado', 'EmpleadosController@empleado');
 Route::post('/guardar-empleado', 'EmpleadosController@store');
+
 Route::post('/formulario_academico', 'EmpleadosController@estudio_info');
 Route::post('/eliminarestudios', 'EmpleadosController@delete_estudios');
-
 Route::post('/guardar-estudios', 'EmpleadosController@store_estudios');
+
+Route::post('/formulario_trabajos', 'EmpleadosController@empleo_info');
+Route::post('/guardar-empleos', 'EmpleadosController@store_empleos');
+Route::post('/eliminarempleos', 'EmpleadosController@delete_empleos');
+
 
 
 Route::post('/deshabilitarempleado', 'EmpleadosController@deshabilitarempleados');
