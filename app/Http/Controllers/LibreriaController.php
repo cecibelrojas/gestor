@@ -39,6 +39,13 @@ class LibreriaController extends Controller
         return view('libreria.libros', compact('listar_libros'));
     }
 
+    public function lib_biblioteca()
+    {
+        $objBiblioteca = new Impresos();
+        $listar_biblioteca = $objBiblioteca->listar_biblioteca();
+
+        return view('libreria.biblioteca', compact('listar_biblioteca'));
+    }
 
     public function libros(Request $request)
     {
@@ -53,8 +60,8 @@ class LibreriaController extends Controller
     public function libros_search(Request $request)
     {
 
-        $objImpresosCuentos = new Impresos();
-        $data = $objImpresosCuentos->obtener(array(
+        $objImpresoslibro = new Impresos();
+        $data = $objImpresoslibro->obtener(array(
             'id' => $request['id']
         ));
         return view('libreria.form_libros', compact('data'));
@@ -62,12 +69,23 @@ class LibreriaController extends Controller
     public function campana_search(Request $request)
     {
 
-        $objImpresosEspeculador = new Impresos();
-        $data = $objImpresosEspeculador->obtener(array(
+        $objImpresoscampana = new Impresos();
+        $data = $objImpresoscampana->obtener(array(
             'id' => $request['id']
         ));
         return view('libreria.form_campanas', compact('data'));
     }
+    public function biblioteca_search(Request $request)
+    {
+
+        $objImpresosbiblioteca = new Impresos();
+        $data = $objImpresosbiblioteca->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('libreria.form_biblioteca', compact('data'));
+    }
+
+
     public function store(Request $request)
     {
 

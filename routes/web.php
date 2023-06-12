@@ -43,6 +43,7 @@ Route::get('/organigrama', 'AjustesController@organigrama');
 Route::get('/ficha', 'EmpleadosController@index');
 Route::get('/curriculum_vitae/{id?}', 'EmpleadosController@curriculum');
 Route::get('/papelera', 'EmpleadosController@papelera_total');
+Route::get('/metodo_pago', 'ApostillaController@index');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
@@ -87,6 +88,8 @@ Route::get('/libros_search', 'LibreriaController@lib_libros');
 Route::post('/libros_formsearch', 'LibreriaController@libros_search');
 Route::get('/campanas_search', 'LibreriaController@lib_campanas');
 Route::post('/campanas_formsearch', 'LibreriaController@campana_search');
+Route::post('/biblioteca_search', 'LibreriaController@biblioteca_search');
+Route::get('/biblioteca', 'LibreriaController@lib_biblioteca');
 
 Route::post('/video', 'VideosController@video');
 Route::post('/guardar-video', 'VideosController@store');

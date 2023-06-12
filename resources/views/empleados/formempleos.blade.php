@@ -5,11 +5,11 @@
 <div class="row">
     <div class="col-lg-6">
         <label style="font-size: 12px;font-weight: bold;">Empresa<span style="color: red;">*</span></label>
-        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['empresa'] : ''; ?>" id="empresa" style="border: 1px solid #b9b9b9;" placeholder="Empresa">
+        <input type="text" class="form-control input-sm" maxlength="200" value="<?php echo $data ? $data['empresa'] : ''; ?>" id="empresa" style="border: 1px solid #b9b9b9;" placeholder="Empresa">
     </div>
     <div class="col-lg-6">
         <label style="font-size: 12px;font-weight: bold;">Cargo <span style="color: red;">*</span></label>
-        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['cargo'] : ''; ?>" id="cargo" style="border: 1px solid #b9b9b9;" placeholder="Cargo">
+        <input type="text" class="form-control input-sm" maxlength="200" value="<?php echo $data ? $data['cargo'] : ''; ?>" id="cargo" style="border: 1px solid #b9b9b9;" placeholder="Cargo">
     </div>
     <div class="col-lg-6">
         <label style="font-size: 12px;font-weight: bold;">Lugar <span style="color: red;">*</span></label>
@@ -26,7 +26,11 @@
     </div>
     <div class="col-lg-12">
         <label style="font-size: 12px;font-weight: bold;">Detalles Laborales <span style="color: red;">*</span></label>
-        <textarea class="form-control" id="detalle" rows="10"><?php echo $data ? $data['detalle'] : ''; ?></textarea>
+        <textarea id="detalle"  class="summernote" style="height: 400px">
+               <?php echo $data ? $data['detalle'] : ''; ?> 
+        </textarea>
+
+
     </div>
 
 
@@ -37,6 +41,7 @@
     </div>
 </div>
 <script>
+    $('.summernote').summernote()
     $('#btnSave').click(function() {     
 
         if ($('#empresa').val() == '') {

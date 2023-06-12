@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Impresos extends Model
+class Servicios_consulares extends Model
 {
-    protected $table = 'impresos';
+    protected $table = 'Servicios_consulares';
 
-    protected $fillable = ['id', 'titulo', 'url', 'foto_impreso','estado','tipo','foto_portada_libro','descripcion_especulador','usureg', 'usumod', 'created_at', 'updated_at'];
+    protected $fillable = ['id','titulo_pago', 'detalle_pago','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'
@@ -18,55 +18,23 @@ class Impresos extends Model
     public function listar(array $params = array())
     {
 
-        $select = $this->from('impresos as i')
-            ->select('i.*');
+        $select = $this->from('Servicios_consulares as s')
+            ->select('s.*');
 
-        $select->orderByRaw('i.titulo');
-
-        return $select->get();
-    }
-
-    public function listar_campanas(array $params = array())
-    {
-
-        $select = $this->from('impresos as i')
-            ->select('i.*')
-            ->where('tipo','=', 'A');
-
-        $select->orderByRaw('i.titulo');
+        $select->orderByRaw('s.id');
 
         return $select->get();
     }
-    public function listar_libros(array $params = array())
-    {
 
-        $select = $this->from('impresos as i')
-            ->select('i.*')
-            ->where('tipo','=', 'B');
-
-        $select->orderByRaw('i.titulo');
-
-        return $select->get();
-    }
-    public function listar_biblioteca(array $params = array())
-    {
-
-        $select = $this->from('impresos as i')
-            ->select('i.*')
-            ->where('tipo','=', 'C');
-
-        $select->orderByRaw('i.titulo');
-
-        return $select->get();
-    }
+   
     public function obtener(array $params = array())
     {
 
-        $select = $this->from('impresos as i')
-            ->select('i.*');
+        $select = $this->from('Servicios_consulares as s')
+            ->select('s.*');
 
         if (array_key_exists('id', $params)) {
-            $select->where('i.id', $params['id']);
+            $select->where('s.id', $params['id']);
         }
 
         return $select->first();
@@ -106,7 +74,7 @@ class Impresos extends Model
     public function eliminar(array $params)
     {
         try {
-            $delete = DB::table('impresos')->where('id', $params['id'])->delete();
+            $delete = DB::table('Servicios_consulares')->where('id', $params['id'])->delete();
             return $delete;
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -115,7 +83,7 @@ class Impresos extends Model
 
     public function obtenerId()
     {
-        $select = $this->from('impresos as i')
+        $select = $this->from('Servicios_consulares as s')
             ->selectRaw('MAX(id) as ultimo');
 
         $data = $select->first();

@@ -118,7 +118,8 @@
   <script src="{{asset('js/tagsinput.js')}}"></script>
   <script src="{{asset('js/notie.js')}}"></script>
   <script src="{{asset('js/sweetalert.js')}}"></script>
-
+<!-- Summernote -->
+  <script src="{{asset('AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{asset('AdminLTE-3.2.0/dist/js/adminlte.js')}}"></script>
   <script src="{{asset('js/tinymce5.js')}}"></script>
@@ -434,6 +435,25 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-header" style="font-size: 12px;">Colección De Arte Colonial</li>    
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-image"></i>
+                <p class="text">Patrimonio Cultural</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('/arte')}}" class="nav-link">
+                    <p>
+                      Ver lista
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-edit"></i>
@@ -513,7 +533,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{url('/validacion_documentos')}}" class="nav-link">
+                  <a href="{{url('/metodo_pago')}}" class="nav-link">
                     <p>
                      Métodos de pago
                     </p>
@@ -763,6 +783,7 @@
 
   <script>
    $(function () {
+    
     //Initialize Select2 Elements
     $('.select2').select2()
      })

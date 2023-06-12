@@ -13,6 +13,7 @@
                     <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"> Todas</a></li>
                     <li class="breadcrumb-item"><a href="<?php echo url('/libros_search'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
                     <li class="breadcrumb-item"><a href="<?php echo url('/campanas_search'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/biblioteca'); ?>"><i class="fas fa-book"></i> Biblioteca y Archivo</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -60,6 +61,9 @@
                                                         break;
                                                     case 'B':
                                                         echo "Libros";
+                                                        break;
+                                                    case 'C':
+                                                        echo "Biblioteca y Archivo";
                                                         break;
                                                     default:
                                                         echo "----";

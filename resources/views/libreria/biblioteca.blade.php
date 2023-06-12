@@ -6,14 +6,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Libros Digitales</h1>
+                <h1 class="m-0">Biblioteca y Archivo</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"> Todas</a></li>
                     <li class="breadcrumb-item"><a href="<?php echo url('/libros_search'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
                     <li class="breadcrumb-item"><a href="<?php echo url('/campanas_search'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/biblioteca'); ?>"><i class="fas fa-book"></i> Biblioteca y Archivo</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/biblioteca'); ?>"><i class="fas fa-book"></i>  Biblioteca y Archivo</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,7 +26,7 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista Libros Digitales</h3>
+                        <h3 class="card-title">Lista de Archivo</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-sm btn-light" onclick="history.back()"><i class="fas fa-angle-left"></i> Volver</button>
                         </div>
@@ -36,16 +36,16 @@
                             <thead>
                                 <tr>
                                     <th>Título</th>
-                                    <th>Foto Campañas</th>
-                                    <th>Tipo de Campañas</th>
+                                    <th>Foto Archivo</th>
+                                    <th>Tipo de Archivo</th>
                                     <th>Creado por</th>
                                     <th>Estado</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (count($listar_libros) > 0) : ?>
-                                    <?php foreach ($listar_libros  as $key) : ?>
+                                <?php if (count($listar_biblioteca) > 0) : ?>
+                                    <?php foreach ($listar_biblioteca  as $key) : ?>
                                         <tr>
                                             <td><?php echo $key['titulo']; ?></td>
                                             <td>
@@ -59,6 +59,9 @@
                                                         break;
                                                     case 'B':
                                                         echo "Libros";
+                                                        break;
+                                                    case 'C':
+                                                        echo "Biblioteca y Archivo";
                                                         break;
                                                     default:
                                                         echo "----";
@@ -102,7 +105,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Libros Digitales</h4>
+                <h4 class="modal-title">Biblioteca y Archivo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -114,7 +117,7 @@
     </div>
 </div>
 <script type="text/javascript">
-	
+    
     $(document).ready(function() {
 
         $('#maintable').DataTable();
@@ -122,7 +125,7 @@
     });
     function formulario_cuentos(id = null) {
         $.ajax({
-            url: '<?php echo url('/libros_formsearch') ?>',
+            url: '<?php echo url('/biblioteca_search') ?>',
             type: 'POST',
             data: {
                 id: id

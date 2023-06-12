@@ -30,16 +30,18 @@
             <option value="">Seleccione</option>
             <option value="A" <?php if ($data && 'A' == $data['tipo']) { ?> selected <?php } ?>>Campañas</option>
             <option value="B" <?php if ($data && 'B' == $data['tipo']) { ?> selected <?php } ?>>Libros</option>
-            <option value="C" <?php if ($data && 'C' == $data['tipo']) { ?> selected <?php } ?>>Biblioteca y Archivo</option>
         </select>
     </div>
+    @if ($data && $data["estado"] != "")
     <div class="col-lg-12">
         <label style="font-size: 12px;font-weight: bold;">Estatus<span style="color: red;">*</span></label>
         <select class="form-control form-select" aria-label="estado" id="estado">
+            <option value="">Seleccione</option>
             <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>Activo</option>
             <option value="I" <?php if ($data && 'I' == $data['estado']) { ?> selected <?php } ?>>Inactivo</option>
         </select>
     </div>
+    @endif
 
     <div class="col-lg-12 text-right">
         <hr>
@@ -127,7 +129,6 @@
         formData.append('descripcion_especulador', $('#descripcion_especulador').val());
         formData.append('url', $('#url').val());
         formData.append('tipo', $('#tipo').val());
-        formData.append('estado', $('#estado').val());
 
         formData.append('foto_impreso', $('#foto_impreso').val());
         formData.append('foto_portada_libro', $('#foto_portada_libro').val());
