@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Obituarios extends Model
+class Team extends Model
 {
-    protected $table = 'obituarios';
+    protected $table = 'team';
 
-    protected $fillable = ['id','titulo',  'foto_aviso', 'estado', 'fecha','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id', 'nombre', 'entidad', 'usureg', 'usumod', 'created_at', 'updated_at', 'estado', 'logo', 'abreviatura', 'sede', 'ciudad'];
 
     protected $hidden = [
         '_token'
@@ -18,26 +18,28 @@ class Obituarios extends Model
     public function listar(array $params = array())
     {
 
-        $select = $this->from('obituarios as a')
-            ->selectRaw("(select name from users as u where u.id = a.usureg) as creador")
-            ->selectRaw("(select name from users as u where u.id = a.usumod) as editor")
-            ->selectRaw('a.*')
-            ->orderBy('a.id', 'desc');
+        $select = $this->from('team as t')
+            ->select('t.*')
+            ->selectRaw("(select nombre from banco_datos_det as bd where bd.id = '002' and bd.item = t.entidad) as entidaddes");
 
+        if (array_key_exists('entidad', $params)) {
+            $select->where('t.entidad', $params['entidad']);
+        }
 
-        $select->orderByRaw('a.titulo');
+        $select->orderByRaw('t.nombre');
 
         return $select->get();
     }
 
+
     public function obtener(array $params = array())
     {
 
-        $select = $this->from('obituarios as a')
-            ->select('a.*');
+        $select = $this->from('team as t')
+            ->select('t.*');
 
         if (array_key_exists('id', $params)) {
-            $select->where('a.id', $params['id']);
+            $select->where('t.id', $params['id']);
         }
 
         return $select->first();
@@ -77,7 +79,7 @@ class Obituarios extends Model
     public function eliminar(array $params)
     {
         try {
-            $delete = DB::table('obituarios')->where('id', $params['id'])->delete();
+            $delete = DB::table('team')->where('id', $params['id'])->delete();
             return $delete;
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -86,7 +88,7 @@ class Obituarios extends Model
 
     public function obtenerId()
     {
-        $select = $this->from('obituarios as a')
+        $select = $this->from('team as t')
             ->selectRaw('MAX(id) as ultimo');
 
         $data = $select->first();

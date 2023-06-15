@@ -39,7 +39,7 @@
                                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                                     <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
                                                 </a>
-                                                <input class="input100 border-start-0 form-control ms-0 @error('password') is-invalid @enderror" type="password" id="password" name="password" required autocomplete="current-password" placeholder="Contraseña">
+                                                <input class="input100 border-start-0 form-control ms-0 @error('password') is-invalid @enderror" type="password" id="password"name="password" required autocomplete="current-password" placeholder="Contraseña">
                                                 @error('password')
                                             <span class="invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Obituarios extends Model
+class Posiciones extends Model
 {
-    protected $table = 'obituarios';
+    protected $table = 'posiciones';
 
-    protected $fillable = ['id','titulo',  'foto_aviso', 'estado', 'fecha','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id', 'id_team', 'jj', 'jg', 'jp','jv','created_at', 'updated_at', 'usureg','usumod'];
 
     protected $hidden = [
         '_token'
@@ -18,26 +18,32 @@ class Obituarios extends Model
     public function listar(array $params = array())
     {
 
-        $select = $this->from('obituarios as a')
-            ->selectRaw("(select name from users as u where u.id = a.usureg) as creador")
-            ->selectRaw("(select name from users as u where u.id = a.usumod) as editor")
-            ->selectRaw('a.*')
-            ->orderBy('a.id', 'desc');
+        $select = $this->from('posiciones as p')
+            ->select('p.*')
+            ->selectRaw("(select nombre2 from team as t where t.id = p.id_team) as nombreteam")
+            ->selectRaw("(select logo from team as t where t.id = p.id_team) as logo")
+            ->selectRaw("(select name from users as u where u.id = p.usumod) as editor");
+       
+
+        if (array_key_exists('periodo', $params)) {
+            $select->where('p.periodo', $params['periodo']);
+        }
 
 
-        $select->orderByRaw('a.titulo');
+        $select->orderByRaw('p.id');
 
         return $select->get();
     }
 
+
     public function obtener(array $params = array())
     {
 
-        $select = $this->from('obituarios as a')
-            ->select('a.*');
+        $select = $this->from('posiciones as p')
+            ->select('p.*');
 
         if (array_key_exists('id', $params)) {
-            $select->where('a.id', $params['id']);
+            $select->where('p.id', $params['id']);
         }
 
         return $select->first();
@@ -77,7 +83,7 @@ class Obituarios extends Model
     public function eliminar(array $params)
     {
         try {
-            $delete = DB::table('obituarios')->where('id', $params['id'])->delete();
+            $delete = DB::table('posiciones')->where('id', $params['id'])->delete();
             return $delete;
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -86,7 +92,7 @@ class Obituarios extends Model
 
     public function obtenerId()
     {
-        $select = $this->from('obituarios as a')
+        $select = $this->from('posiciones as p')
             ->selectRaw('MAX(id) as ultimo');
 
         $data = $select->first();

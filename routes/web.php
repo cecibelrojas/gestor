@@ -203,3 +203,11 @@ Route::post('/eliminaridiomas', 'EmpleadosController@delete_idioma');
 Route::post('/deshabilitarempleado', 'EmpleadosController@deshabilitarempleados');
 Route::post('/restaurar-empleado', 'EmpleadosController@restaurar_empleado');
 Route::post('/eliminarficha', 'EmpleadosController@delete');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
