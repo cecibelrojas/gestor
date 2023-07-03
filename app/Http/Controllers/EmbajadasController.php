@@ -22,6 +22,9 @@ class EmbajadasController extends Controller
 
         return view('embajadas.index', compact('lista'));
     }
+
+
+    
     public function select_embajada(Request $request)
     {
 

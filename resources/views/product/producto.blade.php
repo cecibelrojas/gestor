@@ -1312,10 +1312,6 @@
             selector: '#descripcion',
             plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             imagetools_cors_hosts: ['picsum.photos'],
-            imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-              mobile: {
-    menubar: true
-  },
             menubar: 'file edit view insert format tools table help',
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
             language: "es" ,

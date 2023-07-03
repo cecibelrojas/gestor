@@ -17,7 +17,17 @@
                                         <h4 class="mt-3 mb-1 fw-semibold text-white font-18">Iniciar Sesión</h4>   
                                     </div>
                                 </div>
-                                <div class="card-body pt-0">                                    
+                                <div class="card-body pt-0">     
+                                    @if ($errors->any())
+                                      <div class="alert alert-danger pt-10">
+                                         <strong>Error!</strong> <br>
+                                         <ul>
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                         </ul>
+                                      </div>
+                                      @endif                
                                     <form class="my-4" method="POST" action="{{ route('login') }}">
                                       @csrf            
                                         <div class="form-group mb-2">
@@ -55,7 +65,10 @@
                                                 @endif 
                                             </div><!--end col--> 
                                         </div><!--end form-group--> 
-            
+                                        <div class="form-group mt-3">
+                                         {!! NoCaptcha::renderJs() !!}
+                                         {!! NoCaptcha::display() !!}
+                                        </div>
                                         <div class="form-group mb-0 row">
                                             <div class="col-12">
                                                 <div class="d-grid mt-3">

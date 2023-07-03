@@ -53,12 +53,24 @@ class Impresos extends Model
 
         $select = $this->from('impresos as i')
             ->select('i.*')
+            ->where('tipo','=', 'D');
+
+        $select->orderByRaw('i.titulo');
+
+        return $select->get();
+    }
+    public function listar_tratados(array $params = array())
+    {
+
+        $select = $this->from('impresos as i')
+            ->select('i.*')
             ->where('tipo','=', 'C');
 
         $select->orderByRaw('i.titulo');
 
         return $select->get();
     }
+
     public function obtener(array $params = array())
     {
 

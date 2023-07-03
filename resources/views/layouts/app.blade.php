@@ -17,6 +17,7 @@
      <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
      <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
      <link href="{{asset('assets/css/iconfonts/materialdesignicons/materialdesignicons.css')}}" rel="stylesheet">
+
   <!-- jQuery -->
   <script src="{{asset('AdminLTE-3.2.0/plugins/jquery/jquery.min.js')}}"></script>
 </head>

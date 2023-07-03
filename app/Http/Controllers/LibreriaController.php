@@ -46,7 +46,13 @@ class LibreriaController extends Controller
 
         return view('libreria.biblioteca', compact('listar_biblioteca'));
     }
+    public function lib_tratados()
+    {
+        $objTratados = new Impresos();
+        $listar_tratados = $objTratados->listar_tratados();
 
+        return view('libreria.tratados', compact('listar_tratados'));
+    }
     public function libros(Request $request)
     {
 
@@ -84,7 +90,15 @@ class LibreriaController extends Controller
         ));
         return view('libreria.form_biblioteca', compact('data'));
     }
+    public function tratados_search(Request $request)
+    {
 
+        $objImpresosbiblioteca = new Impresos();
+        $data = $objImpresosbiblioteca->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('libreria.form_tratados', compact('data'));
+    }
 
     public function store(Request $request)
     {

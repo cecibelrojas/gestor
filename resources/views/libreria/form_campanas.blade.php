@@ -30,6 +30,8 @@
             <option value="">Seleccione</option>
             <option value="A" <?php if ($data && 'A' == $data['tipo']) { ?> selected <?php } ?>>Campañas</option>
             <option value="B" <?php if ($data && 'B' == $data['tipo']) { ?> selected <?php } ?>>Libros</option>
+            <option value="C" <?php if ($data && 'C' == $data['tipo']) { ?> selected <?php } ?>>Tratados</option>
+            <option value="D" <?php if ($data && 'D' == $data['tipo']) { ?> selected <?php } ?>>Biblioteca y Archivo</option>
         </select>
     </div>
     @if ($data && $data["estado"] != "")

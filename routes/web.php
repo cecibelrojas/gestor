@@ -90,6 +90,10 @@ Route::get('/campanas_search', 'LibreriaController@lib_campanas');
 Route::post('/campanas_formsearch', 'LibreriaController@campana_search');
 Route::post('/biblioteca_search', 'LibreriaController@biblioteca_search');
 Route::get('/biblioteca', 'LibreriaController@lib_biblioteca');
+Route::post('/tratados_formsearch', 'LibreriaController@lib_tratados');
+Route::get('/tratados', 'LibreriaController@lib_tratados');
+
+
 
 Route::post('/video', 'VideosController@video');
 Route::post('/guardar-video', 'VideosController@store');

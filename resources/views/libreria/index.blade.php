@@ -6,13 +6,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Libros y Campañas</h1>
+                <h1 class="m-0">Libros, Tratados y Campañas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"> Todas</a></li>
                     <li class="breadcrumb-item"><a href="<?php echo url('/libros_search'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
                     <li class="breadcrumb-item"><a href="<?php echo url('/campanas_search'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/tratados'); ?>"><i class="fas fa-book"></i> Tratados</a></li>
                     <li class="breadcrumb-item"><a href="<?php echo url('/biblioteca'); ?>"><i class="fas fa-book"></i> Biblioteca y Archivo</a></li>
                 </ol>
             </div><!-- /.col -->
@@ -63,6 +64,9 @@
                                                         echo "Libros";
                                                         break;
                                                     case 'C':
+                                                        echo "Tratados";
+                                                        break;
+                                                    case 'D':
                                                         echo "Biblioteca y Archivo";
                                                         break;
                                                     default:
