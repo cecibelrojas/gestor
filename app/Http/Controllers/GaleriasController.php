@@ -55,9 +55,11 @@ class GaleriasController extends Controller
 
             $params = array(
                 'titulo' => $request['titulo'],
+                'titulo_ingles' => $request['titulo_ingles'],
                 'categoria' => $request['categoria'],
                 'autor' => $request['autor'],
-                'descripcion' => $request['descripcion']
+                'descripcion' => $request['descripcion'],
+                'descripcion_ingles' => $request['descripcion_ingles']
             );
 
             if ($request->hasFile('foto')) {

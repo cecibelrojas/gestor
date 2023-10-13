@@ -9,7 +9,7 @@ class Empleos extends Model
 {
     protected $table = 'empleos';
 
-    protected $fillable = ['id','canciller_id','empresa','detalle','cargo','lugar','fecha_inicio', 'fecha_fin','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','canciller_id','empresa','empresa_ingles','detalle','detalle_ingles','cargo','cargo_ingles','lugar','lugar_ingles','fecha_inicio', 'fecha_fin','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'

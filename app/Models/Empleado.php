@@ -9,7 +9,7 @@ class Empleado extends Model
 {
     protected $table = 'empleado';
 
-    protected $fillable = ['id','foto','nombres', 'apellidos', 'sexo', 'cargo', 'resumen', 'estado', 'tipo','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','foto','foto1','nombres', 'apellidos', 'sexo', 'cargo','cargo_ingles', 'resumen','resumen_ingles', 'estado', 'tipo','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'

@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">{!! trans('messages.inicio') !!}</a></li>
                     <li class="breadcrumb-item active">Feed Twitter</li>
                 </ol>
             </div><!-- /.col -->
@@ -36,10 +36,10 @@
                     <div class="col-12">
                         <?php if (count($lista) > 0) : ?>
                             <?php foreach ($lista as $key) : ?>
-                                <p class="text-muted text-sm"><b>Creado por: </b> <?php echo $key['creador']; ?> / <span><?php echo $key['created_at']; ?> </p>
+                                <p class="text-muted text-sm"><b>{!! trans('messages.creadopor') !!}: </b> <?php echo $key['creador']; ?> / <span><?php echo $key['created_at']; ?> </p>
                               <?php if($key['editor'] != ''){  ?>    
-                               <p class="text-muted text-sm"><b>Modificado por: </b> <?php echo $key['editor']; ?> / <span><?php echo $key['updated_at']; ?> </p> 
-                               <?php } ?>    
+                               <p class="text-muted text-sm"><b>{!! trans('messages.modificadopor') !!}: </b> <?php echo $key['editor']; ?> / <span><?php echo $key['updated_at']; ?> </p> 
+                               <?php } ?>
                                 <?php echo $key['feed']; ?>
                             <?php endforeach; ?>
                         <?php endif; ?> 

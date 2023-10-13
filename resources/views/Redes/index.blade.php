@@ -6,11 +6,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Redes Sociales</h1>
+                <h1 class="m-0">{!! trans('messages.redes') !!}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>"><i class="fa fa-plus-circle"></i> Consultar Manual de Iconos</a></li>
+                    <li class="breadcrumb-item"><a href="https://fontawesome.com/icons"><i class="fa fa-plus-circle"></i>{!! trans('messages.consultaiconos') !!}</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,9 +23,9 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Redes Sociales</h3>
+                        <h3 class="card-title">{!! trans('messages.listaredes') !!}</h3>
                         <div class="card-tools">
-                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
 
                         </div>
                     </div>
@@ -33,10 +33,10 @@
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
-                                    <th style="width: 30%;">Nombre</th>
-                                    <th style="width: 30%;">URL</th>
-                                    <th style="width: 10%;">Icono</th>
-                                    <th style="text-align: center;width: 20%;">Estado</th>
+                                    <th style="width: 30%;">{!! trans('messages.nombre') !!}</th>
+                                    <th style="width: 30%;">{!! trans('messages.url') !!}</th>
+                                    <th style="width: 10%;">{!! trans('messages.icono') !!}</th>
+                                    <th style="text-align: center;width: 20%;">{!! trans('messages.estado') !!}</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
@@ -77,7 +77,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Red Social</h4>
+                <h4 class="modal-title">{!! trans('messages.redsocial') !!}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

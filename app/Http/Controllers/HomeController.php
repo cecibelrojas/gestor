@@ -43,7 +43,7 @@ class HomeController extends Controller
         $users = User::select("*")
                         ->whereNotNull('last_seen')
                         ->orderBy('last_seen', 'DESC')
-                        ->paginate(5);
+                        ->simplePaginate(5);
 
          return view('dashboard.index', compact('lista','listadmin','listprensa','users','listredactores','listcorrectores','trabajador'));
     }

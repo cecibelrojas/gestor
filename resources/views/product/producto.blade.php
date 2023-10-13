@@ -52,9 +52,14 @@
 <div class="card-header">
     <div class="row">
         <div class="col-lg-11">
-            <button class="btn btn-sm btn-info text-left" onclick="location.href='<?php echo url('/publicacion'); ?>'"><i class="fa fa-plus-circle"></i> Nueva Publicación</button>
+            <button class="btn btn-sm btn-info text-left" onclick="location.href='<?php echo url('/publicacion'); ?>'"><i class="fa fa-plus-circle"></i> {!! trans('messages.nueva_publicacion') !!}</button>
             <?php if ($data) : ?>
-                <a class="btn btn-info btn-sm" type="button" style="text-decoration: none;cursor: pointer;color: #8f5fe8;font-size: 13px;border: 1px solid #8f5fe8;border-radius: 4px;font-weight: bold;background-color: transparent;" target="_blank" href="<?php echo env('APP_URL_FRONT') . "/publicacion/" . $id; ?>" style="float: left;"><i class="fa fa-eye" style="vertical-align: middle;"></i> Ver Publicación</a>
+                <a class="btn btn-info btn-sm" type="button" style="text-decoration: none;cursor: pointer;color: #8f5fe8;font-size: 13px;border: 1px solid #8f5fe8;border-radius: 4px;font-weight: bold;background-color: transparent;" target="_blank" href="<?php echo env('APP_URL_FRONT') . "/publicacion/" . $id; ?>" style="float: left;"><i class="fa fa-eye" style="vertical-align: middle;"></i> {!! trans('messages.ver_publicacion') !!}</a>
+            <?php endif; ?>
+             <?php if (count($logproducto) > 0) : ?>
+            <?php if ($logproducto) : ?>
+            <a class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#modal-lg" style="text-decoration: none;cursor: pointer;color: #00872b;font-size: 13px;border: 1px solid #00872b;border-radius: 4px;font-weight: bold;background-color: transparent;" target="_blank" href="<?php echo env('APP_URL_FRONT') . "/publicacion/" . $id; ?>" style="float: left;"><i class="fas fa-window-restore"  style="vertical-align: middle;"></i> {!! trans('messages.borrador') !!}</a>
+            <?php endif; ?>
             <?php endif; ?>
         </div>
         <div class="col-lg-1">
@@ -76,13 +81,34 @@
                 <div class="col-lg-12" style="margin-bottom: 10px">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title" style="margin: 0px">Titulo</h4>
-                            <input type="text" class="form-control" style="margin-top: 10px;" name="nombre" id="nombre" value="{{ @$data->nombre}}" required maxlength="170" onkeyup="countChars(this);">
-                            <p id="charNum" style="text-align: right;">170 caracteres restantes</p>
-                            <h4 class="card-title" style="margin: 0px">Sumario</h4>
-                            <input type="text" name="sumario" id="sumario" class="form-control" value="{{ @$data->sumario }}" style="border: 1px solid #b9b9b9;" maxlength="320" onkeyup="countCharsSumario(this);">
-                            <p id="charNumSumario" style="text-align: right;">320 caracteres restantes</p>
-                            <textarea id="descripcion" class="form-control" name="descripcion">{{ @$data->descripcion }}</textarea>
+
+            @foreach (array_keys(config('locale.languages')) as $lang)
+                @if ($lang != App::getLocale() AND $lang == 'en')
+                    <h4 class="card-title nombrex" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>
+                    <h4 class="card-title comunicados" style="margin: 0px;display:none;">{!! trans('messages.titulo_comunicados') !!}</h4>
+                    
+                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre" id="nombre" value="{{ @$data->nombre}}" maxlength="70" onkeyup="countChars(this);">
+                    <p id="charNum" class="nombrex" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p>
+                    
+                    <input type="text" class="form-control comunicados" style="margin-top: 10px; display: none;" name="nombre" id="nombre" value="{{ @$data->nombre}}">
+                    
+                    <h4 class="card-title" style="margin: 0px">{!! trans('messages.sumario') !!}</h4>
+                    <input type="text" name="sumario" id="sumario" class="form-control" value="{{ @$data->sumario }}" style="border: 1px solid #b9b9b9;" maxlength="320" onkeyup="countCharsSumario(this);">
+                    <p id="charNumSumario" style="text-align: right;">320 {!! trans('messages.caracteres') !!}</p>
+                    <textarea id="descripcion" class="form-control" name="descripcion">{{ @$data->descripcion }}</textarea>
+                @elseif ($lang != App::getLocale() AND $lang == 'es')
+                    <h4 class="card-title nombrex" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>
+                    <h4 class="card-title comunicados" style="margin: 0px;display:none;">{!! trans('messages.titulo_comunicados') !!}</h4>
+                    <input type="text" class="form-control" style="margin-top: 10px;" name="nombre_ingles" id="nombre" value="{{ @$data->nombre_ingles}}" <?php if( @$data['categoria']!=2 ){?> maxlength="70" onkeyup="countChars(this);" <?php }else{  ?> maxlength="500" <?php }  ?>>
+                    <?php if( @$data['categoria']!=2 ){?> <p id="charNum" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p> <?php  }else {  ?><br><?php  }  ?> 
+
+                    <h4 class="card-title" style="margin: 0px">{!! trans('messages.sumario') !!}</h4>
+                    <input type="text" name="sumario_ingles" id="sumario" class="form-control" value="{{ @$data->sumario_ingles }}" style="border: 1px solid #b9b9b9;" maxlength="320" onkeyup="countCharsSumario(this);">
+                    <p id="charNumSumario" style="text-align: right;">320 {!! trans('messages.caracteres') !!}</p>
+                    <textarea id="descripcion_ingles" class="form-control" name="descripcion">{{ @$data->descripcion_ingles }}</textarea>
+                @endif
+            @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -90,18 +116,18 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title" style="margin: 0px">Material Multimedia</h4><br>
-                                <p class="card-description" style="font-size: 12px;">Agrega videos, imagenes o documentos a tu producto.</p>
+                                <h4 class="card-title" style="margin: 0px">{!! trans('messages.material_multimedia') !!}</h4><br>
+                                <p class="card-description" style="font-size: 12px;">{!! trans('messages.des_multimedia') !!}</p>
                                 <div id="multimedia-content">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" id="imagen-tab" data-toggle="tab" href="#imagen" role="tab" aria-controls="imagen" aria-selected="true">Imagenes</a>
+                                            <a class="nav-link active" id="imagen-tab" data-toggle="tab" href="#imagen" role="tab" aria-controls="imagen" aria-selected="true">{!! trans('messages.imagenes') !!}</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Videos</a>
+                                            <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">{!! trans('messages.videos') !!}</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="documento-tab" data-toggle="tab" href="#documento" role="tab" aria-controls="documento" aria-selected="false">Documentos</a>
+                                            <a class="nav-link" id="documento-tab" data-toggle="tab" href="#documento" role="tab" aria-controls="documento" aria-selected="false">{!! trans('messages.documentos') !!}</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent" style="padding: 0px">
@@ -131,7 +157,7 @@
                                                             <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
                                                                 <div class="text-center" style="padding-top: 25px;">
                                                                     <img style="width: 45px;" src="<?php echo asset('/images/icons/imagen2.png'); ?>">
-                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">Nueva Imagen</p>
+                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">{!! trans('messages.nueva_imagen') !!}</p>
                                                                 </div>
                                                             </div>
                                                         <?php endif; ?>
@@ -141,53 +167,53 @@
                                                     <input type="hidden" id='Iid'>
                                                     <div class="row">
                                                         <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
-                                                            <label style="margin-top: 10px;">Cant. Imagenes(<span id="counterI"><?php echo count($imagenes); ?></span>)</label>
-                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('I')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> Nueva Imagen</button>
-                                                            <button type="button" class="btn btn-primary" onclick="$('#imagenmasiva').trigger('click')" style="margin-right: 5px;text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> Cargar Imagen</button>
+                                                            <label style="margin-top: 10px;">{!! trans('messages.cant_imagenes') !!}(<span id="counterI"><?php echo count($imagenes); ?></span>)</label>
+                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('I')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.nueva_imagen') !!}</button>
+                                                            <button type="button" class="btn btn-primary" onclick="$('#imagenmasiva').trigger('click')" style="margin-right: 5px;text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.cargar_imagen') !!}</button>
                                                             <input type="file" id="imagenmasiva" style="display: none;" multiple>
                                                             <i style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;" onclick="$('.example-image-link0').trigger('click');" class="mdi mdi-view-carousel"></i>
                                                         </div>
                                                         <div class="col-lg-12" style="padding-top: 10px;">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <label>Título</label>
+                                                                    <label>{!! trans('messages.titulo') !!}</label>
                                                                     <input type="text" class="form-control" id="Ititulo">
                                                                 </div>
                                                                 <div class="col-lg-12 text-center">
                                                                     <div onclick="$('#imgupload').trigger('click');" id="mimgcontent" style="margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/add-image.png'); ?>"><br>
-                                                                        <span style="font-size: 12px;">Subir Imagen <br> <span style="font-size: 10px;">formatos recomendados jpg, png.</span></span>
+                                                                        <span style="font-size: 12px;">Subir Imagen <br> <span style="font-size: 10px;">{!! trans('messages.formatos_recomendados') !!} </span></span>
                                                                     </div>
                                                                     <img onclick="$('#imgupload').trigger('click');" id="mimgpreview" style="display: none;width: 100%;margin-bottom: 10px;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;cursor: pointer;" src="<?php echo asset('/images/icons/add-image.png'); ?>">
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-top: 10px;">
-                                                                    <label>Descripción</label>
+                                                                    <label>{!! trans('messages.descripcion') !!} </label>
                                                                     <textarea style="resize: none;height: 100px" class="form-control" id="Idescripcion"></textarea>
                                                                 </div>
 
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Estado</label>
+                                                                    <label>{!! trans('messages.estado') !!}</label>
                                                                     <select class="form-control" id="Iestado">
-                                                                        <option value="A">Activo</option>
-                                                                        <option value="I">Inactivo</option>
+                                                                        <option value="A">{!! trans('messages.activo') !!} </option>
+                                                                        <option value="I">{!! trans('messages.inactivo') !!}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Exclusivo</label>
+                                                                    <label>{!! trans('messages.exclusivo') !!}</label>
                                                                     <select class="form-control" id="Iexclusivo">
-                                                                        <option value="S">Exclusivo</option>
-                                                                        <option value="N">No Exclusivo</option>
+                                                                        <option value="S">{!! trans('messages.exclusivo') !!}</option>
+                                                                        <option value="N">{!! trans('messages.no_exclusivo') !!}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Orden</label>
+                                                                    <label>{!! trans('messages.orden') !!}</label>
                                                                     <input id="Iorden" value="1" type="number" class="form-control">
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-bottom: 10px;">
                                                                     <hr>
                                                                     <input type="file" id="imgupload" style="display: none;">
-                                                                    <button type="button" id="btnSaveI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>Guardar cambios</button>
-                                                                    <button type="button" id="btnDelI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>Eliminar</button>
+                                                                    <button type="button" id="btnSaveI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.guardar') !!}</button>
+                                                                    <button type="button" id="btnDelI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.eliminar') !!}</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -218,7 +244,7 @@
                                                             <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
                                                                 <div class="text-center" style="padding-top: 25px;">
                                                                     <img style="width: 45px;" src="<?php echo asset('/images/icons/add-video.png'); ?>">
-                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">Nuevo Video</p>
+                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">{!! trans('messages.nuevo_video') !!}</p>
                                                                 </div>
                                                             </div>
                                                         <?php endif; ?>
@@ -228,55 +254,55 @@
                                                     <input type="hidden" id='Vid'>
                                                     <div class="row">
                                                         <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
-                                                            <label style="margin-top: 10px;">Cant. Videos(<span id="counterV"><?php echo count($videos); ?></span>)</label>
-                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('V')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> Nuevo Video</button>
+                                                            <label style="margin-top: 10px;">{!! trans('messages.cant_videos') !!}(<span id="counterV"><?php echo count($videos); ?></span>)</label>
+                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('V')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.nuevo_video') !!}</button>
                                                         </div>
                                                         <div class="col-lg-12" style="padding-top: 10px;">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <label>Título</label>
+                                                                    <label>{!! trans('messages.titulo') !!}</label>
                                                                     <input type="text" class="form-control" id="Vtitulo">
                                                                 </div>
                                                                 <div class="col-lg-12 text-center">
                                                                     <div onclick="$('#videoupload').trigger('click');" id="videocontent" style="margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/video.png'); ?>"><br>
-                                                                        <span style="font-size: 12px;">Subir Video <br> <span style="font-size: 10px;">formatos recomendados mp4, avi.</span></span>
+                                                                        <span style="font-size: 12px;">Subir Video <br> <span style="font-size: 10px;">{!! trans('messages.formatos_videos') !!} </span></span>
                                                                     </div>
                                                                     <div onclick="$('#videoupload').trigger('click');" id="uploadedvideo" style="display:none;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/uploadedvideo.png'); ?>"><br>
-                                                                        <span style="font-size: 12px;">Video Cargado <br> <span style="font-size: 10px;">Click aquí para reemplazar video.</span></span>
+                                                                        <span style="font-size: 12px;">Video Cargado <br> <span style="font-size: 10px;">{!! trans('messages.des_video') !!} </span></span>
                                                                     </div>
                                                                     <!--video id="videovisor" class="video-js" controls preload="auto" style="width: 100%;height: 400px;display: none;" width="400" height="400" poster="" data-setup="{}"></video-->
                                                                     <div id="videovisor" style="margin-top: 10px;"></div>
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-top: 10px;">
-                                                                    <label>Descripción</label>
+                                                                    <label>{!! trans('messages.descripcion') !!} </label>
                                                                     <textarea style="resize: none;height: 100px" class="form-control" id="Vdescripcion"></textarea>
                                                                 </div>
 
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Estado</label>
+                                                                    <label>{!! trans('messages.estado') !!} </label>
                                                                     <select class="form-control" id="Vestado">
-                                                                        <option value="A">Activo</option>
-                                                                        <option value="I">Inactivo</option>
+                                                                        <option value="A">{!! trans('messages.activo') !!}</option>
+                                                                        <option value="I">{!! trans('messages.inactivo') !!}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Exclusivo</label>
+                                                                    <label>{!! trans('messages.exclusivo') !!} </label>
                                                                     <select class="form-control" id="Vexclusivo">
-                                                                        <option value="S">Exclusivo</option>
-                                                                        <option value="N">No Exclusivo</option>
+                                                                        <option value="S">{!! trans('messages.exclusivo') !!} </option>
+                                                                        <option value="N">{!! trans('messages.no_exclusivo') !!} </option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Orden</label>
+                                                                    <label>{!! trans('messages.orden') !!} </label>
                                                                     <input id="Vorden" value="1" type="number" class="form-control">
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-bottom: 10px;">
                                                                     <hr>
                                                                     <input type="file" id="videoupload" style="display: none;">
-                                                                    <button type="button" id="btnSaveV" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>Guardar cambios</button>
-                                                                    <button type="button" id="btnDelV" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>Eliminar</button>
+                                                                    <button type="button" id="btnSaveV" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.guardar') !!} </button>
+                                                                    <button type="button" id="btnDelV" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.eliminar') !!} </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -306,7 +332,7 @@
                                                             <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
                                                                 <div class="text-center" style="padding-top: 25px;">
                                                                     <img style="width: 45px;" src="<?php echo asset('/images/icons/document2.png'); ?>">
-                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">Nuevo Documento</p>
+                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">{!! trans('messages.nuevo_documento') !!}</p>
                                                                 </div>
                                                             </div>
                                                         <?php endif; ?>
@@ -316,59 +342,59 @@
                                                     <input type="hidden" id='Fid'>
                                                     <div class="row">
                                                         <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
-                                                            <label style="margin-top: 10px;">Cant. Documentos(<span id="counterD"><?php echo count($documentos); ?></span>)</label>
-                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('F')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> Nuevo Documento</button>
+                                                            <label style="margin-top: 10px;">{!! trans('messages.cant_documentos') !!}(<span id="counterD"><?php echo count($documentos); ?></span>)</label>
+                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('F')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.nuevo_documento') !!}</button>
                                                             <a id="docdownload" style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;" download target="_blank"><i class="mdi mdi-download"></i></a>
                                                             <a id="viewdocument" style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;"><i class="mdi mdi-window-maximize"></i></a>
                                                         </div>
                                                         <div class="col-lg-12" style="padding-top: 10px;">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <label>Título</label>
+                                                                    <label>{!! trans('messages.titulo') !!}</label>
                                                                     <input type="text" class="form-control" id="Ftitulo">
                                                                 </div>
                                                                 <div class="col-lg-12 text-center">
                                                                     <div onclick="$('#docupload').trigger('click');" id="doccontent" style="margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/paper.png'); ?>"><br>
-                                                                        <span style="font-size: 12px;">Subir Documento <br> <span style="font-size: 10px;">formatos recomendados pdf, docx, xlsx, pptx.</span></span>
+                                                                        <span style="font-size: 12px;">Subir Documento <br> <span style="font-size: 10px;">{!! trans('messages.formatos_recomendados') !!}</span></span>
                                                                     </div>
                                                                     <div onclick="$('#docupload').trigger('click');" id="uploadeddocument" style="display: none;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 71px;margin-bottom: 10px;" src="<?php echo asset('/images/icons/document3.png'); ?>"><br>
-                                                                        <span style="font-size: 12px;">Documento Cargado<br> <span style="font-size: 10px;">Click aquí para reemplazar documento.</span></span>
+                                                                        <span style="font-size: 12px;">{!! trans('messages.documento_cargando') !!}<br> <span style="font-size: 10px;">{!! trans('messages.formatos_documento') !!}</span></span>
                                                                     </div>
                                                                     <div onclick="$('#docupload').trigger('click');" id="documentpreview" style="display: none;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 71px;margin-bottom: 10px;" id="docextension" src="<?php echo asset('/images/icons/document.png'); ?>"><br>
-                                                                        <span style="font-size: 12px;"><span id="docname"></span><br> <span style="font-size: 10px;">Click aquí para reemplazar documento.</span></span>
+                                                                        <span style="font-size: 12px;"><span id="docname"></span><br> <span style="font-size: 10px;">{!! trans('messages.formatos_documento') !!}</span></span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-top: 10px;">
-                                                                    <label>Descripción</label>
+                                                                    <label>{!! trans('messages.descripcion') !!}</label>
                                                                     <textarea style="resize: none;height: 100px" class="form-control" id="Fdescripcion"></textarea>
                                                                 </div>
 
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Estado</label>
+                                                                    <label>{!! trans('messages.estado') !!}</label>
                                                                     <select class="form-control" id="Festado">
-                                                                        <option value="A">Activo</option>
-                                                                        <option value="I">Inactivo</option>
+                                                                        <option value="A">{!! trans('messages.activo') !!}</option>
+                                                                        <option value="I">{!! trans('messages.inactivo') !!}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Exclusivo</label>
+                                                                    <label>{!! trans('messages.exclusivo') !!}</label>
                                                                     <select class="form-control" id="Fexclusivo">
-                                                                        <option value="S">Exclusivo</option>
-                                                                        <option value="N">No Exclusivo</option>
+                                                                        <option value="S">{!! trans('messages.exclusivo') !!}</option>
+                                                                        <option value="N">{!! trans('messages.no_exclusivo') !!}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Orden</label>
+                                                                    <label>{!! trans('messages.orden') !!}</label>
                                                                     <input id="Forden" value="1" type="number" class="form-control">
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-bottom: 10px;">
                                                                     <hr>
                                                                     <input type="file" id="docupload" style="display: none;">
-                                                                    <button type="button" id="btnSaveF" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>Guardar cambios</button>
-                                                                    <button type="button" id="btnDelF" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>Eliminar</button>
+                                                                    <button type="button" id="btnSaveF" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.guardar') !!}</button>
+                                                                    <button type="button" id="btnDelF" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.eliminar') !!}</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -384,46 +410,59 @@
                 <?php endif; ?>
             </div>
         </div>
+
+
+
+
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <label for="estado" style="font-size: 12px;">Estado: </label>
+                            <label for="estado" style="font-size: 12px;">{!! trans('messages.estado') !!}: </label>
                               <select class="form-control" name="estado" id="estado" style="font-size: 12px;">
                                 <?php if (in_array(auth()->user()->rol, array('A', 'C', 'B','E'))) : ?>
-                                    <option value="I" <?php echo ($data && $data['estado'] == 'I') ? "selected" : ""; ?>>Borrador</option>
+                                    <option value="I" <?php echo ($data && $data['estado'] == 'I') ? "selected" : ""; ?>>{!! trans('messages.borrador') !!}</option>
                                 <?php endif; ?>
                                 <?php if (in_array(auth()->user()->rol, array('A', 'E' , 'B'))) : ?>
-                                    <option value="R" <?php echo ($data && $data['estado'] == 'R') ? "selected" : ""; ?>>Para Corrección</option>
-                                <?php endif; ?>
-                                 <?php if (in_array(auth()->user()->rol, array('A', 'B'))) : ?>
-                                    <option value="Z" <?php echo ($data && $data['estado'] == 'Z') ? "selected" : ""; ?>>Para Corrección Voces</option>
+                                    <option value="R" <?php echo ($data && $data['estado'] == 'R') ? "selected" : ""; ?>>{!! trans('messages.para_correccion') !!}</option>
                                 <?php endif; ?>
                                 <?php if (in_array(auth()->user()->rol, array('A','D','E','B'))) : ?>
-                                    <option value="P" <?php echo ($data && $data['estado'] == 'P') ? "selected" : ""; ?>>Publicar Corregido</option>
+                                    <option value="P" <?php echo ($data && $data['estado'] == 'P') ? "selected" : ""; ?>>{!! trans('messages.publicar_corregido') !!}</option>
                                 <?php endif; ?>
                                 <?php if (in_array(auth()->user()->rol, array('V'))) : ?>
-                                    <option value="Q" <?php echo ($data && $data['estado'] == 'Q') ? "selected" : ""; ?>> Corregido para Publicar</option>
+                                    <option value="Q" <?php echo ($data && $data['estado'] == 'Q') ? "selected" : ""; ?>> {!! trans('messages.corregido_publicar') !!}</option>
                                 <?php endif; ?>
                                 <?php if (in_array(auth()->user()->rol, array('A', 'B' , 'E'))) : ?>
-                                    <option value="A" <?php echo ($data && $data['estado'] == 'A') ? "selected" : ""; ?>>Publicar</option>
+                                    <option value="A" <?php echo ($data && $data['estado'] == 'A') ? "selected" : ""; ?>> {!! trans('messages.publicar') !!}</option>
                                 <?php endif; ?>
                             </select>
                         </div>
                         <div class="col-lg-6">
-                            <label style="font-size: 12px;">Categoria</label>
-                            <select class="form-control select2" name="categoria" id="categoria" required>
-                                <option value="">Seleccionar</option>
+                            <label style="font-size: 12px;">{!! trans('messages.categorias') !!}</label>
+                            <select class="form-control select2 categoria" name="categoria" id="categoria" required>
+                                <option value="">{!! trans('messages.seleccionar') !!}</option>
                                 <?php if (count($categorias)) : ?>
                                     <?php foreach ($categorias as $key) : ?>
-                                        <option <?php echo ($data && $data['categoria'] == $key['id']) ? "selected" : ""; ?> value="<?php echo $key['id']; ?>"><?php echo $key['nombre']; ?></option>
+                                        <option <?php echo ($data && $data['categoria'] == $key['id']) ? "selected" : ""; ?> value="<?php echo $key['id']; ?>">
+                                           
+                                           <?php foreach (array_keys(config('locale.languages')) as $lang) : ?>
+                                             <?php if ($lang != App::getLocale() AND $lang == 'en') : ?>
+                                                        <?php echo $key['nombre']; ?>
+                                             <?php  elseif ($lang != App::getLocale() AND $lang == 'es') : ?>
+                                                    <?php  echo $key['nombre_ingles']; ?>
+                                           <?php endif ; ?>
+                                            <?php endforeach; ?>            
+                                           
+
+                                           
+                                        </option>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </select>
                         </div>
                         <div class="col-lg-6" style="margin-top: 10px;line-height: 1;">
-                            <p style="margin-bottom: 0px;font-size: 12px;font-weight: bold;">Creador</p>
+                            <p style="margin-bottom: 0px;font-size: 12px;font-weight: bold;">{!! trans('messages.creador') !!}</p>
                             <?php if ($data) : ?>
                                 <span style="font-size: 10px;">{{ $data->creador }} <span>({{ $data->created_at}})</span></span><br>
                             <?php else : ?>
@@ -431,14 +470,14 @@
                             <?php endif; ?>
                             <?php if ($data && !empty($data->usumod)) : ?>
                                 <br>
-                                <p style="margin-bottom: 0px;font-size: 12px;font-weight: bold;">Ult. Actualización</p>
+                                <p style="margin-bottom: 0px;font-size: 12px;font-weight: bold;">{!! trans('messages.ult_actualizacion') !!}</p>
                                 <span style="font-size: 10px;">{{ $data->editor }} <span>({{ $data->updated_at}})</span></span>
                             <?php endif; ?>
                         </div>
                         <div class="col-lg-6">
-                            <label style="font-size: 12px;font-weight: bold;">Misión Diplomática</label>
+                            <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.mision_diplomatica') !!}</label>
                             <select class="form-control select2" style="border: 1px solid #b9b9b9;" name="id_parroquia">
-                                <option value="">Seleccionar</option>
+                                <option value="">{!! trans('messages.seleccionar') !!}</option>
                                 <?php if (count($parroquias)) : ?>
                                     <?php foreach ($parroquias as $key) : ?>
                                         <option <?php echo ($data && $data['id_parroquia'] == $key['id_parroquia']) ? "selected" : ""; ?> value="<?php echo $key['id_parroquia']; ?>"><?php echo $key['parroquia']; ?></option>
@@ -448,7 +487,7 @@
                         </div>
 
                         <div class="col-lg-5">
-                            <label style="font-size: 12px;">Destacado</label><br>
+                            <label style="font-size: 12px;">{!! trans('messages.destacado') !!}</label><br>
                             <input type="checkbox" name="estdestacado" id="estdestacado" checked data-bootstrap-switch>
                         </div>
                         <div class="col-lg-7">
@@ -463,14 +502,8 @@
                             if ($data && $data['estado'] == 'R') {
                                 $estadoActual = 'Corrección';
                             }
-                            if ($data && $data['estado'] == 'Z') {
-                                $estadoActual = 'Corrección Voces';
-                            }
                             if ($data && $data['estado'] == 'P') {
                                 $estadoActual = 'Publicado Corregido';
-                            }
-                            if ($data && $data['estado'] == 'Q') {
-                                $estadoActual = 'Corregido para ser publicado por voces';
                             }
                             if ($data && $data['estado'] == 'A') {
                                 $estadoActual = 'Publicado';
@@ -487,25 +520,17 @@
                                     $hide = true;
                                 }
                             }
-                            if (auth()->user()->rol == 'V') {
-                                if ($data && $data['estado'] != 'Z') {
-                                    $hide = true;
-                                }
-                            }
                             ?>
 
                             <?php if (isset($id) && !empty($id)) : ?>
-                                <button class="btn btn-primary btn-sm" type="submit" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;<?php echo $hide ? 'display: none;' : ''; ?>">Actualizar cambios</button>
+                                <button class="btn btn-primary btn-sm" type="submit" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;<?php echo $hide ? 'display: none;' : ''; ?>">{!! trans('messages.actualizar_cambios') !!}</button>
                             <?php else : ?>
-                                <button class="btn btn-success btn-sm" type="submit" style="float: right;color: #fff;border: 1px solid #4caf50;">Guardar</button>
+                                <button class="btn btn-success btn-sm" type="submit" style="float: right;color: #fff;border: 1px solid #4caf50;">{!! trans('messages.guardar') !!}</button>
                             <?php endif; ?>
                             <?php if ($data && auth()->user()->rol == 'C' && $data['estado'] != 'I') : ?>
                                 <p style="text-align: center;font-size: 11px;margin-bottom: 0px;">* La publicación se encuentra en estado de <?php echo $estadoActual; ?></p>
                             <?php endif; ?>
                             <?php if ($data && auth()->user()->rol == 'D' && $data['estado'] != 'R') : ?>
-                                <p style="text-align: center;font-size: 11px;margin-bottom: 0px;">* La publicación se encuentra en estado de <?php echo $estadoActual; ?></p>
-                            <?php endif; ?>
-                            <?php if ($data && auth()->user()->rol == 'V' && $data['estado'] != 'Z') : ?>
                                 <p style="text-align: center;font-size: 11px;margin-bottom: 0px;">* La publicación se encuentra en estado de <?php echo $estadoActual; ?></p>
                             <?php endif; ?>
                         </div>
@@ -514,31 +539,30 @@
             </div>
             <div class="card" style="margin-top: 10px;">
                 <div class="card-header" style="background-color: <?php echo env("COLOR_BG_SECONDARY"); ?>;color: <?php echo env("COLOR_TEXT_SECONDARY"); ?>;">
-                    <h4 class="card-title" style="margin: 0px;font-size: 14px;font-weight: bold;">Propiedades</h4><br>
+                    <h4 class="card-title" style="margin: 0px;font-size: 14px;font-weight: bold;">{!! trans('messages.propiedades') !!}</h4><br>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <label style="font-size: 12px;font-weight: bold;">Autor</label>
+                            <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.autor') !!}</label>
                             <input type="text" class="form-control" name="nombre_autor" id="nombre_autor" value="{{ @$data->nombre_autor}}" maxlength="100" placeholder="Nombre de Autor">
                         </div>
                         <div class="col-lg-12">
-                            <label style="font-size: 12px;font-weight: bold;">Etiquetas</label>
+                            <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.etiquetas') !!}</label>
                             <input type="text" value="{{ @$data->etiquetas}}" id="tags" style="border: 1px solid #b9b9b9;" name="etiquetas" value="" data-role="tagsinput" />
                         </div>
                         <div class="col-lg-12">
-                            <label style="font-size: 12px;">Fecha Inicio</label><br>
+                            <label style="font-size: 12px;">{!! trans('messages.fechainicio') !!}</label><br>
                             <input type="datetime-local" class="form-control input-sm" style="border: 1px solid #b9b9b9;" value="<?php echo $data ? $data['fecini'] : ''; ?>" name="fecini">
                         </div>
                         <div class="col-lg-12">
-                            <label style="font-size: 12px;">Fecha Fin</label><br>
+                            <label style="font-size: 12px;">{!! trans('messages.fechafin') !!}</label><br>
                             <input type="datetime-local" class="form-control input-sm" style="border: 1px solid #b9b9b9;" value="<?php echo $data ? $data['fecfin'] : ''; ?>" name="fecfin">
                         </div>
                         <div class="col-lg-6">
-                            <label style="font-size: 12px;">Imagen Interna Visible</label><br>
+                            <label style="font-size: 12px;">{!! trans('messages.imageninternavisible') !!}</label><br>
                             <input type="checkbox" class="form-control" name="fotovisible" id="fotovisible" checked data-bootstrap-switch>
                         </div>
-
                     </div>
 
                 </div>
@@ -548,17 +572,17 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="imgdestacado-tab" data-toggle="tab" href="#imgdestacado" role="tab" aria-controls="imgdestacado" aria-selected="true" style="font-size: 12px;">Imagen Destacada</a>
+                            <a class="nav-link active" id="imgdestacado-tab" data-toggle="tab" href="#imgdestacado" role="tab" aria-controls="imgdestacado" aria-selected="true" style="font-size: 12px;">{!! trans('messages.imagendestacada') !!}</a>
                         </li>
-                        <!--li class="nav-item" role="presentation">
-                            <a class="nav-link" id="trailer-tab" data-toggle="tab" href="#trailer" role="tab" aria-controls="trailer" aria-selected="false" style="font-size: 12px;">Trailer</a>
-                        </li-->
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="imageredes-tab" data-toggle="tab" href="#imageredes" role="tab" aria-controls="trailer" aria-selected="false" style="font-size: 12px;">Redes Sociales</a>
+                        </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="imgdestacado" role="tabpanel" aria-labelledby="imgdestacado-tab">
                             <div class="row">
                                 <div class="col-lg-12 text-center" style="margin-top: 10px;line-height: 1;">
-                                    <span style="font-size: 10px;">Agrega una imagen que se visualizara en la publicación.</span><br>
+                                    <span style="font-size: 10px;">{!! trans('messages.des_imgdestacada') !!}</span><br>
                                     <img onclick="$('#destacado').trigger('click');" src="<?php echo ($data && $data['imgdestacado']) ? asset('/archivos/imagenes/' . $data['imgdestacado']) : asset('/images/icons/add-image2.png'); ?>" id="imgpreview" style="width:<?php echo ($data && $data['imgdestacado']) ? '100' : '50'; ?>%;cursor: pointer;margin-top: 10px;margin-bottom: 10px;">
                                     <input type="file" name="destacado" style="display: none;" id="destacado" class="form-control ">
                                     <?php if ($data && !empty($data['imgdestacado'])) : ?>
@@ -568,28 +592,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="trailer" role="tabpanel" aria-labelledby="trailer-tab">
+                        <div class="tab-pane fade" id="imageredes" role="tabpanel" aria-labelledby="imageredes-tab">
                             <div class="row">
                                 <div class="col-lg-12 text-center" style="margin-top: 10px;line-height: 1;">
-                                    <span style="font-size: 10px;">Agrega un video trailer que se visualizara en el catalogo de productos.</span><br>
-
-                                    <?php if ($data && $data['trailer']) : ?>
-                                        <div class="row" style="margin-top: 10px;">
-                                            <div class="col-lg-12">
-                                                <video id="my-video" class="video-js" controls preload="auto" width="250" height="230" poster="<?php echo ($data && $data['preview']) ? asset('/archivos/imagenes/' . $data['preview']) : ''; ?>" data-setup="{}">
-                                                    <source src="<?php echo asset('/archivos/videos/' . $data['trailer']); ?>" type="video/mp4" />
-                                                </video>
-                                            </div>
-                                        </div>
-                                    <?php else : ?>
-                                        <img onclick="$('#ftrailer').trigger('click');" src="<?php echo asset('/images/icons/add-video.png'); ?>" style="width:50%;cursor: pointer;margin-bottom: 10px;margin-top: 20px;">
-                                    <?php endif; ?>
-                                    <?php if ($data && !empty($data['trailer'])) : ?>
+                                    <span style="font-size: 10px;">{!! trans('messages.des_imgdestacada') !!}</span><br>
+                                    <img onclick="$('#fotoredes').trigger('click');" src="<?php echo ($data && $data['imageredes']) ? asset('/archivos/imagenes/' . $data['imageredes']) : asset('/images/icons/add-image2.png'); ?>" id="imgpreview1" style="width:<?php echo ($data && $data['imageredes']) ? '100' : '50'; ?>%;cursor: pointer;margin-top: 10px;margin-bottom: 10px;">
+                                    <input type="file" name="fotoredes" style="display: none;" id="fotoredes" class="form-control ">
+                                    <?php if ($data && !empty($data['imageredes'])) : ?>
                                         <br>
-                                        <img src="{{ asset('/images/icons/delete.png') }}" style="cursor: pointer;width: 32px;border: 1px solid #e77056;border-radius: 40px;padding: 4px;background-color: #ffffff;margin-top: -5px;" onclick="eliminarvideo();">
+                                        <img src="{{ asset('/images/icons/delete.png') }}" style="cursor: pointer;width: 32px;border: 1px solid #e77056;border-radius: 40px;padding: 4px;background-color: #ffffff;margin-top: 0px;" id="btnDelImagen" onclick="eliminarimagenredes();">
                                     <?php endif; ?>
-                                    <input type="file" style="display: none;" name="doctrailer" id="ftrailer" class="form-control">
-                                    <input type="file" style="display: none;" name="docpreview" id="fpreview" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -612,6 +624,57 @@
         </div>
     </div>
 </div>
+      <div class="modal fade" id="modal-lg">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Borrador ID: <?php echo $id; ?></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-info">
+                    <div class="card-body">
+                        <table class="table table-responsive-lg" id="maintable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%;">Fecha</th>
+                                    <th style="width: 70%;">Nombre</th>
+                                    <th style="width: 10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (count($logproducto) > 0) : ?>
+                                    <?php foreach ($logproducto as $key) : ?>
+                                        <tr>
+                                            <td><?php echo $key['fecha']; ?></td>
+                                            <td><?php echo $key['nombre']; ?></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fas fa-redo"></i></button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
 <script>
     var producto = "<?php echo $id; ?>";
 
@@ -662,7 +725,45 @@
             }
         });
     }
+    function eliminarimagenredes() {
+        swal({
+            title: '¿Seguro desea eliminar la imagen seleccionada?',
+            text: 'Esta accion puede causar mala impresión en la tienda, se recomienda despublicar el producto antes de proceder',
+            type: 'info',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+        }).then((result) => {
+            if (result.value) {
+                $.post('<?php echo url('eliminarimagenredes') ?>', {
+                    id: producto
+                }, function(response) {
 
+                    swal({
+                        title: (response.status == 'S') ? '¡Eliminado!' : 'Operación Denegada',
+                        text: (response.status == 'S') ? 'El archivo ha sido eliminado.' : 'No se pudo eliminar el archivo',
+                        type: (response.status == 'S') ? 'success' : 'info',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (response.status == 'S') {
+                            location.reload();
+                        }
+                    });
+
+                }).fail(function() {
+                    swal({
+                        title: 'Operación Denegada',
+                        text: 'Ha ocurrido un problema en el proceso',
+                        type: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            }
+        });
+    }
     function eliminarvideo() {
         swal({
             title: '¿Seguro desea eliminar el video del producto?',
@@ -1009,9 +1110,9 @@
                     $('#videocontent').hide();
                     var video = document.createElement('video');
                     video.className = 'video-js';
-                    video.setAttribute('controls', true);
-                    video.setAttribute('preload', 'auto');
-                    video.setAttribute('poster', 'auto');
+                    video.setAttribute('controls', false);
+                   // video.setAttribute('preload', 'auto');
+                   // video.setAttribute('poster', 'auto');
                     video.setAttribute('data-setup', '{}');
                     video.style.cssText = 'width:100%; height: 300px';
                     $('#videovisor').html(video);
@@ -1122,7 +1223,7 @@
     }
 
     function countChars(obj) {
-        var maxLength = 170;
+        var maxLength = 70;
         var strLength = $(obj).val().length;
         var charRemain = (maxLength - strLength);
 
@@ -1146,6 +1247,12 @@
     }
 
     $(document).ready(function() {
+
+        $("categoria").change(function(){
+                alert($('select[class=categoria]').val());
+                $('categoria').val($(this).val());
+        });
+
 
         countChars($('#nombre'));
         countCharsSumario($('#sumario'));
@@ -1203,6 +1310,18 @@
 
             reader.readAsDataURL(file);
         });
+        $('#fotoredes').change(function() {
+            var file = this.files[0];
+
+            var reader = new FileReader();
+            reader.addEventListener('load', (event) => {
+                $('#imgpreview1').attr('src', event.target.result);
+            });
+
+            reader.readAsDataURL(file);
+        });
+
+
 
         $('#imgupload').change(function() {
             var file = this.files[0];
@@ -1309,14 +1428,21 @@
         });
 
         tinymce.init({
-            selector: '#descripcion',
+            @foreach (array_keys(config('locale.languages')) as $lang)
+               @if ($lang != App::getLocale() AND $lang == 'en')
+                    selector: '#descripcion',
+               @elseif ($lang != App::getLocale() AND $lang == 'es')
+                    selector: '#descripcion_ingles',
+                @endif
+            @endforeach
+            
             plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             imagetools_cors_hosts: ['picsum.photos'],
             menubar: 'file edit view insert format tools table help',
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
             language: "es" ,
             images_upload_url: '<?php echo url('uploadblob'); ?>',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:12px }',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
             relative_urls: false,
             convert_urls: false,
             powerpaste_allow_local_images: true,
@@ -1356,7 +1482,7 @@
             autosave_restore_when_empty: false,
             autosave_retention: "2m",
             image_advtab: true,
-            content_css: 'css/codepen.min.css',
+            content_css: '../css/codepen.min.css',
             extended_valid_elements: "a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|class=img-responsive|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
             importcss_append: true,
             file_picker_callback: function(callback, value, meta) {
@@ -1495,7 +1621,120 @@
         $('.fancybox-container').css('z-index', '999999999999');
 
     }
+    var mouseStop = null;
+    var Time = 5000; // 50000 cinco minutos
+    var formTemp;
 
+ function borrador() {
+
+        log = new FormData();
+        log.append('producto', producto);
+        log.append('nombre',$('#nombre').val());
+        log.append('nombre_ingles',$("[name='nombre']").val());
+        log.append('descripcion',$('#descripcion').val());
+        log.append('descripcion_ingles',$("[name='descripcion']").val());
+        log.append('estado',$('#estado').val());
+        log.append('precio',$('#precio').val());
+        log.append('categoria',$('#categoria').val());
+        log.append('usureg',$('#usureg').val());
+        log.append('usumod',$('#usumod').val());
+        log.append('precio_ant',$('#precio_ant').val());
+        log.append('extra',$('#extra').val());
+        log.append('extradesc',$('#extradesc').val());
+        log.append('moneda',$('#moneda').val());
+        log.append('imgdestacado',$('#imgdestacado').val());
+        log.append('imageredes',$('#imageredes').val());
+        log.append('trailer',$('#trailer').val());
+        log.append('preview',$('#preview').val());
+        log.append('stock',$('#stock').val());
+        log.append('encargado',$('#encargado').val());
+        log.append('duracion',$('#duracion').val());
+        log.append('certificado',$('#certificado').val());
+        log.append('nivel',$('#nivel').val());
+        log.append('widget  ',$('#widget').val());
+        log.append('sumario  ',$('#sumario').val());
+        log.append('sumario_ingles  ',$('#sumario_ingles').val());
+        log.append('estdestacado  ',$('#estdestacado').val());
+        log.append('id_parroquia  ',$('#id_parroquia').val());
+        log.append('etiquetas  ',$('#etiquetas').val());
+        log.append('fecini  ',$('#fecini').val());
+        log.append('fotovisible  ',$('#fotovisible').val());
+        log.append('orden  ',$('#orden').val());
+        log.append('trabajando  ',$('#trabajando').val());
+        log.append('papelera  ',$('#papelera').val());
+        log.append('nombre_autor  ',$('#nombre_autor').val());
+        log.append('fecha_destacado  ',$('#fecha_destacado').val());
+        log.append('programable  ',$('#programable').val());
+
+
+        if(formTemp != JSON.stringify([...log.entries()])){
+        $.ajax({
+            url: '<?php echo url('/borrador') ?>',
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: log,
+            beforeSend: function() {
+            },
+            success: function(data) {
+                if(typeof data.error_log !== 'undefined'){
+                   console.log(data.error_log);                     
+                }else{
+                    formTemp = JSON.stringify([...log.entries()]);                
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        });
+        }else{
+
+          //  console.log('Iguales');
+        }
+    }
+    function DetectaInactividad() {    
+      $(document).on('mousemove', function() {
+         clearTimeout(mouseStop);
+         mouseStop = setTimeout(borrador,Time);
+
+      });
+    }
+
+   <?php if($data):?>
+        DetectaInactividad();
+    <?php endif;?>
+   /*      
+    function selecomunicados(){
+        var com = $('#categoria').val();
+           if(com==2){
+                $('.comunicados').show();
+                $('.nombrex').hide();
+            }else if(com!=2){
+                $('.nombrex').show();
+                $('.comunicados').hide();
+            }else{
+               $('.nombre').show(); 
+            }
+        }
+    */
+$(function() {
+
+  $("#categoria").on('change', function() {
+
+    var selectValue = $(this).val();
+    console.log(selectValue);
+            if(selectValue!="2"){
+              $('.comunicados').hide();
+              $('.nombrex').show();
+            }else if(selectValue=="2"){
+              $('.nombrex').hide();
+              $('.comunicados').show();
+            }
+
+  })
+
+});    
 </script>
 
 

@@ -7,9 +7,17 @@
     <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 150px * 90px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
     <input type="file" id="img2" name="img2" style="display: none;">
     </div>
+        <div class="col-lg-12">
+        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.estado') !!}</label>
+        <select class="form-control form-select" aria-label="estado1" id="estado1">
+            <option value="">{!! trans('messages.seleccionar') !!}</option>
+            <option value="A" <?php if ($data && 'A' == $data['estado1']) { ?> selected <?php } ?>>{!! trans('messages.activo') !!}</option>
+            <option value="I" <?php if ($data && 'I' == $data['estado1']) { ?> selected <?php } ?>>{!! trans('messages.inactivo') !!}</option>
+        </select>
+    </div>
     <div class="col-lg-12 text-right">
         <hr>
-        <button id="btnSave" class="btn btn-sm btn-success">Guardar Cambios</button>
+        <button id="btnSave" class="btn btn-sm btn-success">{!! trans('messages.guardar') !!}</button>
     </div>
 </div>
 <script>
@@ -41,7 +49,7 @@
         var formData = new FormData();
         
         formData.append('id', $('#id').val());
-
+        formData.append('estado1', $('#estado1').val());
         formData.append('img2', $('#img2').val());
 
         var files = $('#img2').get(0).files;

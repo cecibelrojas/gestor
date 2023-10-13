@@ -5,16 +5,16 @@
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Libros, Tratados y Campañas</h1>
+            <div class="col-sm-4">
+                <h1 class="m-0">{!! trans('messages.libros_digitales') !!}</h1>
             </div><!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/libreria_digital'); ?>"> Todas</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/libros_search'); ?>"><i class="fas fa-book"></i> Librería Digital</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/campanas_search'); ?>"><i class="fas fa-book"></i> Campañas</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/tratados'); ?>"><i class="fas fa-book"></i> Tratados</a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo url('/biblioteca'); ?>"><i class="fas fa-book"></i> Biblioteca y Archivo</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/libro_amarillo'); ?>"> Libro Amarillo</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/publicaciones_ministerio'); ?>"><i class="fas fa-book"></i> Publicaciones del ministerio</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/gaceta_oficial'); ?>"><i class="fas fa-book"></i> Gaceta Oficial</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/colecciones'); ?>"><i class="fas fa-book"></i> Colecciones</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/referencias'); ?>"><i class="fas fa-book"></i> Referencias</a></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Libros y Campañas</h3>
+                        <h3 class="card-title">Lista de Libros Digitales</h3>
                         <div class="card-tools">
                             <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo Impreso</button>
                         </div>
@@ -58,17 +58,21 @@
                                             <td><?php
                                                 switch ($key['tipo']) {
                                                     case 'A':
-                                                        echo "Campañas";
+                                                        echo "Libro Amarillo";
                                                         break;
                                                     case 'B':
-                                                        echo "Libros";
+                                                        echo "Publicaciones del ministerio";
                                                         break;
                                                     case 'C':
-                                                        echo "Tratados";
+                                                        echo "Gaceta Oficial";
                                                         break;
                                                     case 'D':
-                                                        echo "Biblioteca y Archivo";
+                                                        echo "Colecciones";
                                                         break;
+                                                    case 'E':
+                                                        echo "Referencias";
+                                                        break;
+
                                                     default:
                                                         echo "----";
                                                         break;

@@ -9,7 +9,7 @@
     </div>
     <div class="col-lg-12 text-right">
         <hr>
-        <button id="btnSave" class="btn btn-sm btn-success">Guardar Cambios</button>
+        <button id="btnSave" class="btn btn-sm btn-success">{!! trans('messages.guardar') !!}</button>
     </div>
 </div>
 <script>

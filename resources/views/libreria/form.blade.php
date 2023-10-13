@@ -28,10 +28,11 @@
         <label style="font-size: 12px;font-weight: bold;">Tipo<span style="color: red;">*</span></label>
         <select class="form-control form-select" aria-label="tipo" id="tipo">
             <option value="">Seleccione</option>
-            <option value="A" <?php if ($data && 'A' == $data['tipo']) { ?> selected <?php } ?>>Campañas</option>
-            <option value="B" <?php if ($data && 'B' == $data['tipo']) { ?> selected <?php } ?>>Libros</option>
-            <option value="C" <?php if ($data && 'C' == $data['tipo']) { ?> selected <?php } ?>>Tratados</option>
-            <option value="D" <?php if ($data && 'D' == $data['tipo']) { ?> selected <?php } ?>>Biblioteca y Archivo</option>
+            <option value="A" <?php if ($data && 'A' == $data['tipo']) { ?> selected <?php } ?>>Libro Amarillo</option>
+            <option value="B" <?php if ($data && 'B' == $data['tipo']) { ?> selected <?php } ?>>Publicaciones del ministerio</option>
+            <option value="C" <?php if ($data && 'C' == $data['tipo']) { ?> selected <?php } ?>>Gaceta Oficial</option>
+            <option value="D" <?php if ($data && 'D' == $data['tipo']) { ?> selected <?php } ?>>Colecciones</option>
+            <option value="E" <?php if ($data && 'E' == $data['tipo']) { ?> selected <?php } ?>>Referencias</option>
         </select>
     </div>
     <div class="col-lg-12">

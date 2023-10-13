@@ -31,7 +31,7 @@ class Impresos extends Model
 
         $select = $this->from('impresos as i')
             ->select('i.*')
-            ->where('tipo','=', 'A');
+            ->where('tipo','=', 'B');
 
         $select->orderByRaw('i.titulo');
 
@@ -42,7 +42,7 @@ class Impresos extends Model
 
         $select = $this->from('impresos as i')
             ->select('i.*')
-            ->where('tipo','=', 'B');
+            ->where('tipo','=', 'A');
 
         $select->orderByRaw('i.titulo');
 
@@ -59,6 +59,18 @@ class Impresos extends Model
 
         return $select->get();
     }
+    public function listar_referencias(array $params = array())
+    {
+
+        $select = $this->from('impresos as i')
+            ->select('i.*')
+            ->where('tipo','=', 'E');
+
+        $select->orderByRaw('i.titulo');
+
+        return $select->get();
+    }
+
     public function listar_tratados(array $params = array())
     {
 

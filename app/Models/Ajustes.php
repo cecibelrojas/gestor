@@ -9,7 +9,7 @@ class Ajustes extends Model
 {
     protected $table = 'ajustes';
 
-    protected $fillable = ['id','img1', 'img2', 'img3', 'feed', 'organigrama', 'ubicacion','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','img1', 'img2', 'img3', 'feed','feed_ingles', 'organigrama', 'ubicacion','usureg','created_at','usumod','updated_at','estado','estado1','estado2','url','colorh','colort'];
 
     protected $hidden = [
         '_token'

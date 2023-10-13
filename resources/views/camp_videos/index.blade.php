@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Campañas Videos</h1>
+                <h1 class="m-0">{!! trans('messages.video_campana') !!}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">Inicio</a></li>
-                    <li class="breadcrumb-item active">Campañas Videos</li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">{!! trans('messages.inicio') !!}</a></li>
+                    <li class="breadcrumb-item active">{!! trans('messages.video_campana') !!}</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,21 +24,21 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Videos</h3>
+                        <h3 class="card-title">{!! trans('messages.lista_video') !!}</h3>
                         <div class="card-tools">
-                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo Video</button>
+                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo_video') !!}</button>
                         </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
-                                    <th style="width: 20%;">Título de la Campaña</th>
-                                    <th style="width: 10%;">Imagen</th>
-                                    <th style="width: 10%;">Video</th>
-                                    <th style="width: 20%;">Creado por</th>
-                                    <th style="width: 20%;">Modificado por</th>
-                                    <th style="text-align: center;width: 10%;">Estado</th>
+                                    <th style="width: 20%;">{!! trans('messages.titulo_campana') !!}</th>
+                                    <th style="width: 10%;">{!! trans('messages.imagen') !!}</th>
+                                    <th style="width: 10%;">{!! trans('messages.videos') !!}</th>
+                                    <th style="width: 20%;">{!! trans('messages.creadopor') !!}</th>
+                                    <th style="width: 20%;">{!! trans('messages.modificadopor') !!}</th>
+                                    <th style="text-align: center;width: 10%;">{!! trans('messages.estado') !!}</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
@@ -91,7 +91,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Campaña</h4>
+                <h4 class="modal-title">{!! trans('messages.video_campana') !!}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

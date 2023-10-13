@@ -132,8 +132,11 @@ class EmpleadosController extends Controller
             $params = array( 
                     'canciller_id' => $request['canciller_id'],               
                     'nombre_institucion' => $request['nombre_institucion'],
+                    'nombre_institucion_ingles' => $request['nombre_institucion_ingles'],
                     'titulo' => $request['titulo'],
+                    'titulo_ingles' => $request['titulo_ingles'],
                     'lugar' => $request['lugar'],
+                    'lugar_ingles' => $request['lugar_ingles'],
                     'ano_inicio' => $request['ano_inicio'],
                     'ano_fin' => $request['ano_fin']
             );
@@ -177,8 +180,10 @@ class EmpleadosController extends Controller
                 'apellidos' => $request['apellidos'],
                 'sexo' => $request['sexo'],
                 'cargo' => $request['cargo'],
+                'cargo_ingles' => $request['cargo_ingles'],
                 'tipo' => $request['tipo'],
                 'resumen' => $request['resumen'],
+                'resumen_ingles' => $request['resumen_ingles'],
                 'estado' => $request['estado']
             );
 
@@ -189,6 +194,14 @@ class EmpleadosController extends Controller
                 $adjunto->move(base_path('archivos/empleado'), $fileName);
                 $params['foto'] = "/archivos/empleado/" . $fileName;
             }
+            if ($request->hasFile('foto1')) {
+                $adjunto1 = $request->file('foto1');
+                $extension1 = $adjunto1->getClientOriginalExtension();
+                $fileName1 = "fotoempleado_" . date('ymdhis') . "." . $extension1;
+                $adjunto1->move(base_path('archivos/empleado'), $fileName1);
+                $params['foto1'] = "/archivos/empleado/" . $fileName1;
+            }
+
 
             if (isset($request['id']) && !empty($request['id'])) {
                 $params['usumod'] = auth()->user()->id;
@@ -224,9 +237,13 @@ class EmpleadosController extends Controller
             $params = array( 
                     'canciller_id' => $request['canciller_id'],               
                     'empresa' => $request['empresa'],
+                    'empresa_ingles' => $request['empresa_ingles'],
                     'detalle' => $request['detalle'],
+                    'detalle_ingles' => $request['detalle_ingles'],
                     'cargo' => $request['cargo'],
+                    'cargo_ingles' => $request['cargo_ingles'],
                     'lugar' => $request['lugar'],
+                    'lugar_ingles' => $request['lugar_ingles'],
                     'fecha_inicio' => $request['fecha_inicio'],
                     'fecha_fin' => $request['fecha_fin']
             );
@@ -266,6 +283,7 @@ class EmpleadosController extends Controller
             $params = array( 
                     'canciller_id' => $request['canciller_id'],               
                     'idioma' => $request['idioma'],
+                    'idioma_ingles' => $request['idioma_ingles']
 
             );
 

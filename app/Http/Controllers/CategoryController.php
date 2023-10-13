@@ -54,7 +54,9 @@ class CategoryController extends Controller
 
             $params = array(                
                 'nombre' => $request['nombre'],
-                'descripcion' => $request['descripcion']
+                'nombre_ingles' => $request['nombre_ingles'],
+                'descripcion' => $request['descripcion'],
+                'descripcion_ingles' => $request['descripcion_ingles']
             );
 
             if (isset($request['id']) && !empty($request['id'])) {

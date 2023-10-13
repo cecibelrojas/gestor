@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Parroquias;
 use App\Models\Producto;
+use App\Models\Productolog;
 use App\Models\ProductoMultimedia;
 use App\Models\Tags;
 use Illuminate\Http\Request;
@@ -70,11 +71,13 @@ class ProductController extends Controller
 
     public function producto($id = null)
     {
+        
         $objCategorias = new Categoria();
         $objProducto = new Producto();
         $objProductoMultimedia = new ProductoMultimedia();
         $objTags = new Tags();
         $objParroquias = new Parroquias();
+        $objProductolog = new Productolog();
 
         /* Ocupacion del producto */
         if ($id != null) {
@@ -106,18 +109,22 @@ class ProductController extends Controller
                 return redirect('publicaciones')->with(array('mensaje' => 'La publicación esta siendo editada por el usuario ' . $ocupacion['escritor']));
             }
         }
-
+            $where = array(
+            'id' => $id,
+            );
 
         $data = array();
         $imagenes = array();
         $videos = array();
         $documentos = array();
+        $logproducto = array();
 
         if ($id != null) {
             $data = $objProducto->obtener(array('id' => $id));
             $imagenes = $objProductoMultimedia->listar(array('id' => $id, 'tipo' => 'I'));
             $videos = $objProductoMultimedia->listar(array('id' => $id, 'tipo' => 'V'));
             $documentos = $objProductoMultimedia->listar(array('id' => $id, 'tipo' => 'F'));
+            $logproducto = $objProductolog->listar(array('id_log' => $id));
             if (!$data) {
                 return redirect('/publicacion');
             }
@@ -130,7 +137,7 @@ class ProductController extends Controller
             'id_municipio' => 1
         ));
 
-        return view('product.producto', compact('data', 'id', 'categorias', 'imagenes', 'videos', 'documentos', 'etiquetas', 'parroquias'));
+        return view('product.producto', compact('data', 'id', 'categorias', 'imagenes', 'videos', 'documentos', 'etiquetas', 'parroquias','logproducto'));
     }
     public function desocupar()
     {
@@ -193,6 +200,8 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
+
+
         $objProducto = new Producto();
 
         if (!empty($request->estdestacado)) {
@@ -226,16 +235,26 @@ class ProductController extends Controller
             $adjuntoFileName2 = $fileName2;
             $request->request->add(array('preview' => $adjuntoFileName2));
         }
+        if ($request->hasFile('fotoredes')) {
+            $adjunto4 = $request->file('fotoredes');
+            $extension4 = $adjunto4->getClientOriginalExtension();
+            $fileName4 = "productodredes" . date('ymdhis') . "." . $extension4;
+            $adjunto4->move(base_path('archivos/imagenes'), $fileName4);
+            $adjuntoFileName4 = $fileName4;
+            $request->request->add(array('imageredes' => $adjuntoFileName4));
+        }
+        
+       
 
-        if ($request->hasFile('doctrailer')) {
+
+        /*if ($request->hasFile('doctrailer')) {
             $adjunto3 = $request->file('doctrailer');
             $extension3 = $adjunto3->getClientOriginalExtension();
             $fileName3 = "trailer" . date('ymdhis') . "." . $extension3;
             $adjunto3->move(base_path('archivos/videos'), $fileName3);
             $adjuntoFileName3 = $fileName3;
             $request->request->add(array('trailer' => $adjuntoFileName3));
-        }
-
+        }*/
         if (isset($request->id) && !empty($request->id)) {
             $id = $request->id;
             $request->request->add(array('usumod' => auth()->user()->id));
@@ -243,6 +262,7 @@ class ProductController extends Controller
             $request->request->remove('_token');
             $request = $request->all();
             unset($request['destacado']);
+            unset($request['fotoredes']);
             unset($request['docpreview']);
             unset($request['doctrailer']);
             $objProducto->actualizar($request, array('id' => $id));
@@ -271,6 +291,23 @@ class ProductController extends Controller
 
         return $response;
     }
+    public function uploadblobcontent(Request $request)
+    {
+        $response = array();
+
+        if ($request->hasFile('archivo')) {
+            $adjunto = $request->file('archivo');
+            $extension = $adjunto->getClientOriginalExtension();
+            $fileName = "fileblob" . date('ymdhis') . "." . $extension;
+            $move = (isset($request->id) && !empty($request->id)) ? base_path('archivos/consulares/' . $request->id) : base_path('archivos/consulares/blobs');
+            $adjunto->move($move, $fileName);
+            $response['ruta'] = (isset($request->id) && !empty($request->id))  ? asset('/archivos/consulares/' . $request->id . '/' . $fileName) : asset('/archivos/consulares/blobs/' . $fileName);
+        }
+
+        return $response;
+    }
+
+
 
     public function delete(Request $request)
     {
@@ -330,6 +367,18 @@ class ProductController extends Controller
 
         return $response;
     }
+    public function deleteimageredes(Request $request)
+    {
+        $objProducto = new Producto();
+        $response = array(
+            'status' => 'S',
+        );
+
+        $objProducto->actualizar(array('imageredes' => null), array('id' => $request->id));
+
+        return $response;
+    }
+
 
     public function deletevideo(Request $request)
     {

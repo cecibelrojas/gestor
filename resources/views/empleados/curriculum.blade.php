@@ -9,7 +9,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>
-             Autoridad: <?php echo $data['nombres'].' '.$data['apellidos']; ?>
+             {!! trans('messages.autoridad') !!}: <?php echo $data['nombres'].' '.$data['apellidos']; ?>
             </h1>
           </div>
           <div class="col-sm-6">
@@ -37,13 +37,13 @@
           <div class="card-body">
             <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Educación</a>
+                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">{!! trans('messages.educacion') !!}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Experiencia Profesional</a>
+                <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">{!! trans('messages.experiencia_laboral') !!}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-content-below-idioma-tab" data-toggle="pill" href="#custom-content-below-idioma" role="tab" aria-controls="custom-content-below-idioma" aria-selected="false">Idiomas</a>
+                <a class="nav-link" id="custom-content-below-idioma-tab" data-toggle="pill" href="#custom-content-below-idioma" role="tab" aria-controls="custom-content-below-idioma" aria-selected="false">{!! trans('messages.idiomas') !!}</a>
               </li>
 
             </ul>
@@ -55,10 +55,10 @@
       			          <div class="col-12">
       			            <div class="card">
       			              <div class="card-header">
-      			                <h3 class="card-title">Información Educativa</h3>
+      			                <h3 class="card-title">{!! trans('messages.informacion_educativa') !!}</h3>
 
       			                <div class="card-tools">
-      			                  <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nuevo</button>
+      			                  <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
       			                </div>
       			              </div>
       			              <!-- /.card-header -->
@@ -66,10 +66,10 @@
       			                <table class="table table-hover text-nowrap">
       			                  <thead>
       			                    <tr>
-      			                      <th style="font-size: 12px;">Universidad</th>
-      			                      <th style="font-size: 12px;">Fecha</th>
-      			                      <th style="font-size: 12px;">Título Obtenido</th>
-                                  <th style="font-size: 12px;">Creado por</th>
+      			                      <th style="font-size: 12px;">{!! trans('messages.universidad') !!}</th>
+      			                      <th style="font-size: 12px;">{!! trans('messages.fecha') !!}</th>
+      			                      <th style="font-size: 12px;">{!! trans('messages.titulo_obtenido') !!}</th>
+                                  <th style="font-size: 12px;">{!! trans('messages.creadopor') !!}</th>
       			                      <th></th>
       			                    </tr>
       			                  </thead>
@@ -115,9 +115,9 @@
 			          <div class="col-12">
 			            <div class="card">
 			              <div class="card-header">
-			                <h3 class="card-title">Experiencia Laboral</h3>
+			                <h3 class="card-title">{!! trans('messages.experiencia_laboral') !!}</h3>
                       <div class="card-tools">
-                         <button class="btn btn-sm btn-light" id="btnNuevo1"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                         <button class="btn btn-sm btn-light" id="btnNuevo1"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
                       </div>
 			              </div>
 			              <!-- /.card-header -->
@@ -125,10 +125,10 @@
 			                <table class="table table-hover text-nowrap">
 			                  <thead>
 			                    <tr>
-			                      <th style="font-size: 12px; width: 30%">Empresa</th>
-			                      <th style="font-size: 12px; width: 40%">Cargo</th>
-			                      <th style="font-size: 12px; width: 10%">Fecha</th>
-                            <th style="font-size: 12px;width: 10%">Creado por</th>
+			                      <th style="font-size: 12px; width: 30%">{!! trans('messages.empresa') !!}</th>
+			                      <th style="font-size: 12px; width: 40%">{!! trans('messages.cargo') !!}</th>
+			                      <th style="font-size: 12px; width: 10%">{!! trans('messages.fecha') !!}</th>
+                            <th style="font-size: 12px;width: 10%">{!! trans('messages.creadopor') !!}</th>
 			                      <th style="width: 10%"></th>
 			                    </tr>
 			                  </thead>
@@ -173,10 +173,10 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Idiomas</h3>
+                      <h3 class="card-title">{!! trans('messages.idiomas') !!}</h3>
 
                       <div class="card-tools">
-                          <button class="btn btn-sm btn-light" id="btnNuevo2"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                          <button class="btn btn-sm btn-light" id="btnNuevo2"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
                       </div>
                     </div>
                     <!-- /.card-header -->
@@ -184,8 +184,8 @@
                       <table class="table table-hover text-nowrap">
                         <thead>
                           <tr>
-                            <th style="font-size: 12px;">Idioma</th>
-                            <th style="font-size: 12px;">Creado por</th>
+                            <th style="font-size: 12px;">{!! trans('messages.idioma') !!}</th>
+                            <th style="font-size: 12px;">{!! trans('messages.creadopor') !!}</th>
                             <th></th>
                           </tr>
                         </thead>
@@ -235,7 +235,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Información Educativa</h4>
+                <h4 class="modal-title">{!! trans('messages.informacion_educativa') !!}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -250,7 +250,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Experiencia Laboral</h4>
+                <h4 class="modal-title">{!! trans('messages.experiencia_laboral') !!}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -265,7 +265,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Idiomas</h4>
+                <h4 class="modal-title">{!! trans('messages.idiomas') !!}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -459,7 +459,7 @@
 
     }
 
-           function eliminar_idiomas(id = null) {
+    function eliminar_idioma(id = null) {
 
         swal({
             title: '¿Seguro desea eliminar el registro seleccionado?',

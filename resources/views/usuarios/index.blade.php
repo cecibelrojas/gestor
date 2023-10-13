@@ -48,13 +48,12 @@
                                             <td><?php echo $key['name']; ?></td>
                                             <td><?php echo $key['email']; ?></td>
                                             <td><?php
-
                                                 switch ($key['rol']) {
                                                     case 'A':
                                                         echo "Administrador";
                                                         break;
                                                     case 'B':
-                                                        echo "Voces";
+                                                        echo 'Consulares';
                                                         break;
                                                     case 'C':
                                                         echo 'Redactor';
@@ -62,20 +61,20 @@
                                                     case 'D':
                                                         echo 'Corrector';
                                                         break;
-                                                    case 'V':
-                                                        echo 'Corrector(a) Voces';
-                                                        break;
                                                     case 'E':
                                                         echo 'Jefe Redacción / Información';
                                                         break;
                                                     case 'F':
-                                                        echo 'Escuela YA';
+                                                        echo 'Biblioteca ';
                                                         break;
                                                     case 'G':
-                                                        echo 'Audiovisual';
+                                                        echo 'Turismo';
                                                         break;
                                                     case 'H':
-                                                        echo 'Deportes';
+                                                        echo 'Audiovisuales';
+                                                        break;
+                                                    case 'I':
+                                                        echo 'Fotografía';
                                                         break;
                                                     default:
                                                         echo "No tiene Perfil de Usuario";

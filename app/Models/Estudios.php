@@ -9,7 +9,7 @@ class Estudios extends Model
 {
     protected $table = 'estudios';
 
-    protected $fillable = ['id','canciller_id','nombre_institucion','titulo','lugar','ano_inicio', 'ano_fin','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','canciller_id','nombre_institucion','nombre_institucion_ingles','titulo','titulo_ingles','lugar','lugar_ingles','ano_inicio', 'ano_fin','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'

@@ -28,7 +28,7 @@ class LibreriaController extends Controller
         $objCampanas = new Impresos();
         $listar_campanas = $objCampanas->listar_campanas();
 
-        return view('libreria.campanas', compact('listar_campanas'));
+        return view('libreria.publicaciones_ministerio', compact('listar_campanas'));
     }
 
     public function lib_libros()
@@ -36,7 +36,7 @@ class LibreriaController extends Controller
         $objCampanas = new Impresos();
         $listar_libros = $objCampanas->listar_libros();
 
-        return view('libreria.libros', compact('listar_libros'));
+        return view('libreria.libro_amarillo', compact('listar_libros'));
     }
 
     public function lib_biblioteca()
@@ -44,14 +44,22 @@ class LibreriaController extends Controller
         $objBiblioteca = new Impresos();
         $listar_biblioteca = $objBiblioteca->listar_biblioteca();
 
-        return view('libreria.biblioteca', compact('listar_biblioteca'));
+        return view('libreria.colecciones', compact('listar_biblioteca'));
     }
+    public function lib_referencias()
+    {
+        $objBiblioteca = new Impresos();
+        $listar_referencias = $objBiblioteca->listar_referencias();
+
+        return view('libreria.referencias', compact('listar_referencias'));
+    }
+
     public function lib_tratados()
     {
         $objTratados = new Impresos();
         $listar_tratados = $objTratados->listar_tratados();
 
-        return view('libreria.tratados', compact('listar_tratados'));
+        return view('libreria.gacetas', compact('listar_tratados'));
     }
     public function libros(Request $request)
     {

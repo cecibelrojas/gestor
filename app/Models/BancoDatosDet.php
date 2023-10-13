@@ -30,6 +30,22 @@ class BancoDatosDet extends Model
         return $select->get();
     }
 
+    public function listarotros(array $params = array())
+    {
+
+        $select = $this->from('banco_datos_det as bd')
+            ->select('bd.*', 'bd.item as codigo', 'bd.nombre as nombre')
+            ->join('banco_datos as b', 'b.id', 'bd.id')
+            ->where('bd.estado', 'A');
+
+        if (array_key_exists('id', $params)) {
+            $select->where('bd.id', $params['id']);
+        }
+
+        $select->orderByRaw('bd.item', 'bd.nombre');
+
+        return $select->get();
+    }
 
     public function obtener(array $params = array())
     {

@@ -24,7 +24,7 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Fotografías de Caracas</h3>
+                        <h3 class="card-title">Lista de Fotografías</h3>
                         <div class="card-tools">
                             <a class="btn btn-sm btn-secondary" href="<?php echo url('/categoria_galerias') ?>"><i class="fa fa-plus-circle"></i> Nueva Categoría</a>
                             <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Nueva Fotografía</button>

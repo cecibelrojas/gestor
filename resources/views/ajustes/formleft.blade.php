@@ -3,13 +3,21 @@
 <!-- -->
 <div class="row">
     <div class="col-lg-12 text-center">
-    <img onclick="$('#img1').trigger('click');" src="<?php echo ($data && !empty($data['img1'])) ? url('/') . $data['img1'] : asset('archivos/institucional/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer;width: 380px;height: 55px;" class="imgpreview">
+    <img onclick="$('#img1').trigger('click');" src="<?php echo ($data && !empty($data['img1'])) ? url('/') . $data['img1'] : asset('archivos/institucional/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 380px;height: 55px;" class="imgpreview">
     <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 380px * 55px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
     <input type="file" id="img1" name="img1" style="display: none;">
     </div>
+    <div class="col-lg-12">
+        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.estado') !!}</label>
+        <select class="form-control form-select" aria-label="estado" id="estado">
+            <option value="">{!! trans('messages.seleccionar') !!}</option>
+            <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>{!! trans('messages.activo') !!}</option>
+            <option value="I" <?php if ($data && 'I' == $data['estado']) { ?> selected <?php } ?>>{!! trans('messages.inactivo') !!}</option>
+        </select>
+    </div>
     <div class="col-lg-12 text-right">
         <hr>
-        <button id="btnSave" class="btn btn-sm btn-success">Guardar Cambios</button>
+        <button id="btnSave" class="btn btn-sm btn-success">{!! trans('messages.guardar') !!}</button>
     </div>
 </div>
 <script>
@@ -50,7 +58,7 @@
         var formData = new FormData();
         
         formData.append('id', $('#id').val());
-
+        formData.append('estado', $('#estado').val());
         formData.append('img1', $('#img1').val());
 
         var files = $('#img1').get(0).files;

@@ -17,6 +17,7 @@ Auth::routes();
 
 //GET
 Route::get('/', 'HomeController@index');
+Route::get('/set_language/{lang}', 'Controller@set_language')->name('set_language');
 Route::get('/bancodatos', 'BancoDatosController@index');
 Route::get('/etiquetas', 'TagsController@index');
 Route::get('/widgets', 'WidgetsController@index');
@@ -44,6 +45,28 @@ Route::get('/ficha', 'EmpleadosController@index');
 Route::get('/curriculum_vitae/{id?}', 'EmpleadosController@curriculum');
 Route::get('/papelera', 'EmpleadosController@papelera_total');
 Route::get('/metodo_pago', 'ApostillaController@index');
+Route::get('/footer', 'AjustesController@footer');
+Route::get('/servicios', 'ServiciosController@index');
+Route::get('/papelera_servicios', 'ServiciosController@papelera_servicio');
+Route::get('/sub_servicios/{id?}', 'ServiciosController@subservicios');
+Route::get('/detalle_subservicio/{id?}', 'ServiciosController@detalle_subservicios');
+Route::get('/banner_campana', 'BannercampanaController@index');
+Route::get('/servicios_biblioteca', 'Servicios_bibliotecaController@index');
+Route::get('/papelera_biblioteca', 'Servicios_bibliotecaController@papelera_biblioteca');
+Route::get('/sub_servicios_biblioteca/{id?}', 'Servicios_bibliotecaController@subservicios_biblioteca');
+Route::get('/servicios_identidad_nacional', 'ServiciosidentidadController@index');
+Route::get('/papelera_identidad_nacional', 'ServiciosidentidadController@papelera_servicio_identidad');
+Route::get('/servicios_turismo', 'ServiciosturismoController@index');
+Route::get('/papelera_turismo', 'ServiciosturismoController@papelera_servicio_turismo');
+Route::get('/patrimonio360', 'AjustesController@panoramica');
+Route::get('/proceso_final/{id?}', 'ServiciosController@detalle_final_subservicios');
+Route::get('/detalles_identidad_nacional/{id?}', 'ServiciosidentidadController@detalles_identidad');
+Route::get('/detalles_turismo_venezuela/{id?}', 'ServiciosturismoController@detalles_turismo');
+Route::get('/campana_otros', 'CampanaotrosController@index');
+Route::get('/multimedia', 'MultimediaController@index');
+Route::get('/categoria_galerias', 'Categoria_galeriasController@index');
+Route::get('/fotografias', 'GaleriasController@index');
+Route::get('/casa_amarilla', 'CasaamarillaController@index');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
@@ -66,6 +89,7 @@ Route::post('/eliminarcategoria', 'CategoryController@delete');
 Route::post('/guardarproducto', 'ProductController@create');
 Route::post('/eliminarproducto', 'ProductController@delete');
 Route::post('/eliminarimagen', 'ProductController@deleteimage');
+Route::post('/eliminarimagenredes', 'ProductController@deleteimageredes');
 Route::post('/eliminarvideo', 'ProductController@deletevideo');
 Route::post('/cargararchivo', 'ProductController@upload');
 Route::post('/cargararchivomasivos', 'ProductController@cargararchivomasivos');
@@ -84,14 +108,15 @@ Route::post('/restaurar-pub', 'ProductController@restaurar');
 Route::post('/libros', 'LibreriaController@libros');
 Route::post('/guardar-libros', 'LibreriaController@store');
 Route::post('/eliminar-libros', 'LibreriaController@delete');
-Route::get('/libros_search', 'LibreriaController@lib_libros');
+Route::get('/libro_amarillo', 'LibreriaController@lib_libros');
 Route::post('/libros_formsearch', 'LibreriaController@libros_search');
-Route::get('/campanas_search', 'LibreriaController@lib_campanas');
+Route::get('/publicaciones_ministerio', 'LibreriaController@lib_campanas');
 Route::post('/campanas_formsearch', 'LibreriaController@campana_search');
 Route::post('/biblioteca_search', 'LibreriaController@biblioteca_search');
-Route::get('/biblioteca', 'LibreriaController@lib_biblioteca');
-Route::post('/tratados_formsearch', 'LibreriaController@lib_tratados');
-Route::get('/tratados', 'LibreriaController@lib_tratados');
+Route::get('/colecciones', 'LibreriaController@lib_biblioteca');
+Route::get('/referencias', 'LibreriaController@lib_referencias');
+Route::post('/tratados_formsearch', 'LibreriaController@tratados_search');
+Route::get('/gaceta_oficial', 'LibreriaController@lib_tratados');
 
 
 
@@ -185,8 +210,25 @@ Route::post('/guardar-logoright', 'AjustesController@store_right');
 Route::post('/logoprincipal', 'AjustesController@logoprincipal');
 Route::post('/guardar-logoprincipal', 'AjustesController@store_principal');
 
+Route::post('/logofooter', 'AjustesController@logo_footer');
+Route::post('/guardar-logofooter', 'AjustesController@store_footerlogo');
+
 Route::post('/organigrama_new', 'AjustesController@organigrama_institucional');
 Route::post('/guardar-organigrama', 'AjustesController@store_organigrama');
+
+Route::post('/colorheader', 'AjustesController@colorheader');
+Route::post('/guardar-colorheader', 'AjustesController@store_colorheader');
+Route::post('/guardar-colortopbar', 'AjustesController@store_colortop');
+
+Route::post('/footer_color', 'AjustesController@colorfooter');
+Route::post('/guardar-colorfooter', 'AjustesController@store_colorfooter');
+
+
+Route::post('/colortop', 'AjustesController@colortop');
+
+Route::post('/panoramica_new', 'AjustesController@pano360');
+Route::post('/guardar-panoramica360', 'AjustesController@store_panoramica');
+
 
 Route::post('/empleado', 'EmpleadosController@empleado');
 Route::post('/guardar-empleado', 'EmpleadosController@store');
@@ -208,10 +250,64 @@ Route::post('/deshabilitarempleado', 'EmpleadosController@deshabilitarempleados'
 Route::post('/restaurar-empleado', 'EmpleadosController@restaurar_empleado');
 Route::post('/eliminarficha', 'EmpleadosController@delete');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/servicioconsular', 'ServiciosController@servicios');
+Route::post('/guardar-servicioconsular', 'ServiciosController@store');
+Route::post('/eliminar_servicio', 'ServiciosController@delete');
+Route::post('/deshabilitarservicio', 'ServiciosController@deshabilitarservicio');
+Route::post('/restaurar-servicio', 'ServiciosController@restaurar_servicio');
 
-Auth::routes();
+Route::post('/formulario_subservicios', 'ServiciosController@subservicio_info');
+Route::post('/eliminar_subservicio', 'ServiciosController@delete_subservicio');
+Route::post('/guardar-subservicio', 'ServiciosController@store_subservicio');
+Route::post('/guardar-subservicioconsular', 'ServiciosController@store_subservicio');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/bannercampanas', 'BannercampanaController@bannercampanas');
+Route::post('/guardarbannercampana', 'BannercampanaController@store');
+Route::post('/eliminarbannercampana', 'BannercampanaController@delete');
+
+Route::post('/serviciobiblioteca', 'Servicios_bibliotecaController@servicios_biblioteca_archivos');
+Route::post('/guardar-serviciobiblioteca', 'Servicios_bibliotecaController@store');
+Route::post('/eliminar_servicio_biblioteca', 'Servicios_bibliotecaController@delete');
+Route::post('/deshabilitarserviciobiblioteca', 'Servicios_bibliotecaController@deshabilitarservicio');
+Route::post('/restaurar-servicio-biblioteca', 'Servicios_bibliotecaController@restaurar_servicio');
+
+Route::post('/formulario_subservicios_biblioteca', 'Servicios_bibliotecaController@subservicio_info');
+Route::post('/guardar-subserviciobiblioteca', 'Servicios_bibliotecaController@store_subservicio');
+Route::post('/eliminarsubserviciobiblioteca', 'Servicios_bibliotecaController@delete_subservicio');
+
+Route::post('/servicioidentidad', 'ServiciosidentidadController@serviciosidentidad');
+Route::post('/guardar-servicioidentidad', 'ServiciosidentidadController@store');
+Route::post('/eliminar_servicio_identidad', 'ServiciosidentidadController@delete');
+Route::post('/deshabilitarservicioidentidad', 'ServiciosidentidadController@deshabilitarservicioidentidad');
+Route::post('/restaurar-servicio-identidad', 'ServiciosidentidadController@restaurar_servicio_identidad');
+
+Route::post('/servicioturismo', 'ServiciosturismoController@serviciosturismo');
+Route::post('/guardar-servicioturismo', 'ServiciosturismoController@store');
+Route::post('/eliminar_servicio_turismo', 'ServiciosturismoController@delete');
+Route::post('/deshabilitarservicioturismo', 'ServiciosturismoController@deshabilitarservicioturismo');
+Route::post('/restaurar-servicio-turismo', 'ServiciosturismoController@restaurar_servicio_turismo');
+
+Route::post('/contenido_servicio', 'ServiciosController@detalle_contenido');
+Route::post('/guardar-contenidoservicio', 'ServiciosController@store_contenido');
+
+Route::post('/servicio_card_detalle', 'ServiciosController@detalle_proceso');
+Route::post('/guardar-serviprocesos', 'ServiciosController@store_procesos');
+Route::post('/eliminarprocesos', 'ServiciosController@delete_procesos');
+
+Route::post('/contenido_final', 'ServiciosController@detalles_finales_sub');
+Route::post('/guardar-contenido-final', 'ServiciosController@store_procesos_finales');
+
+Route::post('/formulario_detalle_identidad', 'ServiciosidentidadController@detalle_info');
+Route::post('/guardar-imgprincipal', 'ServiciosidentidadController@store_imgprincipal');
+
+Route::post('/formulario_detalle_turismo', 'ServiciosturismoController@detalle_info_turismo');
+Route::post('/guardar-imgprincipalt', 'ServiciosturismoController@store_imgprincipalt');
+
+Route::post('/videomp4', 'CampanaotrosController@campanaspm4');
+Route::post('/guardar-mp4', 'CampanaotrosController@store');
+Route::post('/eliminar_vmp4', 'CampanaotrosController@delete');
+
+Route::post('/bannercasamarilla_new', 'CasaamarillaController@banner_casamarilla');
+
+Route::post('/borrador', 'ProductologController@guardar');

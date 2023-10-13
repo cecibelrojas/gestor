@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
   <meta charset="utf-8">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/locales-all.js')}}">
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/locales-all.min.js')}}">
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/main.css')}}">
-
+  <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/ekko-lightbox/ekko-lightbox.css')}}">
 
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/dist/css/ionicons.min.css')}}">
   <!-- Tempusdominus Bootstrap 4 -->
@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">    
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-select/css/select.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-  
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.4.0/css/bootstrap-colorpicker.css">
 
 
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -88,6 +88,7 @@
 
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/flag-icon-css/css/flag-icon.min.css')}}">
 
 
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-select/js/dataTables.select.min.js')}}"></script>
@@ -246,15 +247,26 @@
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
 
-        <!-- Messages Dropdown Menu -->
-    <li class="nav-item dropdown idioma">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-           <img src="{{asset('assets/images/flags/venezuela.png')}}" alt="" class="thumb-xxs rounded-circle">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          {!! trans('messages.idiomas') !!} &nbsp; 
+          @foreach (array_keys(config('locale.languages')) as $lang)
+            @if ($lang != App::getLocale() AND $lang == 'es')
+                  <img src="{{asset('img/icon/reino-unido.png')}}" width="24px" alt="">
+              @elseif ($lang != App::getLocale() AND $lang == 'en')
+                <img src="{{asset('img/icon/venezuela.png')}}" alt="">
+            @endif
+          @endforeach
+        </a>
+        <div class="dropdown-menu dropdown-menu-right p-0">
+          <a href="{{route('set_language', ['en'])}}" class="dropdown-item active">
+            <img src="{{asset('img/icon/reino-unido.png')}}" width="24px" alt=""> {{ __("English") }}
           </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a class="dropdown-item" href="#"><img src="{{asset('assets/images/flags/us_flag.jpg')}}" alt="" height="15" class="me-2"> Inglés</a>
-          </div>
-        </li> 
+          <a href="{{route('set_language', ['es'])}}" class="dropdown-item">
+            <img src="{{asset('img/icon/venezuela.png')}}" alt=""> {{ __("Spanish") }}
+          </a>
+        </div>
+      </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
@@ -267,14 +279,14 @@
             @endforeach
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">Procesos del Usuario</span>
+            <span class="dropdown-item dropdown-header">{!! trans('messages.procesosusuarios') !!}</span>
             <div class="dropdown-divider"></div>
             <a href="<?php echo url('/usuario-contrasena_individual') . "/" . auth()->user()->id; ?>" class="dropdown-item">
-              <i class="fas fa-key mr-2"></i> Cambio de Contraseña
+              <i class="fas fa-key mr-2"></i> {!! trans('messages.cambiocontrasena') !!}
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); desocupar_logout();">
-              <i class="fas fa-sign-out-alt"></i> Salir
+              <i class="fas fa-sign-out-alt"></i> {!! trans('messages.salir') !!}
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
               @csrf
@@ -288,7 +300,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a  href="http://tusitio.web.ve/" class="brand-link" target="_blank">
+      <a  href="https://portal.mppre.gob.ve/" class="brand-link" target="_blank">
         <img src="{{ asset('img/escudo2.png') }}" alt="MPPRE" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-bold">{{ env('APP_NAME','Laravel') }}</span>
       </a>
@@ -340,7 +352,7 @@
               <a href="{{ url('/') }}" class="nav-link active">
                 <i class="fas fa-tachometer-alt"></i>
                 <p>
-                  Escritorio
+                  {!! trans('messages.menulateral') !!}
                 </p>
               </a>
             </li>
@@ -348,13 +360,13 @@
 
                 @if ($_COOKIE["email_login"] == $element->email)
 
-                @if ($element->rol == "A" || $element->rol == "B" || $element->rol == "C" || $element->rol == "D" || $element->rol == "E" || $element->rol == "V")
+                @if ($element->rol == "A" || $element->rol == "C" || $element->rol == "D" || $element->rol == "E")
 
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fas fa-clipboard"></i>
                 <p>
-                  Redacción
+                  {!! trans('messages.redaccion') !!}
                 </p>
                 <i class="fas fa-angle-left right"></i>
               </a>
@@ -362,14 +374,14 @@
                 <li class="nav-item">
                   <a href="{{url('/publicaciones')}}" class="nav-link">
                     <p>
-                      Todas las Publicaciones
+                      {!! trans('messages.todaspublicaciones') !!}
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('/publicacion')}}" class="nav-link">
                     <p>
-                      Nueva Publicación
+                      {!! trans('messages.nuevopost') !!}
                     </p>
                   </a>
                 </li>
@@ -381,14 +393,14 @@
                 <li class="nav-item">
                   <a href="{{url('/categorias')}}" class="nav-link">
                     <p>
-                      Categorías
+                      {!! trans('messages.categorias') !!}
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ url('/etiquetas') }}" class="nav-link">
                     <p>
-                      Etiquetas
+                      {!! trans('messages.etiquetas') !!}
                     </p>
                   </a>
                 </li>
@@ -405,235 +417,337 @@
                 @endif
 
                 @endforeach
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-image"></i>
+                <p class="text">Medios</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('/multimedia')}}" class="nav-link">
+                    <p>
+                      Lista
+                    </p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
             @foreach ($administradores as $element)
 
               @if ($_COOKIE["email_login"] == $element->email)
 
-                @if ($element->rol == "A" || $element->rol == "E")
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "H")
 
-            <li class="nav-header" style="font-size: 12px;">Campaña publicitaria</li>    
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.campanas') !!}</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-image"></i>
-                <p class="text">Campañas</p>
+                <p class="text">{!! trans('messages.campana') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{url('/campanasvideos')}}" class="nav-link">
                     <p>
-                      Vídeos
+                      {!! trans('messages.videos') !!}
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/campana_otros')}}" class="nav-link">
+                    <p>
+                      Videos MP4
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('/campanas')}}" class="nav-link">
                     <p>
-                      Imegen
+                      {!! trans('messages.imagen') !!}
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/banner_campana')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.bannercampanas') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="nav-header" style="font-size: 12px;">Colección De Arte Colonial</li>    
+                @endif
+
+                @endif
+
+                @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "I")
+
+
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.galerias') !!}</li>
+            <li class="nav-item" >
+              <a href="#" class="nav-link">
+                <i class="fas fa-camera"></i>
+                <p>
+                  Galerías
+                </p>
+              <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('/fotografias')}}" class="nav-link">
+                    <p>
+                      Añadir Foto
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/categoria_galerias')}}" class="nav-link">
+                    <p>
+                      Categoría
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.coleccion') !!}</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-image"></i>
-                <p class="text">Patrimonio Cultural</p>
+                <p class="text">{!! trans('messages.patrimonio_360') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{url('/arte')}}" class="nav-link">
+                  <a href="{{url('/patrimonio360')}}" class="nav-link">
                     <p>
-                      Ver lista
+                      {!! trans('messages.panoramica360') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
+                @endif
 
+                @endif
 
-            <li class="nav-item">
+                @endforeach
+
+            <!--li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-edit"></i>
-                <p class="text">Trabajo Especial</p>
+                <p class="text">{!! trans('messages.trabajoespecial') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <p>
-                      Ver todos
+                      {!! trans('messages.vertodo') !!}
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('/campanas')}}" class="nav-link">
                     <p>
-                      Nuevo
+                      {!! trans('messages.nuevo') !!}
                     </p>
                   </a>
                 </li>
               </ul>
-            </li>
+            </li-->
+            @foreach ($administradores as $element)
 
-            <li class="nav-header" style="font-size: 12px;">Libros y Campañas</li>    
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "F")
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.libroscampanas') !!}</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-book"></i>
-                <p class="text">Libros y Campañas</p>
+                <p class="text">{!! trans('messages.libroscampanas') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{url('/libreria_digital')}}" class="nav-link">
                     <p>
-                      Ver Lista
+                      {!! trans('messages.verlistas') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
+                @endif
 
-            <li class="nav-header" style="font-size: 12px;">Servicios Consulares</li>    
+                @endif
+
+                @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "B")
+
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.servicioconsular') !!}</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-tags"></i>
-                <p class="text">Apostilla</p>
-                <i class="fas fa-angle-left right"></i>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{url('/legalizacion')}}" class="nav-link">
-                    <p>
-                      Legalización
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{url('/apostillas')}}" class="nav-link">
-                    <p>
-                      Apostillas
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{url('/apostillas_electronicas')}}" class="nav-link">
-                    <p>
-                      Apostillas electrónicas
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{url('/validacion_documentos')}}" class="nav-link">
-                    <p>
-                      Validación de Documentos
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{url('/metodo_pago')}}" class="nav-link">
-                    <p>
-                     Métodos de pago
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{url('/instructivos')}}" class="nav-link">
-                    <p>
-                     Instructivos
-                    </p>
-                  </a>
-                </li>
-
-
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="fa-solid fa-edit"></i>
-                <p class="text">Trámites Consulares</p>
+                <p class="text">{!! trans('messages.serviciotramite') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{url('/servicios')}}" class="nav-link">
                     <p>
-                      Lista de Servicios
+                      {!! trans('messages.Servicios') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
+                @endif
+
+                @endif
+
+                @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "F")
+
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.serviciobiblioteca') !!}</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="fa-solid fa-users"></i>
-                <p class="text">Atención Consular</p>
+                <i class="fa-solid fa-tags"></i>
+                <p class="text">{!! trans('messages.solicitudes') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/servicios_biblioteca')}}" class="nav-link">
                     <p>
-                      Por definir
+                      {!! trans('messages.Servicios') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
+                @endif
+
+                @endif
+
+                @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "C")
+
+
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.servicioidentidad') !!}</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="fa-solid fa-globe"></i>
-                <p class="text">Registro Consular</p>
+                <i class="fa-solid fa-tags"></i>
+                <p class="text">Venezuela</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/servicios_identidad_nacional')}}" class="nav-link">
                     <p>
-                      Por definir
+                      {!! trans('messages.Servicios') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="nav-header" style="font-size: 12px;">Geoportal</li>
+
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.servicioturismo') !!}</li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-tags"></i>
+                <p class="text">{!! trans('messages.turismo') !!}</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('/servicios_turismo')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.Servicios') !!}
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+                @endif
+
+                @endif
+
+                @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "B")
+
+
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.geoportal') !!}</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-globe"></i>
-                <p class="text">Geoportal Embajadas</p>
+                <p class="text">{!! trans('messages.geoportalembajada') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{url('/embajadas')}}" class="nav-link">
                     <p>
-                      Embajadas
+                      {!! trans('messages.embajadas') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="nav-header" style="font-size: 12px;">Organigrama Institucional</li>
+                @endif
+
+                @endif
+
+                @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "E")
+
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.organigramaintitucional') !!}</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-user-tag"></i>
-                <p class="text">Organigrama</p>
+                <p class="text">{!! trans('messages.organigrama') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{url('/organigrama')}}" class="nav-link">
                     <p>
-                      Organigrama
+                      {!! trans('messages.organigrama') !!}
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('/ficha')}}" class="nav-link">
                     <p>
-                      Ficha 
+                      {!! trans('messages.ficha') !!} 
                     </p>
                   </a>
                 </li>
@@ -646,8 +760,37 @@
                 @endif
 
                 @endforeach
-
-
+           <li class="nav-header" style="font-size: 12px;">{!! trans('messages.nimiportales') !!}</li>     
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fa-solid fa-home"></i>
+                <p class="text">{!! trans('messages.nimiportales') !!}</p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('/casa_amarilla')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.casaamarilla') !!}
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/instituto_pedro_gual')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.pero_gual') !!} 
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/conare')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.conare') !!} 
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
 
             
@@ -655,13 +798,13 @@
 
             @if ($_COOKIE["email_login"] == $element->email)
 
-            @if ($element->rol == "A")
+            @if ($element->rol == "A" || $element->rol == "E")
 
-            <li class="nav-header" style="font-size: 12px;">Configuración</li>
+            <li class="nav-header" style="font-size: 12px;"> {!! trans('messages.configuracion') !!} </li>
             <li class="nav-item">
               <a href="{{url('bancodatos')}}" class="nav-link">
                 <i class="fa-solid fa-database"></i>
-                <p class="text">Banco de Datos</p>
+                <p class="text">{!! trans('messages.banco') !!}</p>
               </a>
             </li>
             <li class="nav-item">
@@ -673,71 +816,65 @@
             <li class="nav-item">
               <a href="{{url('usuarios')}}" class="nav-link">
                 <i class="fa-solid fa-users"></i>
-                <p class="text">Usuarios</p>
+                <p class="text">{!! trans('messages.usuarios') !!}</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-gear"></i>
-                <p class="text">Ajustes</p>
+                <p class="text">{!! trans('messages.ajustes') !!}</p>
                 <i class="fas fa-angle-left right"></i>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{url('/redes')}}" class="nav-link">
                     <p>
-                      Redes Sociales
+                      {!! trans('messages.redes') !!}
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('/logos_institucionales')}}" class="nav-link">
                     <p>
-                      Imegen Institutcional
+                      {!! trans('messages.imginstitucional') !!}
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('/feed')}}" class="nav-link">
                     <p>
-                      Feed Twitter Institucional
+                      {!! trans('messages.feed') !!}
+                    </p>
+                  </a>
+                </li>
+                <!--li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <p>
+                      {!! trans('messages.bannerservicios') !!}
                     </p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <p>
-                      Banner Servicios Consulares
+                      {!! trans('messages.card') !!}
                     </p>
                   </a>
-                </li>
+                </li -->
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{url('/footer')}}" class="nav-link">
                     <p>
-                      Card Servicios Consulares
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <p>
-                      Footer
+                       {!! trans('messages.Footer') !!}
                     </p>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="nav-header" style="font-size: 12px;">Reportes</li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="fas fa-bezier-curve"></i>
-                <p class="text">Org Institucional</p>
-              </a>
-            </li>
+            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.reportes') !!}</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fas fa-chart-pie"></i>
-                <p class="text">Estadisticas</p>
+                <p class="text">{!! trans('messages.estadisticastotal') !!}</p>
               </a>
             </li>
             @endif
@@ -762,7 +899,7 @@
     <!-- /.content-wrapper -->
     <footer class="main-footer">
       <strong>Copyright &copy; {{ date('Y') }} <b>{{ env('APP_NAME')}}</b>. <img src="{{asset('img/guacafaviccs48.ico')}}" width="30px"></strong>
-     Todos los derechos reservados. <strong></strong>
+     {!! trans('messages.copy') !!}. <strong></strong>
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0
       </div>
@@ -777,22 +914,20 @@
   <!-- ./wrapper -->
   <script src="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/main.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/mask.js')}}"></script>
+  <script src="{{asset('AdminLTE-3.2.0/plugins/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
   <script src="{{asset('js/calendarioccs.js')}}"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.4.0/js/bootstrap-colorpicker.min.js"></script>
   <script src="{{asset('js/codigo.js')}}"></script>
 
   <script>
+
+    
    $(function () {
     
     //Initialize Select2 Elements
     $('.select2').select2()
      })
-   
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
+
     
     $.ajaxSetup({
       headers: {
@@ -897,6 +1032,20 @@ new Chart("myChart1", {
     }
   }
 });
+  $(function () {
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      });
+    });
+
+    $('.filter-container').filterizr({gutterPixels: 3});
+    $('.btn[data-filter]').on('click', function() {
+      $('.btn[data-filter]').removeClass('active');
+      $(this).addClass('active');
+    });
+  })
 </script>
 </body>
 @else

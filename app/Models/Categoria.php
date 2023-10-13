@@ -10,7 +10,7 @@ class Categoria extends Model
 
     protected $table = 'categoria';
 
-    protected $fillable = ['nombre', 'padre', 'descripcion', 'estado', 'orden', 'usureg', 'usumod'];
+    protected $fillable = ['nombre','nombre_ingles','padre', 'descripcion','descripcion_ingles', 'estado', 'orden', 'usureg', 'usumod'];
 
     protected $hidden = [
         '_token'

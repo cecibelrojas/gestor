@@ -22,14 +22,37 @@ class AjustesController extends Controller
 
         return view('ajustes.feed', compact('lista'));
     }
+    public function panoramica()
+    {
+        $objPanoramica = new Ajustes();
+        $lista = $objPanoramica->listar_feed();
+
+        return view('ajustes.patrimonio360', compact('lista'));
+    }
     public function logoinstitucional()
     {
         $objFeed = new Ajustes();
         $lista1 = $objFeed->listar_feed();
-
-        return view('ajustes.logos', compact('lista1'));
+        $lista2 = $objFeed->listar();
+        return view('ajustes.logos', compact('lista1','lista2'));
     }
 
+    public function footer()
+    {
+        $objFeed = new Ajustes();
+        $lista = $objFeed->listar();
+        $lista2 = $objFeed->listar();
+        return view('ajustes.footer', compact('lista','lista2'));
+    }
+    public function logo_footer(Request $request)
+    {
+
+         $objFeed = new Ajustes();
+        $data = $objFeed->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('ajustes.formfooter', compact('data'));
+    }
     public function feed(Request $request)
     {
 
@@ -38,6 +61,15 @@ class AjustesController extends Controller
             'id' => $request['id']
         ));
         return view('ajustes.formfeed', compact('data'));
+    }
+    public function pano360(Request $request)
+    {
+
+        $objPanoramica = new Ajustes();
+        $data = $objPanoramica->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('ajustes.formpanoramica', compact('data'));
     }
 
     public function logoleft(Request $request)
@@ -78,6 +110,36 @@ class AjustesController extends Controller
         return view('organigrama.home', compact('lista2'));
     }
 
+
+
+    public function colorheader(Request $request)
+    {
+
+        $objFeed = new Ajustes();
+        $data = $objFeed->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('ajustes.formheader', compact('data'));
+    }
+
+    public function colortop(Request $request)
+    {
+
+        $objFeed = new Ajustes();
+        $data = $objFeed->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('ajustes.formtopbar', compact('data'));
+    }
+    public function colorfooter(Request $request)
+    {
+
+        $objFeed = new Ajustes();
+        $data = $objFeed->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('ajustes.formfootercolor', compact('data'));
+    }
     public function organigrama_institucional(Request $request)
     {
 
@@ -99,6 +161,7 @@ class AjustesController extends Controller
 
             $params = array(
                 'feed' => $request['feed'],
+                'feed_ingles' => $request['feed_ingles'],
                 'ubicacion' => $request['ubicacion']
             );
 
@@ -133,6 +196,11 @@ class AjustesController extends Controller
             
             $objFeed = new Ajustes();
 
+            $params = array(
+
+                'estado' => $request['estado']
+
+            );
 
             if ($request->hasFile('img1')) {
                 $adjunto = $request->file('img1');
@@ -171,7 +239,11 @@ class AjustesController extends Controller
         try {
             
             $objFeed = new Ajustes();
+            $params = array(
 
+                'estado1' => $request['estado1']
+
+            );
 
             if ($request->hasFile('img2')) {
                 $adjunto2 = $request->file('img2');
@@ -211,7 +283,12 @@ class AjustesController extends Controller
         try {
             
             $objFeed = new Ajustes();
+            $params = array(
 
+                'estado2' => $request['estado2'],
+                'url' => $request['url']
+
+            );
 
             if ($request->hasFile('img3')) {
                 $adjunto3 = $request->file('img3');
@@ -282,5 +359,189 @@ class AjustesController extends Controller
 
         return $response;
     }
+    public function store_colorheader(Request $request)
+    {
 
+        $response = array();
+
+        try {
+            
+            $objFeed = new Ajustes();
+
+            $params = array(
+                'colorh' => $request['colorh']
+            );
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objFeed->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objFeed->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+    public function store_colortop(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objFeed = new Ajustes();
+
+            $params = array(
+                'colort' => $request['colort']
+            );
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objFeed->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objFeed->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+    public function store_footerlogo(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objFeed = new Ajustes();
+            $params = array(
+
+                'estado3' => $request['estado3']
+
+            );
+
+            if ($request->hasFile('img4')) {
+                $adjunto5 = $request->file('img4');
+                $extension5 = $adjunto5->getClientOriginalExtension();
+                $fileName5 = "footerlogo_" . date('ymdhis') . "." . $extension5;
+                $adjunto5->move(base_path('archivos/footer'), $fileName5);
+                $params['img4'] = "/archivos/footer/" . $fileName5;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objFeed->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objFeed->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+    public function store_colorfooter(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objFeed = new Ajustes();
+
+            $params = array(
+                'colorf' => $request['colorf']
+            );
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objFeed->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objFeed->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+
+    public function store_panoramica(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objPanoramica = new Ajustes();
+
+
+            if ($request->hasFile('panoramica')) {
+                $adjunto6 = $request->file('panoramica');
+                $extension6 = $adjunto6->getClientOriginalExtension();
+                $fileName6 = "panoramica_" . date('ymdhis') . "." . $extension6;
+                $adjunto6->move(base_path('archivos/panoramica'), $fileName6);
+                $params['panoramica'] = "/archivos/panoramica/" . $fileName6;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objPanoramica->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objPanoramica->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
 }

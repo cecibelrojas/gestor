@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Categorias</h1>
+                <h1 class="m-0">{!! trans('messages.categorias') !!}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">Inicio</a></li>
-                    <li class="breadcrumb-item active">Categorias</li>
+                    <li class="breadcrumb-item"><a href="<?php echo url('/'); ?>">{!! trans('messages.inicio') !!}</a></li>
+                    <li class="breadcrumb-item active">{!! trans('messages.categorias') !!}</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,28 +24,30 @@
             <div class="col-lg-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de Categorias</h3>
+                        <h3 class="card-title">{!! trans('messages.lista_categoria') !!}</h3>
                         <div class="card-tools">
-                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> Añadir una nueva categoría</button>
+                            <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nueva_categoria') !!}</button>
                         </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>                                    
-                                    <th style="width: 30%;">Nombre</th>
-                                    <th style="width: 30%;">Descripción</th>
-                                    <th style="text-align: center;width: 20%;">Estado</th>
-                                    <th style="width: 10%;"></th>
+                                    <th style="width: 30%; font-size: 12px">{!! trans('messages.nombre') !!}</th>
+                                    <th style="width: 30%;font-size: 12px">{!! trans('messages.nombre_ingles') !!}</th>
+                                    <th style="width: 20%;font-size: 12px">{!! trans('messages.descripcion') !!}</th>
+                                    <th style="text-align: center;width: 10%;">{!! trans('messages.estado') !!}</th>
+                                    <th style="width: 10%;font-size: 12px"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if (count($lista) > 0) : ?>
                                     <?php foreach ($lista as $key) : ?>
                                         <tr>                                            
-                                            <td><?php echo $key['nombre']; ?></td>
-                                            <td><?php echo $key['descripcion']; ?></td>
-                                            <td style="text-align: center;"><?php echo ($key['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?></td>
+                                            <td style="font-size: 12px"><?php echo $key['nombre']; ?></td>
+                                            <td style="font-size: 12px"><?php echo $key['nombre_ingles']; ?></td>
+                                            <td style="font-size: 12px"><?php echo $key['descripcion']; ?></td>
+                                            <td style="text-align: center;font-size: 12px"><?php echo ($key['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-info" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
                                                 <button class="btn btn-sm btn-danger" onclick="eliminar(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
@@ -54,6 +56,7 @@
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -74,7 +77,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Categoría</h4>
+                <h4 class="modal-title">{!! trans('messages.categoria') !!}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -24,14 +24,14 @@
         <select class="form-control form-select" aria-label="Perfil" id="rol">
             <option value="">Seleccione</option>
             <option value="A" <?php if ($data && 'A' == $data['rol']) { ?> selected <?php } ?>>Administrador</option>
-            <option value="B" <?php if ($data && 'B' == $data['rol']) { ?> selected <?php } ?>>Voces</option>
+            <option value="B" <?php if ($data && 'B' == $data['rol']) { ?> selected <?php } ?>>Consulares</option>
             <option value="C" <?php if ($data && 'C' == $data['rol']) { ?> selected <?php } ?>>Redactor</option>
-            <option value="D" <?php if ($data && 'D' == $data['rol']) { ?> selected <?php } ?>>Corrector</option>
-            <option value="V" <?php if ($data && 'V' == $data['rol']) { ?> selected <?php } ?>>Corrector(a) Voces</option>            
+            <option value="D" <?php if ($data && 'D' == $data['rol']) { ?> selected <?php } ?>>Corrector</option>           
             <option value="E" <?php if ($data && 'E' == $data['rol']) { ?> selected <?php } ?>>Jefe Redacción / Información</option>
-            <option value="F" <?php if ($data && 'F' == $data['rol']) { ?> selected <?php } ?>>Escuela YA</option>
-            <option value="G" <?php if ($data && 'G' == $data['rol']) { ?> selected <?php } ?>>Audiovisual</option>
-            <option value="H" <?php if ($data && 'H' == $data['rol']) { ?> selected <?php } ?>>Deportes</option>
+            <option value="F" <?php if ($data && 'F' == $data['rol']) { ?> selected <?php } ?>>Biblioteca</option>
+            <option value="G" <?php if ($data && 'G' == $data['rol']) { ?> selected <?php } ?>>Turismo</option>
+            <option value="H" <?php if ($data && 'H' == $data['rol']) { ?> selected <?php } ?>>Audiovisuales</option>
+            <option value="I" <?php if ($data && 'I' == $data['rol']) { ?> selected <?php } ?>>Fotografía</option>
         </select>
     </div>
     <div class="col-lg-6">

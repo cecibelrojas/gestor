@@ -3,27 +3,27 @@
 <!-- -->
 <div class="row">
     <div class="col-lg-4">
-        <label style="font-size: 12px;font-weight: bold;">Nombre</label>
+        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.nombre') !!}</label>
         <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['nombre'] : ''; ?>" id="nombre" style="border: 1px solid #b9b9b9;">
     </div>
     <div class="col-lg-4">
-        <label style="font-size: 12px;font-weight: bold;">URL</label>
+        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.url') !!}</label>
         <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['url'] : ''; ?>"  id="url" style="border: 1px solid #b9b9b9;">
     </div>
     <div class="col-lg-4">
-        <label style="font-size: 12px;font-weight: bold;">Icono</label>
+        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.icono') !!}</label>
         <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['icono'] : ''; ?>" id="icono" style="border: 1px solid #b9b9b9;">
     </div>
     <div class="col-lg-12">
-        <label style="font-size: 12px;font-weight: bold;">Estatus<span style="color: red;">*</span></label>
+        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.estado') !!}<span style="color: red;">*</span></label>
         <select class="form-control form-select" aria-label="estado" id="estado">
-            <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>Activo</option>
-            <option value="I" <?php if ($data && 'I' == $data['estado']) { ?> selected <?php } ?>>Inactivo</option>
+            <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>{!! trans('messages.activo') !!}</option>
+            <option value="I" <?php if ($data && 'I' == $data['estado']) { ?> selected <?php } ?>>{!! trans('messages.inactivo') !!}</option>
         </select>
     </div>
     <div class="col-lg-12 text-right">
         <hr>
-        <button id="btnSave" class="btn btn-sm btn-success">Guardar Cambios</button>
+        <button id="btnSave" class="btn btn-sm btn-success">{!! trans('messages.guardar') !!}</button>
     </div>
 </div>
 <script>
