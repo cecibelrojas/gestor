@@ -84,23 +84,24 @@
 
             @foreach (array_keys(config('locale.languages')) as $lang)
                 @if ($lang != App::getLocale() AND $lang == 'en')
-                    <h4 class="card-title nombrex" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>
-                    <h4 class="card-title comunicados" style="margin: 0px;display:none;">{!! trans('messages.titulo_comunicados') !!}</h4>
                     
-                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre" id="nombre" value="{{ @$data->nombre}}" maxlength="70" onkeyup="countChars(this);">
-                    <p id="charNum" class="nombrex" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p>
+                    <h4 class="card-title" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>  
                     
-                    <input type="text" class="form-control comunicados" style="margin-top: 10px; display: none;" name="nombre" id="nombre" value="{{ @$data->nombre}}">
-                    
+                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre" id="nombre" value="{{ @$data->nombre}}" <?php if( @$data['categoria']!=2 ){?> maxlength="70" onkeyup="countChars(this);" <?php }else{ ?> maxlength="350" <?php } ?>>
+                    <?php if( @$data['categoria']!=2 ){?><p id="charNum" class="cant1" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p><?php }else{ ?> <div style="margin-top:10px"></div> <?php } ?>
+                    <div style="margin-top:10px"></div>
+
                     <h4 class="card-title" style="margin: 0px">{!! trans('messages.sumario') !!}</h4>
                     <input type="text" name="sumario" id="sumario" class="form-control" value="{{ @$data->sumario }}" style="border: 1px solid #b9b9b9;" maxlength="320" onkeyup="countCharsSumario(this);">
                     <p id="charNumSumario" style="text-align: right;">320 {!! trans('messages.caracteres') !!}</p>
                     <textarea id="descripcion" class="form-control" name="descripcion">{{ @$data->descripcion }}</textarea>
                 @elseif ($lang != App::getLocale() AND $lang == 'es')
-                    <h4 class="card-title nombrex" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>
-                    <h4 class="card-title comunicados" style="margin: 0px;display:none;">{!! trans('messages.titulo_comunicados') !!}</h4>
-                    <input type="text" class="form-control" style="margin-top: 10px;" name="nombre_ingles" id="nombre" value="{{ @$data->nombre_ingles}}" <?php if( @$data['categoria']!=2 ){?> maxlength="70" onkeyup="countChars(this);" <?php }else{  ?> maxlength="500" <?php }  ?>>
-                    <?php if( @$data['categoria']!=2 ){?> <p id="charNum" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p> <?php  }else {  ?><br><?php  }  ?> 
+
+                    <h4 class="card-title" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>  
+                    
+                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre_ingles" id="nombre" value="{{ @$data->nombre_ingles}}" <?php if( @$data['categoria']!=2 ){?> maxlenombre_inglesngth="70" onkeyup="countChars(this);" <?php }else{ ?> maxlength="350" <?php } ?>>
+                    <?php if( @$data['categoria']!=2 ){?><p id="charNum" class="cant1" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p><?php }else{ ?> <div style="margin-top:10px"></div> <?php } ?>
+                    <div style="margin-top:10px"></div>
 
                     <h4 class="card-title" style="margin: 0px">{!! trans('messages.sumario') !!}</h4>
                     <input type="text" name="sumario_ingles" id="sumario" class="form-control" value="{{ @$data->sumario_ingles }}" style="border: 1px solid #b9b9b9;" maxlength="320" onkeyup="countCharsSumario(this);">
@@ -1723,15 +1724,22 @@ $(function() {
   $("#categoria").on('change', function() {
 
     var selectValue = $(this).val();
-    console.log(selectValue);
             if(selectValue!="2"){
-              $('.comunicados').hide();
+             $('.comunicados').hide();
               $('.nombrex').show();
-            }else if(selectValue=="2"){
-              $('.nombrex').hide();
+              $('.cant1').show();
+              console.log(selectValue);
+            }if(selectValue=="2"){
+              $('.comunicados').hide();
+              $('.cant1').hide();
+              document.getElementById("nombre").setAttribute("maxlength", "350");
+              $('.nombrex').show();
+              console.log(selectValue);
+            }if(selectValue==""){
               $('.comunicados').show();
+              $('.nombrex').show();
+              console.log(selectValue);
             }
-
   })
 
 });    
