@@ -31,11 +31,6 @@
 
       <!-- Default box -->
       <div class="card card-solid">
-        <div class="card-header">
-            <div class="card-tools">
-                <button class="btn btn-sm btn-info" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
-            </div>
-        </div>
 <?php if (count($subservicio) > 0) : ?>
     <?php foreach ($subservicio as $key) : ?>
         <div class="card-body pb-0">

@@ -20,10 +20,6 @@
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
-  <!-- fullCalendar -->
-  <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/locales-all.js')}}">
-  <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/locales-all.min.js')}}">
-  <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/main.css')}}">
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/ekko-lightbox/ekko-lightbox.css')}}">
 
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/dist/css/ionicons.min.css')}}">
@@ -68,7 +64,7 @@
   </script>
     <!-- Bootstrap 4 -->
   <script src="{{asset('AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="{{asset('assets/js/Chart.js')}}"></script>
 
   <!-- Sparkline -->
   <script src="{{asset('AdminLTE-3.2.0/plugins/sparklines/sparkline.js')}}"></script>
@@ -107,8 +103,8 @@
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
-  <script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+  <script src="{{asset('assets/js/moment.min.js')}}"></script>
+  <script src="{{asset('assets/js/dataTables.dateTime.min.js')}}"></script>
 
 
   <script src="{{asset('AdminLTE-3.2.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
@@ -776,13 +772,6 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{url('/instituto_pedro_gual')}}" class="nav-link">
-                    <p>
-                      {!! trans('messages.pero_gual') !!} 
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
                   <a href="{{url('/conare')}}" class="nav-link">
                     <p>
                       {!! trans('messages.conare') !!} 
@@ -912,11 +901,10 @@
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  <script src="{{asset('AdminLTE-3.2.0/plugins/fullcalendar/main.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/mask.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/plugins/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
   <script src="{{asset('js/calendarioccs.js')}}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.4.0/js/bootstrap-colorpicker.min.js"></script>
+  <script src="{{asset('assets/js/bootstrap-colorpicker.min.js')}}"></script>
   <script src="{{asset('js/codigo.js')}}"></script>
 
   <script>

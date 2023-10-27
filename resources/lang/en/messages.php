@@ -217,6 +217,14 @@ return [
     'conare' => 'Conare',
     'borrador' => 'Draft',
     'libros_digitales' => 'Digital books',
-    'titulo_comunicados' => 'Title Communications'
-
+    'titulo_comunicados' => 'Title Communications',
+    'banner' => 'Banner',
+    'secciones_internas' => 'Internal Sections',
+    'contenido1' => 'Content 1',
+    'seccion_casamarilla' => 'Yellow House Sections',
+    'imagen_biblioteca' => 'Image Library',
+    'colecciones' => 'Collections',
+    'normas' => 'Rules',
+    'direcciones' => 'Addresses',
+    'ubicacion_geoestrategica' => 'Geostrategic location'
 ];

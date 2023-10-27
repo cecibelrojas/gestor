@@ -67,6 +67,7 @@ Route::get('/multimedia', 'MultimediaController@index');
 Route::get('/categoria_galerias', 'Categoria_galeriasController@index');
 Route::get('/fotografias', 'GaleriasController@index');
 Route::get('/casa_amarilla', 'CasaamarillaController@index');
+Route::get('/conare', 'ConareController@index');
 
 //POST
 Route::post('/cabecera', 'BancoDatosController@cabecera');
@@ -309,5 +310,40 @@ Route::post('/guardar-mp4', 'CampanaotrosController@store');
 Route::post('/eliminar_vmp4', 'CampanaotrosController@delete');
 
 Route::post('/bannercasamarilla_new', 'CasaamarillaController@banner_casamarilla');
+Route::post('/contenido_principal', 'CasaamarillaController@contenido1');
+Route::post('/imagen_principal', 'CasaamarillaController@imagen_casamarilla');
+Route::post('/parallax_coleccion', 'CasaamarillaController@parallax1_casamarilla');
+Route::post('/parallax_normas', 'CasaamarillaController@parallax2_casamarilla');
+Route::post('/lista_colecciones', 'CasaamarillaController@coleccion');
+Route::post('/lista_normas', 'CasaamarillaController@normas');
+Route::post('/lista_items', 'CasaamarillaController@items');
 
 Route::post('/borrador', 'ProductologController@guardar');
+
+Route::post('/guardar-banner_principal', 'CasaamarillaController@storebanner');
+Route::post('/guardar-contenido_principal', 'CasaamarillaController@guardar_conenido');
+Route::post('/guardar-imagen_principal', 'CasaamarillaController@guardar_imgca');
+Route::post('/guardar-parallax1', 'CasaamarillaController@guardar_parallax1');
+Route::post('/guardar-parallax2', 'CasaamarillaController@guardar_parallax2');
+Route::post('/guardar-coleciones', 'CasaamarillaController@guardar_coleccion');
+Route::post('/guardar-normas', 'CasaamarillaController@guardar_normas');
+Route::post('/guardar-items', 'CasaamarillaController@guardar_items');
+
+Route::post('/eliminar_coleccion', 'CasaamarillaController@delete_colecciones');
+Route::post('/eliminar_normas', 'CasaamarillaController@delete_normas');
+Route::post('/eliminar_items', 'CasaamarillaController@delete_items');
+
+Route::post('/bannerconare_new', 'ConareController@banner_conare');
+Route::post('/contenido_conare', 'ConareController@contenido1');
+Route::post('/imagen_conare', 'ConareController@imagen_conare');
+Route::post('/parallax_conare', 'ConareController@parallax_conare');
+Route::post('/lista_ubicaciones', 'ConareController@ubicacion_geo');
+
+
+Route::post('/guardar-banner_conare', 'ConareController@storebanner');
+Route::post('/guardar-contenido_conare', 'ConareController@guardar_conenido');
+Route::post('/guardar-imagen_conare', 'ConareController@guardar_imgco');
+Route::post('/guardar-parallax', 'ConareController@guardar_parallax');
+Route::post('/guardar-ubicaciones', 'ConareController@guardar_ubigeo');
+
+Route::post('/eliminar_ubicacion_geo', 'ConareController@delete_ubicaciones');

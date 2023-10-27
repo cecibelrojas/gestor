@@ -218,6 +218,15 @@ return [
     'conare' => 'Conare',
     'borrador' => 'Borrador',
     'libros_digitales' => 'Libros Digitales',
-    'titulo_comunicados' => 'Título Comunicados'
+    'titulo_comunicados' => 'Título Comunicados',
+    'banner' => 'Banner',
+    'secciones_internas' => 'Secciones Internas',
+    'contenido1' => 'Contenido 1',
+    'seccion_casamarilla' => 'Secciones Casa Amarilla',
+    'imagen_biblioteca' => 'Imagen Biblioteca',
+    'colecciones' => 'Colecciones',
+    'normas' => 'Normas',
+    'direcciones' => 'Direcciones',
+    'ubicacion_geoestrategica' => 'Ubicación geoestratégica'
 
 ];
