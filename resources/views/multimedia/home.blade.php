@@ -43,6 +43,90 @@
 
       </div>
       <!-- /.card -->
-
     </section>
+     <div class="modal fade" id="modal-nuevo">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Medios</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="form-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $(document).ready(function() {
+        $('#maintable').DataTable();
+        $('#btnNuevo').click(function() {
+            formulario();
+        });
+    });
+    function formulario(id = null) {
+        $.ajax({
+            url: '<?php echo url('/medios_uploads') ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo').modal('show');
+                $('#form-content').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content').html(view);
+            },
+            error: function() {
+                $('#form-content').html("Error al cargar ventana.");
+            }
+        });
+    }
+    function eliminar(id = null) {
+        swal({
+            title: '¿Seguro desea eliminar el registro seleccionado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+            confirmButtonColor: '#dd3333',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '<?php echo url('/eliminarmedios') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id
+                    },
+                    beforeSend: function() {
+                    },
+                    success: function(data) {
+                        if (typeof data.errorMessage != 'undefined') {
+                            swal({
+                                icon: 'error',
+                                text: data.errorMessage,
+                                showConfirmButton: true
+                            });
+                            return false;
+                        }
+                        swal({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El registro ha sido eliminado.',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function(result) {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+                    }
+                });
+            }
+        })
+    }
+</script>       
 @endsection

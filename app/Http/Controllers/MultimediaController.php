@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BancoDatos;
 use App\Models\Servicios_consulares;
-use App\Models\Producto;
-use App\Models\ProductoMultimedia;
+use App\Models\Uploads;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -19,8 +18,18 @@ class MultimediaController extends Controller
 
     public function index()
     {
-        $objProducto = new Producto();
-        $lista = $objProducto->listar();
+        $objUploads = new Uploads();
+        $lista = $objUploads->listar();
         return view('multimedia.home', compact('lista'));
     }
+    public function uploads_img(Request $request)
+    {
+        $objUploads = new Uploads();
+        $data = $objUploads->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('multimedia.form', compact('data'));
+    }
+
+
 }

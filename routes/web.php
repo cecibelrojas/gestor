@@ -63,7 +63,6 @@ Route::get('/proceso_final/{id?}', 'ServiciosController@detalle_final_subservici
 Route::get('/detalles_identidad_nacional/{id?}', 'ServiciosidentidadController@detalles_identidad');
 Route::get('/detalles_turismo_venezuela/{id?}', 'ServiciosturismoController@detalles_turismo');
 Route::get('/campana_otros', 'CampanaotrosController@index');
-Route::get('/multimedia', 'MultimediaController@index');
 Route::get('/categoria_galerias', 'Categoria_galeriasController@index');
 Route::get('/fotografias', 'GaleriasController@index');
 Route::get('/casa_amarilla', 'CasaamarillaController@index');
@@ -347,3 +346,6 @@ Route::post('/guardar-parallax', 'ConareController@guardar_parallax');
 Route::post('/guardar-ubicaciones', 'ConareController@guardar_ubigeo');
 
 Route::post('/eliminar_ubicacion_geo', 'ConareController@delete_ubicaciones');
+
+Route::get('/multimedia', 'MultimediaController@index');
+Route::post('/medios_uploads', 'MultimediaController@uploads_img');
