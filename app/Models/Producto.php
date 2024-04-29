@@ -10,13 +10,13 @@ class Producto extends Model
 
     protected $table = 'producto';
 
-    protected $fillable = ['nombre', 'descripcion', 'estado', 'precio', 'categoria', 'usureg', 'usumod', 'precio_ant', 'extra', 'extradesc', 'moneda', 'imgdestacado', 'preview', 'trailer', 'etiquetas', 'sumario', 'estdestacado', 'id_parroquia', 'fotovisible', 'fecini', 'fecfin','programable','autor_foto'];
+    protected $fillable = ['nombre', 'descripcion', 'estado', 'precio', 'categoria', 'usureg', 'usumod', 'precio_ant', 'extra', 'extradesc', 'moneda', 'imgdestacado', 'preview', 'trailer', 'etiquetas', 'sumario', 'estdestacado', 'id_parroquia', 'fotovisible', 'fecini', 'fecfin', 'programable', 'autor_foto'];
 
     protected $hidden = [
         '_token'
     ];
 
-public function listar(array $params = array())
+    public function listar(array $params = array())
     {
         $select = $this->from('producto as p')
             ->select('p.*', 'c.nombre as categoriades')
@@ -33,8 +33,16 @@ public function listar(array $params = array())
             $select->where('p.categoria', $params['categoria']);
         }
 
+        if (array_key_exists('fecini', $params) && array_key_exists('fecfin', $params)) {
+            $select->whereBetween('p.created_at', array($params['fecini'], $params['fecfin']));
+        }
+
         if (array_key_exists('papelera', $params)) {
-            $select->where('p.papelera', '=','P');
+            $select->where('p.papelera', '=', 'P');
+        }
+
+        if (array_key_exists('limite', $params)) {
+            $select->limit($params['limite']);
         }
 
         return $select->get();
@@ -43,7 +51,7 @@ public function listar(array $params = array())
     public function listar_trabajador(array $params = array())
     {
         $select = $this->from('producto as p')
-            ->select('p.id','p.nombre', 'u.rol', 'p.created_at', 'p.estado', 'c.nombre as categoriades')
+            ->select('p.id', 'p.nombre', 'u.rol', 'p.created_at', 'p.estado', 'c.nombre as categoriades')
             ->selectRaw("(select name from users as u where u.id = p.usureg) as creador")
             ->selectRaw("(select name from users as u where u.id = p.trabajando) as escritor")
             ->join('categoria as c', 'c.id', 'p.categoria')
@@ -61,7 +69,7 @@ public function listar(array $params = array())
             $select->where('p.created_at', $params['created_at']);
         }
         if (array_key_exists('rol', $params)) {
-            $select->where('u.rol', '=','C');
+            $select->where('u.rol', '=', 'C');
         }
         if (array_key_exists('limite', $params)) {
             if (!empty($params['limite'])) {

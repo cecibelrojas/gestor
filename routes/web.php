@@ -24,7 +24,6 @@ Route::get('/widgets', 'WidgetsController@index');
 Route::get('/usuarios', 'UsuariosController@index');
 Route::get('/categorias', 'CategoryController@index');
 Route::get('/publicaciones', 'ProductController@index');
-Route::post('/listado_publicaciones', 'ProductController@listado_publicaciones');
 Route::get('/publicacion/{id?}', 'ProductController@producto');
 Route::get('/libreria_digital', 'LibreriaController@index');
 Route::get('/videos', 'VideosController@index');
@@ -383,4 +382,7 @@ Route::get('/multimedia', 'MultimediaController@index');
 Route::post('/medios_uploads', 'MultimediaController@uploads_img');
 Route::post('/cargarmedios', 'MultimediaController@upload_medios');
 Route::post('/obtenermultimediamedios', 'MultimediaController@obtenermultimediamedios');
+
+
+Route::post('/listado_publicaciones', 'ProductController@listado_publicaciones');
 

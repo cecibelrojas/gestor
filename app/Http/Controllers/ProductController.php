@@ -34,7 +34,9 @@ class ProductController extends Controller
 
         $objProducto = new Producto();
 
-        $params = array('limite' => 1000);
+        $params = array(
+            'limite' => 1000
+        );
 
         if (isset($_GET['nombre'])) {
             $params['nombre'] = $_GET['nombre'];
@@ -46,21 +48,35 @@ class ProductController extends Controller
             'papelera' => array('P')
         ));
 
-        return view('product.index', compact('lista','trash'));
+        return view('product.index', compact('lista', 'trash'));
     }
-    public function listado_publicaciones(Request $request){
-        
+    public function listado_publicaciones(Request $request)
+    {
         $objProducto = new Producto();
+
+        $params = array();
+
+        if(isset($request->fecini) && !empty($request->fecini)){
+            $params['fecini'] = $request->fecini;
+        }
+
+        if(isset($request->fecfin) && !empty($request->fecfin)){
+            $params['fecfin'] = $request->fecfin;
+        }
         
-        $params = array(
-            'fecini' => $request->fecini,
-            'fecfin' => $request->fecfin
-        );
+        if(isset($request->limite) && !empty($request->limite)){
+            $params['limite'] = $request->limite;
+        }
+
         $lista = $objProducto->listar($params);
 
-        return response()->json($lista);
+        $trash = $objProducto->listar(array(
+            'papelera' => array('P')
+        ));
+
+        return view('product._partial.publicaciones', compact('lista', 'trash'));
     }
-   
+
     public function papelera_total(Request $request)
     {
 
@@ -71,19 +87,19 @@ class ProductController extends Controller
         if (isset($_GET['nombre'])) {
             $params['nombre'] = $_GET['nombre'];
         }
-        
+
         $lista = $objProducto->listar($params);
 
         $trash = $objProducto->listar(array(
             'papelera' => array('P')
         ));
 
-        return view('product.papelera_publicaciones', compact('lista','trash'));
+        return view('product.papelera_publicaciones', compact('lista', 'trash'));
     }
 
     public function producto($id = null)
     {
-        
+
         $objCategorias = new Categoria();
         $objProducto = new Producto();
         $objProductoMultimedia = new ProductoMultimedia();
@@ -121,9 +137,9 @@ class ProductController extends Controller
                 return redirect('publicaciones')->with(array('mensaje' => 'La publicación esta siendo editada por el usuario ' . $ocupacion['escritor']));
             }
         }
-            $where = array(
+        $where = array(
             'id' => $id,
-            );
+        );
 
         $data = array();
         $imagenes = array();
@@ -149,7 +165,7 @@ class ProductController extends Controller
             'id_municipio' => 1
         ));
 
-        return view('product.producto', compact('data', 'id', 'categorias', 'imagenes', 'videos', 'documentos', 'etiquetas', 'parroquias','logproducto'));
+        return view('product.producto', compact('data', 'id', 'categorias', 'imagenes', 'videos', 'documentos', 'etiquetas', 'parroquias', 'logproducto'));
     }
     public function desocupar()
     {
@@ -255,8 +271,8 @@ class ProductController extends Controller
             $adjuntoFileName4 = $fileName4;
             $request->request->add(array('imageredes' => $adjuntoFileName4));
         }
-        
-       
+
+
 
 
         /*if ($request->hasFile('doctrailer')) {
@@ -352,7 +368,7 @@ class ProductController extends Controller
 
         return $response;
     }
-    
+
     public function restaurar(Request $request)
     {
         $objProducto = new Producto();
