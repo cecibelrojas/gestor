@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <label style="font-weight: bold;color: #3F51B5;">Fecha Inicio</label><br>
-                                <input type="date" class="form-control" id="filtroFecini" value="<?php echo date("Y-m-d", strtotime(date('Y-m-d') . "- 1 year")); ?>">
+                                <input type="date" class="form-control" id="filtroFecini" value="<?php echo date("Y-m-d", strtotime(date('Y-m-d') . "- 6 month")); ?>">
                             </div>
                             <div class="col-lg-2">
                                 <label style="font-weight: bold;color: #3F51B5;">Fecha Fin</label><br>
@@ -152,9 +152,7 @@
             order: [
                 [6, 'desc']
             ]
-
         });
-
         $('#btnNuevo').click(function() {
             formulario();
         });
@@ -166,7 +164,27 @@
             filtrar();
         });
     });
+    function filtrar() {
+       $.ajax({
+            url: '<?php echo url('/listado_publicaciones') ?>',
+            type: 'POST',
+            data: {
+                fecini: $('#filtroFecini').val(),
+                 fecfin: $('#filtroFecfin').val()
+            },
+            beforeSend: function() {
 
+            },
+            success: function(data) {
+                table.data(data.listado);
+                table.clear();
+                table.rows.add(data.listado).draw();
+            },
+            error: function() {
+
+            }
+        });
+    }
     function trabajador(id = null) {
 
         swal({
