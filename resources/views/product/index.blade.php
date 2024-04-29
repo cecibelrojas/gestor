@@ -145,9 +145,7 @@
             order: [
                 [6, 'desc']
             ]
-
         });
-
         $('#btnNuevo').click(function() {
             formulario();
         });
@@ -159,7 +157,27 @@
             filtrar();
         });
     });
+    function filtrar() {
+       $.ajax({
+            url: '<?php echo url('/listado_publicaciones') ?>',
+            type: 'POST',
+            data: {
+                fecini: $('#filtroFecini').val(),
+                 fecfin: $('#filtroFecfin').val()
+            },
+            beforeSend: function() {
 
+            },
+            success: function(data) {
+                table.data(data.listado);
+                table.clear();
+                table.rows.add(data.listado).draw();
+            },
+            error: function() {
+
+            }
+        });
+    }
     function trabajador(id = null) {
 
         swal({
@@ -210,27 +228,7 @@
         })
 
     }
-    function filtrar() {
-       $.ajax({
-            url: '<?php echo url('/listado_publicaciones') ?>',
-            type: 'POST',
-            data: {
-                fecini: $('#filtroFecini').val(),
-                 fecfin: $('#filtroFecfin').val()
-            },
-            beforeSend: function() {
 
-            },
-            success: function(data) {
-                table.data(data.listado);
-                table.clear();
-                table.rows.add(data.listado).draw();
-            },
-            error: function() {
-
-            }
-        });
-    }
 
     function deshabilitando(id = null) {
 
