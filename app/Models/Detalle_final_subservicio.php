@@ -9,7 +9,7 @@ class Detalle_final_subservicio extends Model
 {
     protected $table = 'detalle_final_subservicio';
 
-    protected $fillable = ['id','subserviciofinal_id','contenido','contenido_ingles','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','subserviciofinal_id','contenido','contenido_ingles','infografia','estado_info','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'

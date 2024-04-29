@@ -35,6 +35,17 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
+  'kudashevs/laravel-share-buttons' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Kudashevs\\ShareButtons\\Providers\\ShareButtonsServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'ShareButtons' => 'Kudashevs\\ShareButtons\\Facades\\ShareButtonsFacade',
+    ),
+  ),
   'laravel/legacy-factories' => 
   array (
     'providers' => 

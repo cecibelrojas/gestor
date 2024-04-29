@@ -43,6 +43,17 @@
                         </div>
                     </div>
                     <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label style="font-weight: bold;color: #3F51B5;">Fecha Inicio</label><br>
+                            <input type="date" class="form-control" id="filtroFecini">
+                        </div>
+                        <div class="col-lg-2">
+                            <label style="font-weight: bold;color: #3F51B5;">Fecha Actual</label><br>
+                            <input type="date" class="form-control" id="filtroFecfin" value="<?php echo date("d-m-Y",strtotime(date('Y-m-d')."- 1 year"));?>">
+                        </div>
+                    </div>
+                    <hr>                       
                         <table class="table table-responsive-lg" id="maintable">
                             <thead>
                                 <tr>
@@ -130,16 +141,23 @@
 <script>
     $(document).ready(function() {
 
-        $('#maintable').DataTable({
+       var table = $('#maintable').DataTable({
             order: [
                 [6, 'desc']
             ]
+
         });
 
         $('#btnNuevo').click(function() {
             formulario();
         });
+        $('#filtroFecini').change(function() {
+            filtrar();
+        });
 
+        $('#filtroFecfin').change(function() {
+            filtrar();
+        });
     });
 
     function trabajador(id = null) {
@@ -192,8 +210,27 @@
         })
 
     }
+    function filtrar() {
+       $.ajax({
+            url: '<?php echo url('/listado_publicaciones') ?>',
+            type: 'POST',
+            data: {
+                fecini: $('#filtroFecini').val(),
+                 fecfin: $('#filtroFecfin').val()
+            },
+            beforeSend: function() {
 
+            },
+            success: function(data) {
+                table.data(data.listado);
+                table.clear();
+                table.rows.add(data.listado).draw();
+            },
+            error: function() {
 
+            }
+        });
+    }
 
     function deshabilitando(id = null) {
 

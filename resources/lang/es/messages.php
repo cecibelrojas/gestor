@@ -126,7 +126,7 @@ return [
     'actualizar_cambios' => 'Actualizar Cambios',
     'propiedades' => 'Propiedades',
     'autor' => 'Autor',
-    'mision_diplomatica' => 'Diplomatic mission',
+    'mision_diplomatica' => 'Misión diplomática',
     'fechainicio' => 'Fecha Inicio',
     'fechafin' => 'Fecha Fin',
     'imageninternavisible' => 'Imagen Interna Visible',
@@ -227,6 +227,9 @@ return [
     'colecciones' => 'Colecciones',
     'normas' => 'Normas',
     'direcciones' => 'Direcciones',
-    'ubicacion_geoestrategica' => 'Ubicación geoestratégica'
+    'ubicacion_geoestrategica' => 'Ubicación geoestratégica',
+    'ajustes_apostilla' => 'Ajustes Serv Apostilla',
+    'pagos_apostilla' => 'Pagos Serv Apostilla',
+    'consulados' => 'Consulados'
 
 ];

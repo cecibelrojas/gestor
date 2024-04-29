@@ -9,7 +9,7 @@ class Uploads extends Model
 {
     protected $table = 'medios';
 
-    protected $fillable = ['id', 'titulo', 'imagen', 'usureg', 'usumod', 'created_at', 'updated_at'];
+    protected $fillable = ['id','tipo', 'archivo', 'estado', 'exclusivo', 'usureg', 'usumod', 'padre', 'extension', 'titulo', 'descripcion', 'orden', 'originalname', 'usureg', 'usumod', 'created_at', 'updated_at'];
 
     protected $hidden = [
         '_token'
@@ -21,11 +21,14 @@ class Uploads extends Model
         $select = $this->from('medios as t')
             ->select('t.*');
 
+        if (array_key_exists('tipo', $params)) {
+            $select->where('tipo', $params['tipo']);
+        }
+
         $select->orderByRaw('t.id');
 
         return $select->get();
     }
-
 
     public function obtener(array $params = array())
     {

@@ -27,16 +27,10 @@
       </div><!-- /.container-fluid -->
     </section> 
       <div class="card card-solid">
-        <div class="card-header">
-            <div class="card-tools">
-                <button class="btn btn-sm btn-info" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
-            </div>
-        </div>
-        <div class="card-body pb-0">
-        <div class="row">
            <?php if (count($detalle_final) > 0) : ?>
                <?php foreach ($detalle_final as $key) : ?>
-
+        <div class="card-body pb-0">
+        <div class="row">
           <div class="col-md-12">
             <!-- Box Comment -->
             <div class="card card-widget">
@@ -55,12 +49,16 @@
             </div>
             <!-- /.card -->
           </div>
-                  <?php endforeach; ?>
-                  <?php endif; ?>
-
-          <!-- /.col -->
         </div>
         </div>
+        <?php endforeach; ?>
+            <?php else : ?>
+            <div class="card-header">
+                <div class="card-tools">
+                    <button class="btn btn-sm btn-info" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                </div>
+            </div>
+        <?php endif; ?>
       </div>
 <div class="modal fade" id="modal-nuevo">
     <div class="modal-dialog modal-lg">

@@ -1,8 +1,7 @@
 @extends('layouts.administrador')
 
 @section('content')
-
- <input type="hidden" id="id" value="<?php echo $data ? $data['id'] : ''; ?>">
+<input type="hidden" id="id" value="<?php echo $data ? $data['id'] : ''; ?>">
      <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -81,8 +80,9 @@
                         </li>
                       </ul>
                     </div>
+
                     <div class="col-5 text-center">
-                      <img src="<?php echo env('APP_ADMIN') . "" . $key['icono']; ?>"  class=" img-fluid">
+                      <img src="<?php echo env('APP_ADMIN')." ".$key['icono']; ?>"  class=" img-fluid">
                     </div>
                   </div>
                 </div>

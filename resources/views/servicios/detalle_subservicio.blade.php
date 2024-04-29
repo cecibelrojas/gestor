@@ -21,7 +21,7 @@
       </div><!-- /.container-fluid -->
     </section>
 
-        <section class="content">
+    <section class="content">
       <div class="container-fluid">
         <div class="card card-primary card-outline">
           <div class="card-header">
@@ -39,7 +39,13 @@
           <div class="card-body">
             <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Contenido</a>
+                <a class="nav-link active" id="custom-content-below-banner-tab" data-toggle="pill" href="#custom-content-below-banner" role="tab" aria-controls="custom-content-below-banner" aria-selected="true">Banner</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Contenido Consular</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-content-below-legal-tab" data-toggle="pill" href="#custom-content-below-legal" role="tab" aria-controls="custom-content-below-legal" aria-selected="true">Legalización y Apostilla</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Servicios</a>
@@ -50,22 +56,57 @@
               <li class="nav-item">
                 <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill" href="#custom-content-below-settings" role="tab" aria-controls="custom-content-below-settings" aria-selected="false">Videos</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" id="custom-content-below-preguntas-tab" data-toggle="pill" href="#custom-content-below-preguntas" role="tab" aria-controls="custom-content-below-preguntas" aria-selected="false">Preguntas Frecuentes</a>
-              </li>
-
             </ul>
             <div class="tab-content" id="custom-content-below-tabContent">
-              <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+              <!-- tab 1 banner -->
+              <div class="tab-pane fade show active" id="custom-content-below-banner" role="tabpanel" aria-labelledby="custom-content-below-banner-tab">
                 <section class="content">
-
-                  <!-- Default box -->
-                  <div class="card card-solid">
+                  <?php if (count($detalle_subservicio) > 0) : ?>
+                    <?php foreach ($detalle_subservicio as $bnr) : ?>
+                      <!-- Default box -->
+                      <div class="card card-solid">
+                        <div class="card-body pb-0">
+                          <div class="row">
+                            <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
+                              <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                  Banner
+                                </div>
+                                <div class="card-body pt-0">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <img src="<?php echo env('APP_ADMIN') . "" . $bnr['banner']; ?>" onerror="this.src='<?php echo asset('archivos/banner_detalleservicio/img.png'); ?>'" class="imgpreview" width="100%">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="text-right">
+                                    <button class="btn btn-sm btn-info" onclick="formulariobanner(<?php echo $bnr['id']; ?>)"><i class="fa fa-edit"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                    <?php endforeach; ?>
+                    <?php else : ?>
                     <div class="card-header">
                         <div class="card-tools">
-                            <button class="btn btn-sm btn-info" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                            <button class="btn btn-sm btn-info" id="btnNuevo2"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
                         </div>
                     </div>
+                 <?php endif; ?>
+                </section>
+              </div>
+              <!-- tab 1 banner -->
+              <!-- tab 2 contenido consular -->
+              <div class="tab-pane fade" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                <section class="content">
+                  <!-- Default box -->
+                  <div class="card card-solid">
                     <div class="card-body pb-0">
                     <div class="row">
                       <div class="col-12">
@@ -84,7 +125,7 @@
                               </thead>
                               <tbody>
                                 <?php if (count($detalle_subservicio) > 0) : ?>
-                                <?php foreach ($detalle_subservicio as $key) : ?>
+                                  <?php foreach ($detalle_subservicio as $key) : ?>
                                   <tr>
                                     <td style="font-size: 12px;"><?php echo $key['titulo_principal']; ?></td>
                                     <td style="font-size: 12px">
@@ -101,14 +142,12 @@
                                   </tr>
                                 <?php endforeach; ?>
                                 <?php else : ?>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                <?php endif; ?>
+                                  <div class="card-header">
+                                      <div class="card-tools">
+                                          <button class="btn btn-sm btn-info" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                                      </div>
+                                  </div>
+                             <?php endif; ?>
                               </tbody>
                             </table>
                           </div>
@@ -118,18 +157,59 @@
                       </div>
                     </div>
                     </div>
-
                     <!-- /.card-footer -->
                   </div>
                   <!-- /.card -->
-
                 </section>
-
-
               </div>
+              <!-- tab 2 contenido consular -->
+              <!-- tab 3 Legalización y Apostilla -->
+              <div class="tab-pane fade" id="custom-content-below-legal" role="tabpanel" aria-labelledby="custom-content-below-legal-tab">
+                <section class="content">
+                  <?php if (count($detalle_apostilla) > 0) : ?>
+                    <?php foreach ($detalle_apostilla as $apostilla) : ?>
+                      <!-- Default box -->
+                      <div class="card card-solid">
+                        <div class="card-body pb-0">
+                          <div class="row">
+                            <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
+                              <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                  Parallax Pagos
+                                </div>
+                                <div class="card-body pt-0">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <img src="<?php echo env('APP_ADMIN') . "" . $apostilla['parallax']; ?>" onerror="this.src='<?php echo asset('archivos/apostilla_subservicios/img.png'); ?>'" class="imgpreview" width="100%">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="text-right">
+                                    <button class="btn btn-sm btn-info" onclick="formularioapostilla(<?php echo $apostilla['id']; ?>)"><i class="fa fa-edit"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                    <?php endforeach; ?>
+                    <?php else : ?>
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <button class="btn btn-sm btn-info" id="btnNuevo5"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                        </div>
+                    </div>
+                 <?php endif; ?>
+                </section>
+              </div>
+              <!-- tab 3 Legalización y Apostilla -->
+              <!-- tab 4 Servicios -->
               <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                 <section class="content">
-
                   <!-- Default box -->
                   <div class="card card-solid">
                     <div class="card-header">
@@ -179,16 +259,15 @@
                         </div>
                   <?php endforeach; ?>
                   <?php endif; ?>
-
                       </div>
                     </div>
-
                     <!-- /.card-footer -->
                   </div>
                   <!-- /.card -->
-
                 </section>
               </div>
+              <!-- tab 4 Servicios -->
+              <!-- tab 5 Infografías -->
               <div class="tab-pane fade" id="custom-content-below-messages" role="tabpanel" aria-labelledby="custom-content-below-messages-tab">
               <section class="content" style="margin-top: 30px">
                     <div class="row">
@@ -198,7 +277,7 @@
                             <h3 class="card-title">Infografías</h3>
 
                             <div class="card-tools">
-                              <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                              <button class="btn btn-sm btn-light" id="btnNuevo4"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
                             </div>
                           </div>
                           <!-- /.card-header -->
@@ -208,12 +287,31 @@
                                 <tr>
                                   <th style="font-size: 12px;">Titulo</th>
                                   <th style="font-size: 12px;">Infografía</th>
+                                  <th style="font-size: 12px;">Orden</th>
                                   <th style="font-size: 12px;">{!! trans('messages.creadopor') !!}</th>
                                   <th style="font-size: 12px;">{!! trans('messages.estado') !!}</th>
                                   <th></th>
                                 </tr>
                               </thead>
                               <tbody>
+                                <?php if (count($detalle_infografia) > 0) : ?>
+                                  <?php foreach ($detalle_infografia as $infog) : ?>
+                                  <tr>
+                                    <td style="font-size: 12px;"><?php echo $infog['titulo']; ?></td>
+                                    <td><img src="{{asset('images/icons/imagen2.png')}}" style="width: 40px;height: 40px;" class="imgpreview"></td>
+                                    <td style="font-size: 12px;"><?php echo $infog['orden']; ?></td>
+                                    <td style="font-size: 12px">
+                                      <?php echo $infog['editor']; ?> / <span><?php echo $infog['updated_at']; ?>
+                                    </td>
+                                    <td style="text-align: center;"><?php echo ($infog['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?>
+                                    </td>
+                                    <td>
+                                      <button class="btn btn-sm btn-info" onclick="formularioinfografia(<?php echo $infog['id']; ?>,<?php echo $infog['subservicio_id']; ?>)"><i class="fa fa-edit"></i></button>
+                                      <button class="btn btn-sm btn-danger" onclick="eliminarinfografia(<?php echo $infog['id']; ?>)"><i class="fa fa-trash-o"></i></button>
+                                    </td>
+                                  </tr>
+                                <?php endforeach; ?>
+                             <?php endif; ?>
                               </tbody>
                             </table>
                           </div>
@@ -224,76 +322,69 @@
                     </div>
               </section>
               </div>
+              <!-- tab 5 Infografías -->
+              <!-- tab 6 Videos -->
               <div class="tab-pane fade" id="custom-content-below-settings" role="tabpanel" aria-labelledby="custom-content-below-settings-tab">
-              <section class="content" style="margin-top: 30px">
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="card">
-                          <div class="card-header">
-                            <h3 class="card-title">Videos</h3>
-
+                <div class="card-header">
+                  <div class="card-tools">
+                    <button class="btn btn-sm btn-info" id="btnNuevo3"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                  </div>
+                </div>
+                <div class="row" style="margin-top:30px"> 
+                  <?php if (count($detalle_videos) > 0) : ?>
+                    <?php foreach ($detalle_videos as $video) : ?>
+                      
+                  <div class="col-sm-4">
+                      <div class="card card-info card-outline">
+                        <div class="card-header">
+                          <h5 class="card-title" style="font-size: 12px"><?php echo $video['titulo']; ?></h5>
                             <div class="card-tools">
-                              <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                                  <?php
+                                        if($video['tipo']=='SLA'){
+
+                                            echo "Tipo: <span class='right badge badge-success'> Apertura </span>";
+
+                                        }if($video['tipo']=='RJS'){
+
+                                            echo "<span class='right badge badge-danger'> Hijas e Hijos </span>";
+
+                                        }if($video['tipo']=='PRE'){
+
+                                             echo "<span class='right badge badge-warning'> Representantes </span>";
+
+                                        }if($video['tipo']=='DOC'){
+
+                                            echo "<span class='right badge badge-dark'> Documentos </span>";
+
+                                        }if($video['tipo']=='CIT'){
+
+                                            echo "<span class='right badge badge-info'> Citas </span>";
+
+                                        }
+                                   ?>
                             </div>
-                          </div>
-                          <!-- /.card-header -->
-                          <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
-                              <thead>
-                                <tr>
-                                  <th style="font-size: 12px;">Titulo</th>
-                                  <th style="font-size: 12px;">Video</th>
-                                  <th style="font-size: 12px;">{!! trans('messages.creadopor') !!}</th>
-                                  <th style="font-size: 12px;">{!! trans('messages.estado') !!}</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                            </table>
-                          </div>
-                          <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
+                        <div class="card-body">
+                          <div id="trailer" class="section d-flex justify-content-center embed-responsive embed-responsive-16by9">
+                            <video class="embed-responsive-item" controls autoplay loop muted>
+                               <source src="<?php echo env('APP_ADMIN') . "" . $video['video']; ?>" type="video/mp4">
+                            </video>
+                          </div>
+                        </div>
+                      <div class="card-footer">
+                        <div class="text-right">
+                          <button class="btn btn-sm btn-success" onclick="formulariovideo(<?php echo $video['id']; ?>)"><i class="fa fa-edit"></i></button>
+                          <button class="btn btn-sm btn-danger" onclick="eliminarvideos(<?php echo $video['id']; ?>)"><i class="fa fa-trash-o"></i></button>
+                        </div>
+                      </div>
                       </div>
                     </div>
-              </section>
+                  <?php endforeach; ?>
+                  <?php endif; ?>
+                </div>
+  
               </div>
-              <div class="tab-pane fade" id="custom-content-below-preguntas" role="tabpanel" aria-labelledby="custom-content-below-preguntas-tab">
-              <section class="content" style="margin-top: 30px">
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="card">
-                          <div class="card-header">
-                            <h3 class="card-title">Preguntas Frecuentes</h3>
-
-                            <div class="card-tools">
-                              <button class="btn btn-sm btn-light" id="btnNuevo"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
-                            </div>
-                          </div>
-                          <!-- /.card-header -->
-                          <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
-                              <thead>
-                                <tr>
-                                  <th style="font-size: 12px;">Titulo</th>
-                                  <th style="font-size: 12px;">Video</th>
-                                  <th style="font-size: 12px;">{!! trans('messages.creadopor') !!}</th>
-                                  <th style="font-size: 12px;">{!! trans('messages.estado') !!}</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                            </table>
-                          </div>
-                          <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                      </div>
-                    </div>
-              </section>
-              </div>
+              <!-- tab 6 Videos -->
             </div>
           </div>
           <!-- /.card -->
@@ -349,7 +440,98 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="modal-nuevo2">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                @foreach (array_keys(config('locale.languages')) as $lang)
+                    @if ($lang != App::getLocale() AND $lang == 'en')
+                       <?php echo $data['nombre_subservicio'];  ?> 
+                           @elseif ($lang != App::getLocale() AND $lang == 'es')
+                       <?php echo $data['nombre_subservicio_ingles'];  ?>  
+                   @endif
+                 @endforeach                   
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-nuevo3">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                @foreach (array_keys(config('locale.languages')) as $lang)
+                    @if ($lang != App::getLocale() AND $lang == 'en')
+                       <?php echo $data['nombre_subservicio'];  ?> 
+                           @elseif ($lang != App::getLocale() AND $lang == 'es')
+                       <?php echo $data['nombre_subservicio_ingles'];  ?>  
+                   @endif
+                 @endforeach                   
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-nuevo4">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                @foreach (array_keys(config('locale.languages')) as $lang)
+                    @if ($lang != App::getLocale() AND $lang == 'en')
+                       <?php echo $data['nombre_subservicio'];  ?> 
+                           @elseif ($lang != App::getLocale() AND $lang == 'es')
+                       <?php echo $data['nombre_subservicio_ingles'];  ?>  
+                   @endif
+                 @endforeach                   
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-nuevo5">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                @foreach (array_keys(config('locale.languages')) as $lang)
+                    @if ($lang != App::getLocale() AND $lang == 'en')
+                       <?php echo $data['nombre_subservicio'];  ?> 
+                           @elseif ($lang != App::getLocale() AND $lang == 'es')
+                       <?php echo $data['nombre_subservicio_ingles'];  ?>  
+                   @endif
+                 @endforeach                   
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content5"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     var subservicio_id = '<?php echo $subservicio_id; ?>';  
     $(document).ready(function() {
@@ -361,6 +543,18 @@
         });
         $('#btnNuevo1').click(function() {
             formulario1();
+        });
+        $('#btnNuevo2').click(function() {
+            formulariobanner();
+        });
+        $('#btnNuevo3').click(function() {
+            formulariovideo();
+        });
+        $('#btnNuevo4').click(function() {
+            formularioinfografia();
+        });
+        $('#btnNuevo5').click(function() {
+            formularioapostilla();
         });
     });
 /*************** Contenido del servicio ***********************/
@@ -385,6 +579,94 @@
         });
     }
 /*************** Contenido del servicio ***********************/
+/*************** banner ***********************/
+    function formulariobanner(id = null) {
+        $.ajax({
+            url: '<?php echo url('/bnnr_subservicios') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                subservicio_id: subservicio_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo2').modal('show');
+                $('#form-content2').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content2').html(view);
+            },
+            error: function() {
+                $('#form-content2').html("Error al cargar ventana.");
+            }
+        });
+    }
+/*************** banner ***********************/  
+/*************** mp4 video tutorial ***********************/
+    function formulariovideo(id = null) {
+        $.ajax({
+            url: '<?php echo url('/video_subservicios') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                subservicio_id: subservicio_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo3').modal('show');
+                $('#form-content3').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content3').html(view);
+            },
+            error: function() {
+                $('#form-content3').html("Error al cargar ventana.");
+            }
+        });
+    }
+/*************** mp4 video tutorial ***********************/ 
+/*************** Infografías ***********************/
+    function formularioinfografia(id = null) {
+        $.ajax({
+            url: '<?php echo url('/infografias_subservicios') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                subservicio_id: subservicio_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo4').modal('show');
+                $('#form-content4').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content4').html(view);
+            },
+            error: function() {
+                $('#form-content4').html("Error al cargar ventana.");
+            }
+        });
+    }
+/*************** Infografías ***********************/  
+/*************** mp4 video tutorial ***********************/
+    function formularioapostilla(id = null) {
+        $.ajax({
+            url: '<?php echo url('/apostillas_subservicios') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                subservicio_id: subservicio_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo5').modal('show');
+                $('#form-content5').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content5').html(view);
+            },
+            error: function() {
+                $('#form-content5').html("Error al cargar ventana.");
+            }
+        });
+    }
+/*************** mp4 video tutorial ***********************/ 
 /*************** Contenido del servicio card de detalle ***********************/
      function formulario1(id = null) {
         $.ajax({
@@ -419,6 +701,106 @@
             if (result.value) {
                 $.ajax({
                     url: '<?php echo url('/eliminarprocesos') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id,
+
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+
+                        if (typeof data.errorMessage != 'undefined') {
+                            swal({
+                                icon: 'error',
+                                text: data.errorMessage,
+                                showConfirmButton: true
+                            });
+                            return false;
+                        }
+
+                        swal({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El registro ha sido eliminado.',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function(result) {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+
+                    }
+                });
+            }
+        })
+
+    }
+       function eliminarvideos(id = null) {
+
+        swal({
+            title: '¿Seguro desea eliminar el registro seleccionado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+            confirmButtonColor: '#dd3333',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '<?php echo url('/eliminarvideos') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id,
+
+                    },
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+
+                        if (typeof data.errorMessage != 'undefined') {
+                            swal({
+                                icon: 'error',
+                                text: data.errorMessage,
+                                showConfirmButton: true
+                            });
+                            return false;
+                        }
+
+                        swal({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El registro ha sido eliminado.',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(function(result) {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+
+                    }
+                });
+            }
+        })
+
+    }
+       function eliminarinfografia(id = null) {
+
+        swal({
+            title: '¿Seguro desea eliminar el registro seleccionado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+            confirmButtonColor: '#dd3333',
+            cancelButtonColor: '#3085d6'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '<?php echo url('/eliminarinfografia') ?>',
                     type: 'POST',
                     data: {
                         id: id,

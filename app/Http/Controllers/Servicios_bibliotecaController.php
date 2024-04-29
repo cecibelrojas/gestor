@@ -6,6 +6,7 @@ use App\Models\BancoDatos;
 use App\Models\BancoDatosDet;
 use App\Models\Servicios_biblioteca;
 use App\Models\Subservicios_biblioteca;
+use App\Models\Detalle_biblioteca;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,19 @@ class Servicios_bibliotecaController extends Controller
         ));
         return view('servicios_biblioteca.form', compact('data','listaTipos'));
     }
+    public function banner_servibiblioteca(Request $request)
+    {
+
+        $objservicios = new Servicios_biblioteca();
+        $objBancoDatosDet = new BancoDatosDet();
+        $listaTipos = $objBancoDatosDet->listar(array('id' => '004'));
+
+        $data = $objservicios->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('servicios_biblioteca.formbannerbbt', compact('data','listaTipos'));
+    }
+
     public function papelera_biblioteca(Request $request)
     {
         $objservicios = new Servicios_biblioteca();
@@ -107,7 +121,47 @@ class Servicios_bibliotecaController extends Controller
         }
 
         return $response;
-    }    
+    } 
+    public function store_bannerbiblioteca(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objservicios = new Servicios_biblioteca();
+
+            if ($request->hasFile('banner')) {
+                $adjuntobc = $request->file('banner');
+                $extensionbc = $adjuntobc->getClientOriginalExtension();
+                $fileNamebc = "bnnr_" . date('ymdhis') . "." . $extensionbc;
+                $adjuntobc->move(base_path('archivos/banner_biblioteca'), $fileNamebc);
+                $params['banner'] = "/archivos/banner_biblioteca/" . $fileNamebc;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objservicios->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objservicios->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    } 
+
+
     public function delete(Request $request)
     {
         $response = array();
@@ -264,4 +318,85 @@ class Servicios_bibliotecaController extends Controller
 
         return $response;
     }
+/********************** Detalles *************************/
+    public function detalles_biblioteca( $id = null)
+    {
+        $objSubservicios = new Subservicios_biblioteca();
+        $objDetalleSubservicios = new Detalle_biblioteca();
+
+        $subservicio_id = $id;
+        $servicio_id = $id;
+       
+        $data = array();
+        $detalle_subservicio = array();
+        if ($id != null) {
+            $data = $objSubservicios->obtener(array('id' => $id));
+            $detalle_subservicio = $objDetalleSubservicios->listar(array('id' => $id));
+            if (!$data) {
+                return redirect('/detalle');
+            }
+        }
+      //  dd($detalle_subservicio);
+        return view('servicios_biblioteca.detalle', compact('data', 'detalle_subservicio','subservicio_id', 'servicio_id'));
+    }
+    public function subs_bannerbbt(Request $request)
+    {
+        $objDetalleSubservicios = new Detalle_biblioteca();
+        $subservicio_id = $request['subservicio_id'];
+        $data = $objDetalleSubservicios->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('servicios_biblioteca.formbannersub', compact('data','subservicio_id'));
+    }
+    public function detalle_contenido_ba(Request $request)
+    {
+        $objDetalleSubservicios = new Detalle_biblioteca();
+        $subservicio_id = $request['subservicio_id'];
+        $data = $objDetalleSubservicios->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('servicios_biblioteca.formdetalle', compact('data','subservicio_id'));
+    } 
+    public function store_subbannerbbt(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objDetalleSubservicios = new Detalle_biblioteca();
+            $params = array( 
+                    'subservicio_id' => $request['subservicio_id']
+            );
+
+            if ($request->hasFile('banner')) {
+                $adjuntob = $request->file('banner');
+                $extensionb = $adjuntob->getClientOriginalExtension();
+                $fileNameb = "bnnr_" . date('ymdhis') . "." . $extensionb;
+                $adjuntob->move(base_path('archivos/banner_biblioteca'), $fileNameb);
+                $params['banner'] = "/archivos/banner_biblioteca/" . $fileNameb;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objDetalleSubservicios->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objDetalleSubservicios->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+       
 }

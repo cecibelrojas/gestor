@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Servicios_biblioteca extends Model
+class Detalle_infografias extends Model
 {
-    protected $table = 'servicios_biblioteca';
+    protected $table = 'detalle_infografias';
 
-    protected $fillable = ['id','icono','nombre_servicio','nombre_servicio_ingles','tipo','estado','papelera','banner','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','subservicio_id','infografia','titulo','titulo_ingles','estado','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'
@@ -18,28 +18,23 @@ class Servicios_biblioteca extends Model
     public function listar(array $params = array())
     {
 
-        $select = $this->from('servicios_biblioteca as s')
-            ->select('s.*');
+        $select = $this->from('detalle_infografias as d')
+        ->selectRaw("(select name from users as u where u.id = d.usureg) as creador")
+        ->selectRaw("(select name from users as u where u.id = d.usumod) as editor")
+         ->selectRaw('d.*');
 
-        $select->orderByRaw('s.id');
+        $select->where('subservicio_id', $params['id']); 
 
-        if (array_key_exists('papelera', $params)) {
-            $select->where('s.papelera', '=','P');
-        }
-        
+        $select->orderByRaw('d.created_at desc');
+        //dd($select);
         return $select->get();
     }
-
-   
     public function obtener(array $params = array())
     {
 
-        $select = $this->from('servicios_biblioteca as s')
-            ->select('s.*');
+        $select = $this->from('detalle_infografias as d');
 
-        if (array_key_exists('id', $params)) {
-            $select->where('s.id', $params['id']);
-        }
+        $select->where($params);
 
         return $select->first();
     }
@@ -51,15 +46,14 @@ class Servicios_biblioteca extends Model
         try {
             DB::beginTransaction();
 
-            $params['id'] = $this->obtenerId();
-
             $this->fill($params);
             $this->push();
 
             DB::commit();
             return $this->id;
         } catch (\Exception $e) {
-            //DB::rollBack();
+            DB::rollBack();
+            die($e->getMessage());
             return $e->getMessage();
         }
     }
@@ -78,20 +72,10 @@ class Servicios_biblioteca extends Model
     public function eliminar(array $params)
     {
         try {
-            $delete = DB::table('servicios_biblioteca')->where('id', $params['id'])->delete();
+            $delete = DB::table('detalle_infografias')->where('id', $params['id'])->delete();
             return $delete;
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-    }
-
-    public function obtenerId()
-    {
-        $select = $this->from('servicios_biblioteca as s')
-            ->selectRaw('MAX(id) as ultimo');
-
-        $data = $select->first();
-
-        return $data ? $data['ultimo'] + 1 : 1;
     }
 }

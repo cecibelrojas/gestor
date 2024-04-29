@@ -87,20 +87,21 @@
                     
                     <h4 class="card-title" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>  
                     
-                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre" id="nombre" value="{{ @$data->nombre}}" <?php if( @$data['categoria']!=2 ){?> maxlength="70" onkeyup="countChars(this);" <?php }else{ ?> maxlength="350" <?php } ?>>
-                    <?php if( @$data['categoria']!=2 ){?><p id="charNum" class="cant1" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p><?php }else{ ?> <div style="margin-top:10px"></div> <?php } ?>
+                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre" id="nombre" value="{{ @$data->nombre}}" <?php if( @$data['categoria']!=2 ){?> maxlength="90" onkeyup="countChars(this);" <?php }else{ ?> maxlength="350" <?php } ?>>
+                    <?php if( @$data['categoria']!=2 ){?><p id="charNum" class="cant1" style="text-align: right;">90 {!! trans('messages.caracteres') !!}</p><?php }else{ ?> <div style="margin-top:10px"></div> <?php } ?>
                     <div style="margin-top:10px"></div>
 
                     <h4 class="card-title" style="margin: 0px">{!! trans('messages.sumario') !!}</h4>
                     <input type="text" name="sumario" id="sumario" class="form-control" value="{{ @$data->sumario }}" style="border: 1px solid #b9b9b9;" maxlength="320" onkeyup="countCharsSumario(this);">
                     <p id="charNumSumario" style="text-align: right;">320 {!! trans('messages.caracteres') !!}</p>
+                    <button class="btn btn-sm btn-info">Cargar Imagen <i class="fa-solid fa-upload"></i></button>
                     <textarea id="descripcion" class="form-control" name="descripcion">{{ @$data->descripcion }}</textarea>
                 @elseif ($lang != App::getLocale() AND $lang == 'es')
 
                     <h4 class="card-title" style="margin: 0px;">{!! trans('messages.titulo') !!}</h4>  
                     
-                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre_ingles" id="nombre" value="{{ @$data->nombre_ingles}}" <?php if( @$data['categoria']!=2 ){?> maxlenombre_inglesngth="70" onkeyup="countChars(this);" <?php }else{ ?> maxlength="350" <?php } ?>>
-                    <?php if( @$data['categoria']!=2 ){?><p id="charNum" class="cant1" style="text-align: right;">70 {!! trans('messages.caracteres') !!}</p><?php }else{ ?> <div style="margin-top:10px"></div> <?php } ?>
+                    <input type="text" class="form-control nombrex" style="margin-top: 10px;" name="nombre_ingles" id="nombre" value="{{ @$data->nombre_ingles}}" <?php if( @$data['categoria']!=2 ){?> maxlength="90" onkeyup="countChars(this);" <?php }else{ ?> maxlength="350" <?php } ?>>
+                    <?php if( @$data['categoria']!=2 ){?><p id="charNum" class="cant1" style="text-align: right;">90 {!! trans('messages.caracteres') !!}</p><?php }else{ ?> <div style="margin-top:10px"></div> <?php } ?>
                     <div style="margin-top:10px"></div>
 
                     <h4 class="card-title" style="margin: 0px">{!! trans('messages.sumario') !!}</h4>
@@ -425,14 +426,8 @@
                                 <?php if (in_array(auth()->user()->rol, array('A', 'C', 'B','E'))) : ?>
                                     <option value="I" <?php echo ($data && $data['estado'] == 'I') ? "selected" : ""; ?>>{!! trans('messages.borrador') !!}</option>
                                 <?php endif; ?>
-                                <?php if (in_array(auth()->user()->rol, array('A', 'E' , 'B'))) : ?>
-                                    <option value="R" <?php echo ($data && $data['estado'] == 'R') ? "selected" : ""; ?>>{!! trans('messages.para_correccion') !!}</option>
-                                <?php endif; ?>
                                 <?php if (in_array(auth()->user()->rol, array('A','D','E','B'))) : ?>
                                     <option value="P" <?php echo ($data && $data['estado'] == 'P') ? "selected" : ""; ?>>{!! trans('messages.publicar_corregido') !!}</option>
-                                <?php endif; ?>
-                                <?php if (in_array(auth()->user()->rol, array('V'))) : ?>
-                                    <option value="Q" <?php echo ($data && $data['estado'] == 'Q') ? "selected" : ""; ?>> {!! trans('messages.corregido_publicar') !!}</option>
                                 <?php endif; ?>
                                 <?php if (in_array(auth()->user()->rol, array('A', 'B' , 'E'))) : ?>
                                     <option value="A" <?php echo ($data && $data['estado'] == 'A') ? "selected" : ""; ?>> {!! trans('messages.publicar') !!}</option>
@@ -554,7 +549,7 @@
                         </div>
                         <div class="col-lg-12">
                             <label style="font-size: 12px;">{!! trans('messages.fechainicio') !!}</label><br>
-                            <input type="datetime-local" class="form-control input-sm" style="border: 1px solid #b9b9b9;" value="<?php echo $data ? $data['fecini'] : ''; ?>" name="fecini">
+                            <input type="datetime-local" class="form-control input-sm" style="border: 1px solid #b9b9b9;" value="<?php echo $data ? $data['fecini'] : ''; ?>" name="fecini" required>
                         </div>
                         <div class="col-lg-12">
                             <label style="font-size: 12px;">{!! trans('messages.fechafin') !!}</label><br>
@@ -575,9 +570,6 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active" id="imgdestacado-tab" data-toggle="tab" href="#imgdestacado" role="tab" aria-controls="imgdestacado" aria-selected="true" style="font-size: 12px;">{!! trans('messages.imagendestacada') !!}</a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="imageredes-tab" data-toggle="tab" href="#imageredes" role="tab" aria-controls="trailer" aria-selected="false" style="font-size: 12px;">Redes Sociales</a>
-                        </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="imgdestacado" role="tabpanel" aria-labelledby="imgdestacado-tab">
@@ -593,19 +585,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="imageredes" role="tabpanel" aria-labelledby="imageredes-tab">
-                            <div class="row">
-                                <div class="col-lg-12 text-center" style="margin-top: 10px;line-height: 1;">
-                                    <span style="font-size: 10px;">{!! trans('messages.des_imgdestacada') !!}</span><br>
-                                    <img onclick="$('#fotoredes').trigger('click');" src="<?php echo ($data && $data['imageredes']) ? asset('/archivos/imagenes/' . $data['imageredes']) : asset('/images/icons/add-image2.png'); ?>" id="imgpreview1" style="width:<?php echo ($data && $data['imageredes']) ? '100' : '50'; ?>%;cursor: pointer;margin-top: 10px;margin-bottom: 10px;">
-                                    <input type="file" name="fotoredes" style="display: none;" id="fotoredes" class="form-control ">
-                                    <?php if ($data && !empty($data['imageredes'])) : ?>
-                                        <br>
-                                        <img src="{{ asset('/images/icons/delete.png') }}" style="cursor: pointer;width: 32px;border: 1px solid #e77056;border-radius: 40px;padding: 4px;background-color: #ffffff;margin-top: 0px;" id="btnDelImagen" onclick="eliminarimagenredes();">
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="text" class="form-control input-sm" style="border: 1px solid #b9b9b9;" value="<?php echo $data ? $data['autor_foto'] : ''; ?>" name="autor_foto" id="autor_foto" placeholder="Créditos de la foto destacada ">
                     </div>
                 </div>
             </div>
@@ -1224,7 +1204,7 @@
     }
 
     function countChars(obj) {
-        var maxLength = 70;
+        var maxLength = 90;
         var strLength = $(obj).val().length;
         var charRemain = (maxLength - strLength);
 

@@ -94,12 +94,7 @@
   <script src="{{asset('AdminLTE-3.2.0/plugins/select2/js/select2.full.min.js')}}"></script>
 
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-  <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-  <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.flash.min.js')}}"></script>
-  <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
-  <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
@@ -608,6 +603,20 @@
                     </p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{url('/ajuste_apostilla')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.ajustes_apostilla') !!}
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('/pagos_apostilla')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.pagos_apostilla') !!}
+                    </p>
+                  </a>
+                </li>
               </ul>
             </li>
                 @endif
@@ -712,6 +721,14 @@
                     </p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{url('/consulados')}}" class="nav-link">
+                    <p>
+                      {!! trans('messages.consulados') !!}
+                    </p>
+                  </a>
+                </li>
+
               </ul>
             </li>
                 @endif

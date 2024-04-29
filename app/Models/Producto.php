@@ -10,7 +10,7 @@ class Producto extends Model
 
     protected $table = 'producto';
 
-    protected $fillable = ['nombre', 'descripcion', 'estado', 'precio', 'categoria', 'usureg', 'usumod', 'precio_ant', 'extra', 'extradesc', 'moneda', 'imgdestacado', 'preview', 'trailer', 'etiquetas', 'sumario', 'estdestacado', 'id_parroquia', 'fotovisible', 'fecini', 'fecfin','programable'];
+    protected $fillable = ['nombre', 'descripcion', 'estado', 'precio', 'categoria', 'usureg', 'usumod', 'precio_ant', 'extra', 'extradesc', 'moneda', 'imgdestacado', 'preview', 'trailer', 'etiquetas', 'sumario', 'estdestacado', 'id_parroquia', 'fotovisible', 'fecini', 'fecfin','programable','autor_foto'];
 
     protected $hidden = [
         '_token'

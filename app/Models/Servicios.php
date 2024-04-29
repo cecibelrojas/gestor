@@ -9,7 +9,7 @@ class Servicios extends Model
 {
     protected $table = 'servicios';
 
-    protected $fillable = ['id','icono','nombre_servicio','nombre_servicio_ingles','tipo','estado','papelera','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','icono','nombre_servicio','nombre_servicio_ingles','tipo','estado','papelera','banner','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'

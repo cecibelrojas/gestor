@@ -34,7 +34,7 @@ class ProductController extends Controller
 
         $objProducto = new Producto();
 
-        $params = array();
+        $params = array('limite' => 1000);
 
         if (isset($_GET['nombre'])) {
             $params['nombre'] = $_GET['nombre'];
@@ -48,7 +48,19 @@ class ProductController extends Controller
 
         return view('product.index', compact('lista','trash'));
     }
+    public function listado_publicaciones(Request $request){
+        
+        $objProducto = new Producto();
+        
+        $params = array(
+            'fecini' => $request->fecini,
+            'fecfin' => $request->fecfin
+        );
+        $lista = $objProducto->listar($params);
 
+        return response()->json($lista);
+    }
+   
     public function papelera_total(Request $request)
     {
 
@@ -407,9 +419,6 @@ class ProductController extends Controller
 
         return $response;
     }
-
-
-
 
     public function deletefile(Request $request)
     {

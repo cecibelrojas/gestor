@@ -1,13 +1,16 @@
 <!-- ID para acciones de edicion o eliminacion de registro -->
-<input type="hidden" id="subproceso_final_id" value="<?php echo $data ? $data['id'] : ''; ?>">
-<input type="hidden" id="subserviciofinal_id" value="<?php echo $subserviciofinal_id; ?>">
-<!-- -->
-    <div class="col-lg-12 text-center">
-    <img onclick="$('#infografia').trigger('click');" src="<?php echo ($data && !empty($data['infografia'])) ? url('/') . $data['infografia'] : asset('archivos/infografia_detalleservicio/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 40%" class="imgpreview">
-    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 400px * 850px | Peso Max. 1MB  <br> Formato: JPG o PNG</p>
-    <input type="file" id="infografia" name="infografia" style="display: none;">
-    </div>
+<input type="hidden" id="detalleservicio_id" value="<?php echo $data ? $data['id'] : ''; ?>">
+<input type="hidden" id="subservicio_id" value="<?php echo $subservicio_id; ?>">
 
+<!-- -->
+<div class="row">
+    <div class="col-lg-12 text-center">
+    <img onclick="$('#imagen_principal').trigger('click');" src="<?php echo ($data && !empty($data['imagen_principal'])) ? url('/') . $data['imagen_principal'] : asset('archivos/turismo_nacional/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 100%" class="imgpreview">
+    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 1200px * 400px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
+    <input type="file" id="imagen_principal" name="imagen_principal" style="display: none;">
+    </div>
+</div>
+<hr>
         <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">{{ __("Spanish") }}</a>
@@ -20,34 +23,36 @@
               <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                 <div class="row" style="margin-top:20px">
                     <div class="col-lg-12">
+                        <input type="text" name="sumario" id="sumario" class="form-control" value="{{ @$data->sumario }}" style="border: 1px solid #b9b9b9;" maxlength="300" onkeyup="countCharsSumario(this);"> 
+                        <p id="charNumSumario" style="text-align: right;">300 {!! trans('messages.caracteres') !!}</p>                    
+                    </div>
+                    <div class="col-lg-12">
                         <br>
-                    <textarea id="contenido" class="summernote" rows="9" name="contenido">{{ @$data->contenido }}</textarea>
+                    <textarea id="descripcion" class="summernote" rows="9" name="descripcion">{{ @$data->descripcion }}</textarea>
                     </div>   
                 </div>
               </div>
               <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                 <div class="row" style="margin-top:20px">
                     <div class="col-lg-12">
+                        <input type="text" name="sumario_ingles" id="sumario_ingles" class="form-control" value="{{ @$data->sumario_ingles }}" style="border: 1px solid #b9b9b9;" maxlength="300" onkeyup="countCharsSumario(this);"> 
+                        <p id="charNumSumario" style="text-align: right;">300 {!! trans('messages.caracteres') !!}</p>                    
+                    </div>
+
+                    <div class="col-lg-12">
                         <br>
-                    <textarea id="contenido_ingles" class="summernote"  name="contenido_ingles">{{ @$data->contenido_ingles }}</textarea>
+                    <textarea id="descripcion_ingles" class="summernote"  name="descripcion_ingles">{{ @$data->descripcion_ingles }}</textarea>
                     </div>   
                 </div>
               </div>
 
             </div>
-                    <div class="col-lg-12">
-                        <label style="font-size: 12px;font-weight: bold;">Deshabilitar Infografía</label>
-                        <select class="form-control form-select" aria-label="estado_info" id="estado_info">
-                            <option value="">Seleccione</option>
-                            <option value="A" <?php if ($data && 'A' == $data['estado_info']) { ?> selected <?php } ?>>{!! trans('messages.activo') !!}</option>
-                            <option value="I" <?php if ($data && 'I' == $data['estado_info']) { ?> selected <?php } ?>>{!! trans('messages.inactivo') !!}</option>
-                        </select>
-                    </div> 
-
               <div class="col-lg-12 text-right">
                         <hr>
                         <button id="btnSave" class="btn btn-sm btn-success">{!! trans('messages.guardar') !!}</button>
                </div>
+
+
 <script>
         $(".summernote").summernote({
             height: 300,
@@ -63,7 +68,7 @@
 
         });
 
-            $("#infografia").change(function() {
+        $("#imagen_principal").change(function() {
 
         var imagen = this.files[0];
         var documento = this.files[0];
@@ -84,32 +89,26 @@
             $(".imgpreview").attr("src", rutaImagen);
 
         })
-    })    
+    })
     $('#btnSave').click(function() {
 
-        if ($('#contenido').val() == '') {
-            swal({
-                type: "info",
-                title: "¡El campo es requerido!",
-                showConfirmButton: true
-            });
-            return false;
-        }
 
         var formData = new FormData();
-
-        formData.append('id', $('#subproceso_final_id').val());
-        formData.append('subserviciofinal_id', $('#subserviciofinal_id').val());
-        formData.append('contenido', $('#contenido').val());
-        formData.append('contenido_ingles', $('#contenido_ingles').val());
-        formData.append('estado_info', $('#estado_info').val());
-        formData.append('infografia', $('#infografia').val());
-
-        var files1 = $('#infografia').get(0).files;
-        formData.append('infografia', files1[0]);
         
+        formData.append('id', $('#detalle_id').val());
+        formData.append('turismo_id', $('#turismo_id').val());
+        formData.append('descripcion', $('#descripcion').val());
+        formData.append('descripcion_ingles', $('#descripcion_ingles').val());
+        formData.append('sumario', $('#sumario').val());
+        formData.append('sumario_ingles', $('#sumario_ingles').val());
+
+        formData.append('imagen_principal', $('#imagen_principal').val());
+
+        var files = $('#imagen_principal').get(0).files;
+        formData.append('imagen_principal', files[0]);
+
         $.ajax({
-            url: '<?php echo url('/guardar-contenido-final') ?>',
+            url: '<?php echo url('/guardar-imgprincipalt') ?>',
             type: 'POST',
             cache: false,
             contentType: false,
@@ -145,7 +144,7 @@
         });
     });
 
-    function upload_smc(file){
+        function upload_smc(file){
 
     var datos = new FormData(); 
     datos.append('file', file, file.name);
@@ -172,6 +171,15 @@
     })
 
 }
+    function countCharsSumario(obj) {
+        var maxLength = 300;
+        var strLength = $(obj).val().length;
+        var charRemain = (maxLength - strLength);
 
-
+        if (charRemain < 0) {
+            document.getElementById("charNumSumario").innerHTML = '<span style="color: red;">Has superado el límite de ' + maxLength + ' caracteres</span>';
+        } else {
+            document.getElementById("charNumSumario").innerHTML = charRemain + ' caracteres restantes';
+        }
+    }
 </script>

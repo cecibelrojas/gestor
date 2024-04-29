@@ -226,5 +226,8 @@ return [
     'colecciones' => 'Collections',
     'normas' => 'Rules',
     'direcciones' => 'Addresses',
-    'ubicacion_geoestrategica' => 'Geostrategic location'
+    'ubicacion_geoestrategica' => 'Geostrategic location',
+    'ajustes_apostilla' => 'Apostille Serv Settings',
+    'pagos_apostilla' => 'Serv Apostille Payments',
+    'consulados' => 'Consulates'
 ];

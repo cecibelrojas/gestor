@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BancoDatos;
 use App\User;
+use Mail;
+use App\Mail\Usuarios;
 use Illuminate\Support\Facades\Hash;
 use Exception;
+
 
 class UsuariosController extends Controller
 {
@@ -92,7 +95,15 @@ class UsuariosController extends Controller
                 if (!is_numeric($insert)) {
                     throw new Exception($insert);
                 }
+
+
+
             }
+        Mail::send('emails.usuarios', array('key' => 'value'), function($message)
+        {
+            $message->to('rojascecibel@gmail.com', 'Sender Name')->subject('Welcome!');
+        });
+
         } catch (\Exception $e) {
             $response['errorMessage'] = $e->getMessage();
         }

@@ -79,6 +79,7 @@
                 <div class="card-footer">
                   <div class="text-right">
                     <a href="{{ url('sub_servicios_biblioteca', ['id' => $key->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-file-alt"></i> {!! trans('messages.subservicios') !!}</a>
+                    <button class="btn btn-sm btn-dark" onclick="formulariobanner(<?php echo $key['id']; ?>)"><i class="fa fa-image"></i></button>
                     <button class="btn btn-sm btn-success" onclick="formulario(<?php echo $key['id']; ?>)"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-sm btn-danger" onclick="eliminar(<?php echo $key['id']; ?>)"><i class="fa fa-trash-o"></i></button>
                     <button class="btn btn-sm btn-warning" onclick="deshabilitando(<?php echo $key['id']; ?>)"><i class="fa fa-cancel"></i></button>
@@ -116,6 +117,22 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-nuevo1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Banner</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="form-content1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <script>
     $(document).ready(function() {
 
@@ -124,7 +141,6 @@
         $('#btnNuevo').click(function() {
             formulario();
         });
-
     });
 
     function formulario(id = null) {
@@ -146,7 +162,25 @@
             }
         });
     }
-
+    function formulariobanner(id = null) {
+        $.ajax({
+            url: '<?php echo url('/banner_biblioteca') ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo1').modal('show');
+                $('#form-content1').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content1').html(view);
+            },
+            error: function() {
+                $('#form-content1').html("Error al cargar ventana.");
+            }
+        });
+    }
     function eliminar(id = null) {
 
         swal({
