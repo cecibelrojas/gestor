@@ -853,6 +853,13 @@
                     </p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{url('/rss-feed')}}" class="nav-link">
+                    <p>
+                      RSS Feed
+                    </p>
+                  </a>
+                </li>
                 <!--li class="nav-item">
                   <a href="#" class="nav-link">
                     <p>

@@ -386,4 +386,4 @@ Route::post('/obtenermultimediamedios', 'MultimediaController@obtenermultimediam
 
 Route::post('/listado_publicaciones', 'ProductController@listado_publicaciones');
 
-Route::get('/feed', 'RssfeedController@index');
+Route::get('/rss-feed', 'RssfeedController@index');
