@@ -1,9 +1,24 @@
 @extends('layouts.administrador')
 
 @section('content')
-      <div class="container">
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">RSS Feed</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#"> {!! trans('messages.inicio') !!}</a></li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+    <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12"  style="margin-top: 100px">
+          <div class="col-md-12">
             <!-- general form elements disabled -->
             <div class="card card-success">
               <div class="card-header">
@@ -62,4 +77,41 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Lista de XML Generados</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-lg" id="maintable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">Categorías</th>
+                                    <th style="width: 30%;">Fecha creación </th>
+                                    <th style="width: 10%;">XML</th>
+                                    <th style="width: 10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 @endsection
