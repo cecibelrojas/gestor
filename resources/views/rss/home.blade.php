@@ -17,13 +17,26 @@
                       <!-- select -->
                       <div class="form-group">
                         <label>Categoría</label>
-                        <select class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
+                            <select class="form-control select2 categoria" name="categoria" id="categoria" required>
+                                <option value="">Seleccione</option>
+                                <?php if (count($cat)) : ?>
+                                    <?php foreach ($cat as $key) : ?>
+                                        <option <?php echo ($key && $key['categoria'] == $key['id']) ? "selected" : ""; ?> value="<?php echo $key['id']; ?>">
+                                           
+                                           <?php foreach (array_keys(config('locale.languages')) as $lang) : ?>
+                                             <?php if ($lang != App::getLocale() AND $lang == 'en') : ?>
+                                                        <?php echo $key['nombre']; ?>
+                                             <?php  elseif ($lang != App::getLocale() AND $lang == 'es') : ?>
+                                                    <?php  echo $key['nombre_ingles']; ?>
+                                           <?php endif ; ?>
+                                            <?php endforeach; ?>            
+                                           
+
+                                           
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
                       </div>
                     </div>
                     <div class="col-sm-3">

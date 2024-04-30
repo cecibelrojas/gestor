@@ -18,8 +18,13 @@ class RssfeedController extends Controller
     }
     public function rss()
     {
+        $objCategoria = new Categoria();
+        
+        $params = array();
 
-        return view('rss.home');
+        $cat = $objCategoria->listar($params);
+
+        return view('rss.home', [ 'cat' => $cat]);
     }
 
     public function index()
