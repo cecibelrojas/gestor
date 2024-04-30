@@ -13,7 +13,7 @@
               <div class="card-body">
                 <form>
                   <div class="row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-7">
                       <!-- select -->
                       <div class="form-group">
                         <label>Categoría</label>
@@ -24,6 +24,13 @@
                           <option>option 4</option>
                           <option>option 5</option>
                         </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>Fecha </label>
+                        <input type="date" class="form-control" id="fecha">
                       </div>
                     </div>
                     <div class="col-sm-2">
