@@ -3,7 +3,7 @@
 @section('content')
       <div class="container">
         <div class="row">
-          <div class="col-md-12"  style="margin-top: 200px">
+          <div class="col-md-12"  style="margin-top: 100px">
             <!-- general form elements disabled -->
             <div class="card card-success">
               <div class="card-header">
