@@ -16,6 +16,11 @@ class RssfeedController extends Controller
         //$this->middleware('auth');
         $this->middleware('admin')->except('');
     }
+    public function rss()
+    {
+
+        return view('rss.home');
+    }
 
     public function index()
     {
