@@ -380,11 +380,17 @@ Route::post('/eliminar_ubicacion_geo', 'ConareController@delete_ubicaciones');
 
 Route::get('/multimedia', 'MultimediaController@index');
 Route::post('/medios_uploads', 'MultimediaController@uploads_img');
+Route::post('/medios_uploads_nuevo', 'MultimediaController@nuevo_img');
 Route::post('/cargarmedios', 'MultimediaController@upload_medios');
 Route::post('/obtenermultimediamedios', 'MultimediaController@obtenermultimediamedios');
 
+Route::post('/cargararchivomasivosmulti', 'MultimediaController@cargararchivomasivosmedios');
+Route::post('/eliminarmultimedio', 'MultimediaController@deletefilemedios');
+Route::post('/actualizarmultimediamedio', 'MultimediaController@updatefilemedios');
+Route::post('/obtenervideomedios', 'ProductController@obtenervideomedios');
 
 Route::post('/listado_publicaciones', 'ProductController@listado_publicaciones');
 
 Route::get('/rss-generator', 'RssfeedController@rss');
 Route::get('/rss-feed', 'RssfeedController@index');
+Route::get('/post_type/{id?}', 'RssfeedController@listado_rss');

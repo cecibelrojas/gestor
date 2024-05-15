@@ -68,9 +68,6 @@
                                                     case 'F':
                                                         echo 'Biblioteca ';
                                                         break;
-                                                    case 'G':
-                                                        echo 'Turismo';
-                                                        break;
                                                     case 'H':
                                                         echo 'Audiovisuales';
                                                         break;

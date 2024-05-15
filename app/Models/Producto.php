@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 class Producto extends Model
 {
 
@@ -47,7 +47,25 @@ class Producto extends Model
 
         return $select->get();
     }
+    
+    public function listarpub(array $params = array())
+    {
+        $select = $this->from('producto as p')
+                    ->select('p.id')
+                    ->select(DB::raw('count(id) as `data`'),DB::raw('YEAR(created_at) year'))
+           ->groupby('year');
 
+        return $select->get();
+    }
+    public function listarpubsemana(array $params = array())
+    {
+        $select = $this->from('producto as p')
+                    ->select('p.id')
+                    ->select(DB::raw('count(id) as `data`'),DB::raw('MONTH(created_at) month'))
+           ->groupby('month');
+
+        return $select->get();
+    }
     public function listar_trabajador(array $params = array())
     {
         $select = $this->from('producto as p')

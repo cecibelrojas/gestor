@@ -1,4 +1,3 @@
-here
 <table class="table table-responsive-lg" id="maintable">
     <thead>
         <tr>

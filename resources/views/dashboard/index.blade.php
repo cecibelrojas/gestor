@@ -98,7 +98,7 @@
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h5 class="card-title">{!! trans('messages.listaconectados') !!}</h5>
@@ -160,53 +160,6 @@
             <!-- /.card -->
           </div>
           <!-- /.col -->
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">{!! trans('messages.estadisticas') !!}</h3>
-              </div>
-              <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                  <thead>
-                  <tr>
-                    <th style="font-size: 12px;">{!! trans('messages.informe') !!}</th>
-                    <th style="font-size: 12px;">{!! trans('messages.fecha') !!}</th>
-                    <th style="font-size: 12px;">{!! trans('messages.descarga') !!}</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td style="font-size: 12px;">
-                      Informe General de Visitas y Clics
-                    </td>
-                    <td style="font-size: 12px;">22/09/2022</td>
-                    <td style="text-align: center; width: 5%;">
-                    <?php if (in_array(auth()->user()->rol, array('A'))) : ?>  
-                    <a href="{{asset('archivos/informes/informe_septiembre2022.pdf')}}"><i class="fas fa-download" title="Descargar Informe"></i></a>
-                    <?php else: ?>
-                        <span style=" font-weight: 600; font-size: 12px;"><i class="fas fa-exclamation-triangle" style="color: #ff8100;"></i> {!! trans('messages.negado') !!}</span>
-                    <?php endif; ?>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="font-size: 12px;">
-                      Informe General de Visitas y Clics
-                    </td>
-                    <td style="font-size: 12px;">01/03/2023</td>
-                    <td style="text-align: center; width: 5%;">
-                    <?php if (in_array(auth()->user()->rol, array('A'))) : ?>  
-                    <a href="{{asset('archivos/informes/informe_febrero2023.pdf')}}"><i class="fas fa-download" title="Descargar Informe"></i></a>
-                    <?php else: ?>
-                        <span style=" font-weight: 600; font-size: 12px;"><i class="fas fa-exclamation-triangle" style="color: #ff8100;"></i> {!! trans('messages.negado') !!}</span>
-                    <?php endif; ?>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
         </div>
         <!-- /.row -->
         <?php if (in_array(auth()->user()->rol, array('A','E'))) : ?> 
@@ -226,8 +179,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-
+                <div id="piechart" style="width: 100%; height: 300px;"></div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -250,7 +202,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+                <div class="alert alert-primary" role="alert">En desarrollo</div>
 
               </div>
               <!-- /.card-body -->
@@ -264,7 +216,7 @@
 
       <?php endif; ?>
     </div><!-- /.container-fluid -->
-
+<?php echo $resultado; ?>
 </section>
     <!-- Main content -->
 <script>
@@ -312,5 +264,27 @@ $.fn.dataTable.ext.search.push(
     });
 
 </script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['año', 'Hours per Day'],
+          <?php echo $resultado; ?>
+        ]);
+
+        var options = {
+          title: 'Publicaciones por año'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+
+
+    </script>
+    
 @endsection

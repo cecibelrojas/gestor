@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <label style="font-weight: bold;color: #3F51B5;">Fecha Inicio</label><br>
-                                <input type="date" class="form-control" id="filtroFecini" value="<?php echo date("Y-m-d", strtotime(date('Y-m-d') . "- 6 month")); ?>">
+                                <input type="date" class="form-control" id="filtroFecini" value="<?php echo date("Y-m-d", strtotime(date('Y-m-d') . "- 2 month")); ?>">
                             </div>
                             <div class="col-lg-2">
                                 <label style="font-weight: bold;color: #3F51B5;">Fecha Fin</label><br>

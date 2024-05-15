@@ -39,13 +39,26 @@ class HomeController extends Controller
         )
         );
 
-
+        $todos = $objProducto->listarpub();
+        $mes = $objProducto->listarpubsemana();
+        $week = "";
+        $grafo = "";
+        foreach ($todos as $tdo) {
+            $grafo.="['".$tdo->year."', ".$tdo->data."],"; 
+                    }            
+                 
+        $resultado = $grafo;
+        foreach ($mes as $ms) {
+            $week.="['".$ms->month."', ".$ms->data."],"; 
+                    }
+        $resultado1 = $week;            
+        //dd($resultado1);          
         $users = User::select("*")
                         ->whereNotNull('last_seen')
                         ->orderBy('last_seen', 'DESC')
                         ->simplePaginate(5);
 
-         return view('dashboard.index', compact('lista','listadmin','listprensa','users','listredactores','listcorrectores','trabajador'));
+         return view('dashboard.index', compact('lista','listadmin','listprensa','users','listredactores','listcorrectores','trabajador','resultado','resultado1'));
     }
 
 }

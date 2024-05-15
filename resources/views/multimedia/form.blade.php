@@ -24,109 +24,81 @@
     #documentos-content::-webkit-scrollbar {
         display: none;
     }
+
 </style>
-<!-- -->                   
+<!-- -->
+                        <?php echo $data ? $data['titulo'] : ''; ?>
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title" style="margin: 0px">Material Mutimedia</h4><br>
-                                <p class="card-description" style="font-size: 12px;">Agrega videos, imagenes o documentos</p>
+                                <h4 class="card-title" style="margin: 0px">{!! trans('messages.material_multimedia') !!}</h4><br>
+                                <p class="card-description" style="font-size: 12px;">{!! trans('messages.des_multimedia') !!}</p>
                                 <div id="multimedia-content">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" id="imagen-tab" data-toggle="tab" href="#imagen" role="tab" aria-controls="imagen" aria-selected="true">Imagen</a>
+                                            <a class="nav-link active" id="imagen-tab" data-toggle="tab" href="#imagen" role="tab" aria-controls="imagen" aria-selected="true">{!! trans('messages.imagenes') !!}</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Videos</a>
+                                            <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">{!! trans('messages.videos') !!}</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="documento-tab" data-toggle="tab" href="#documento" role="tab" aria-controls="documento" aria-selected="false">Documentos</a>
+                                            <a class="nav-link" id="documento-tab" data-toggle="tab" href="#documento" role="tab" aria-controls="documento" aria-selected="false">{!! trans('messages.documentos') !!}</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent" style="padding: 0px">
                                         <!-- Tab de Imagenes-->
                                         <div class="tab-pane fade show active" id="imagen" role="tabpanel" aria-labelledby="imagen-tab">
                                             <div class="row">
-                                                <div class="col-lg-3" id="imagenes-content" style="border-right: 1px solid #b9b9b9; max-height: 650px;overflow: auto;">
-                                                    <div class="row" style="margin-left: 0px;">
-                                                        <?php if (count($imagenes) > 0) : ?>
-                                                            <?php foreach ($imagenes as $index => $key) : ?>
-                                                                <a style="display: none;" class="example-image-link<?php echo $index; ?>" href="<?php echo asset('/archivos/imagenes/' . $id . '/' . $key['archivo']); ?>" data-lightbox="example-set" data-title="">
-                                                                    <div class="example-image" style="background-image: url('<?php echo asset('/archivos/imagenes/' . $id . '/' . $key['archivo']); ?>');height: 130px;background-size: cover;background-repeat: no-repeat;background-position: center center; border: 1px solid #ffffff;border-radius: 2px;"></div>
-                                                                </a>
-                                                                <div onclick="seleccionarMultimedia(<?php echo $key['id']; ?>,'I');" class="col-lg-12 multiitem imagenitem imgitem<?php echo $key['id']; ?> <?php echo ($index == 0) ? "active" : ""; ?>" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                                    <div class="text-center" style="padding-top: 25px;">
-                                                                        <img style="width: 45px;" src="<?php echo asset('/images/icons/imagen2.png'); ?>">
-                                                                        <p style="margin-top: 10px;font-size: 11px;line-height: 1;"><?php echo !empty($key['titulo']) ? $key['titulo'] : 'Imagen sin título'; ?><br>
-                                                                            <?php if (!empty($key['extension'])) : ?>
-                                                                                <em style="font-size: 9px;"><?php echo $key['extension']; ?></em>
-                                                                            <?php endif; ?>
-                                                                        </p>
 
-                                                                    </div>
-                                                                </div>
-                                                            <?php endforeach; ?>
-                                                        <?php else : ?>
-                                                            <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                                <div class="text-center" style="padding-top: 25px;">
-                                                                    <img style="width: 45px;" src="<?php echo asset('/images/icons/imagen2.png'); ?>">
-                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">Nueva Imagen</p>
-                                                                </div>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-9" style="padding-right: 23px;">
+                                                <div class="col-lg-12" style="padding-right: 23px;">
                                                     <input type="hidden" id='Iid'>
                                                     <div class="row">
                                                         <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
-                                                            <label style="margin-top: 10px;">Cant. Imagenes(<span id="counterI"><?php echo count($imagenes); ?></span>)</label>
-                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('I')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> Nueva Imagen</button>
-                                                            <button type="button" class="btn btn-primary" onclick="$('#imagenmasiva').trigger('click')" style="margin-right: 5px;text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> Cargar Imagen</button>
+                                                            <button type="button" class="btn btn-primary" onclick="$('#imagenmasiva').trigger('click')" style="margin-right: 5px;text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.cargar_imagen') !!}</button>
                                                             <input type="file" id="imagenmasiva" style="display: none;" multiple>
                                                             <i style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;" onclick="$('.example-image-link0').trigger('click');" class="mdi mdi-view-carousel"></i>
                                                         </div>
                                                         <div class="col-lg-12" style="padding-top: 10px;">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <label>Título</label>
-                                                                    <input type="text" class="form-control" id="Ititulo">
+                                                                    <label>{!! trans('messages.titulo') !!}</label>
+                                                                    <input type="text" class="form-control" value=" <?php echo $data ? $data['titulo'] : ''; ?>" id="Ititulo">
                                                                 </div>
                                                                 <div class="col-lg-12 text-center">
                                                                     <div onclick="$('#imgupload').trigger('click');" id="mimgcontent" style="margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/add-image.png'); ?>"><br>
-                                                                        <span style="font-size: 12px;">Subir Imagen <br> <span style="font-size: 10px;">formatos recomendados jpg, png.</span></span>
+                                                                        <span style="font-size: 12px;">Subir Imagen <br> <span style="font-size: 10px;">{!! trans('messages.formatos_recomendados') !!} </span></span>
                                                                     </div>
                                                                     <img onclick="$('#imgupload').trigger('click');" id="mimgpreview" style="display: none;width: 100%;margin-bottom: 10px;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;cursor: pointer;" src="<?php echo asset('/images/icons/add-image.png'); ?>">
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-top: 10px;">
-                                                                    <label>Descripción</label>
+                                                                    <label>{!! trans('messages.descripcion') !!} </label>
                                                                     <textarea style="resize: none;height: 100px" class="form-control" id="Idescripcion"></textarea>
                                                                 </div>
 
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Estado</label>
+                                                                    <label>{!! trans('messages.estado') !!}</label>
                                                                     <select class="form-control" id="Iestado">
-                                                                        <option value="A">Activo</option>
-                                                                        <option value="I">Inactivo</option>
+                                                                        <option value="A">{!! trans('messages.activo') !!} </option>
+                                                                        <option value="I">{!! trans('messages.inactivo') !!}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Exclusivo</label>
+                                                                    <label>{!! trans('messages.exclusivo') !!}</label>
                                                                     <select class="form-control" id="Iexclusivo">
-                                                                        <option value="S">Exclusivo</option>
-                                                                        <option value="N">No Exclusivo</option>
+                                                                        <option value="S">{!! trans('messages.exclusivo') !!}</option>
+                                                                        <option value="N">{!! trans('messages.no_exclusivo') !!}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>Orden</label>
+                                                                    <label>{!! trans('messages.orden') !!}</label>
                                                                     <input id="Iorden" value="1" type="number" class="form-control">
                                                                 </div>
                                                                 <div class="col-lg-12" style="margin-bottom: 10px;">
                                                                     <hr>
                                                                     <input type="file" id="imgupload" style="display: none;">
-                                                                    <button type="button" id="btnSaveI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>Guardar</button>
-                                                                    <button type="button" id="btnDelI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>Eliminar</button>
+                                                                    <button type="button" id="btnSaveI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.guardar') !!}</button>
+                                                                    <button type="button" id="btnDelI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.eliminar') !!}</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -320,6 +292,8 @@
                             </div>
                         </div>
                     </div>
+
+
     <script>
     var imagenes = <?php echo json_encode($imagenes); ?>;
     var videos = <?php echo json_encode($videos); ?>;
@@ -327,164 +301,7 @@
 
     var formMultimedia = new FormData();
 
-    function eliminarimagen() {
-        swal({
-            title: '¿Seguro desea eliminar la imagen seleccionada?',
-            text: 'Esta accion puede causar mala impresión en la tienda, se recomienda despublicar el producto antes de proceder',
-            type: 'info',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            showCancelButton: true,
-            confirmButtonText: '¡Eliminar!',
-        }).then((result) => {
-            if (result.value) {
-                $.post('<?php echo url('eliminarimagen') ?>', {
-                    id: producto
-                }, function(response) {
 
-                    swal({
-                        title: (response.status == 'S') ? '¡Eliminado!' : 'Operación Denegada',
-                        text: (response.status == 'S') ? 'El archivo ha sido eliminado.' : 'No se pudo eliminar el archivo',
-                        type: (response.status == 'S') ? 'success' : 'info',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (response.status == 'S') {
-                            location.reload();
-                        }
-                    });
-
-                }).fail(function() {
-                    swal({
-                        title: 'Operación Denegada',
-                        text: 'Ha ocurrido un problema en el proceso',
-                        type: 'error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                });
-            }
-        });
-    }
-    function eliminarvideo() {
-        swal({
-            title: '¿Seguro desea eliminar el video del producto?',
-            text: 'Esta accion puede causar mala impresión en la tienda, se recomienda despublicar el producto antes de proceder',
-            type: 'warning',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            showCancelButton: true,
-            confirmButtonText: '¡Eliminar!',
-        }).then((result) => {
-            if (result.value) {
-                $.post('<?php echo url('eliminarvideo') ?>', {
-                    id: producto
-                }, function(response) {
-
-                    swal({
-                        title: (response.status == 'S') ? '¡Eliminado!' : 'Operación Denegada',
-                        text: (response.status == 'S') ? 'El archivo ha sido eliminado.' : 'No se pudo eliminar el archivo',
-                        type: (response.status == 'S') ? 'success' : 'info',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (response.status == 'S') {
-                            location.reload();
-                        }
-                    });
-
-                }).fail(function() {
-                    swal({
-                        title: 'Operación Denegada',
-                        text: 'Ha ocurrido un problema en el proceso',
-                        type: 'error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                });
-            }
-        });
-    }
-        function eliminararchivo(id) {
-        swal({
-            title: '¿Seguro desea eliminar el archivo seleccionado?',
-            text: 'Esta accion puede causar mala impresión en la tienda, se recomienda despublicar el producto antes de proceder',
-            type: 'warning',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            showCancelButton: true,
-            confirmButtonText: '¡Eliminar!',
-        }).then((result) => {
-            if (result.value) {
-                $.post('<?php echo url('eliminarmultimedia') ?>', {
-                    id: id,
-                    producto_id: producto
-                }, function(response) {
-                    swal({
-                        title: (response.status == 'S') ? '¡Eliminado!' : 'Operación Denegada',
-                        text: (response.status == 'S') ? 'El archivo ha sido eliminado.' : 'No se pudo eliminar el archivo',
-                        type: (response.status == 'S') ? 'success' : 'info',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (response.status == 'S') {
-                            location.reload();
-                        }
-                    });
-
-                }).fail(function() {
-                    swal({
-                        title: 'Operación Denegada',
-                        text: 'Ha ocurrido un problema en el proceso',
-                        type: 'error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                });
-            }
-        });
-    }
-        function actualizararchivo(element, id) {
-
-        var exclusivo = 'N';
-        if ($(element).is(':checked')) {
-            exclusivo = 'S';
-        }
-
-        $.post('<?php echo url('actualizarmultimedia') ?>', {
-            id: id,
-            exclusivo: exclusivo
-        }, function(response) {
-
-        });
-    }
-        function actualizarpreview(element, id) {
-
-        var formData = new FormData();
-
-        var files = $(element).get(0).files;
-        formData.append('adjunto', files[0]);
-        formData.append('id', id);
-        formData.append('producto_id', producto);
-
-        $.ajax({
-            url: '<?php echo url("actualizarmultimedia"); ?>',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: formData,
-            beforeSend: function() {
-
-            },
-            success: function(view) {
-
-            },
-            error: function() {
-
-            }
-        });
-    }
     $('#btnSaveI').click(function() {
         procesarMultimedia('I');
     });
@@ -601,15 +418,7 @@
             }
         });
     }
-        function info(msj, type) {
-        swal({
-            title: 'Información',
-            text: msj,
-            type: type,
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }
+
         function obtenerMultimedia(tipo) {
 
         switch (tipo) {
@@ -625,7 +434,7 @@
         }
 
         $.ajax({
-            url: '<?php echo url('obtenermultimedia'); ?>',
+            url: '<?php echo url('obtenermultimediamedios'); ?>',
             type: 'POST',
             data: {
                 tipo: tipo
@@ -666,15 +475,15 @@
         switch (tipo) {
             case 'I':
                 listado = imagenes;
-                dir = '<?php echo asset('/archivos/imagenes/'); ?>';
+                dir = '<?php echo asset('/archivos/imagenes_medios/'); ?>';
                 break;
             case 'V':
                 listado = videos;
-                dir = '<?php echo asset('/archivos/videos/'); ?>';
+                dir = '<?php echo asset('/archivos/videos_medios/'); ?>';
                 break;
             case 'F':
                 listado = documentos;
-                dir = '<?php echo asset('/archivos/documentos/'); ?>';
+                dir = '<?php echo asset('/archivos/documentos_medios/'); ?>';
                 break;
         }
 
@@ -701,7 +510,7 @@
                 $('.imgitem' + data.id).addClass('active');
                 if (data.archivo != '') {
                     $('#mimgcontent').hide();
-                    $('#mimgpreview').attr('src', dir + '/' + producto + '/' + data.archivo);
+                    $('#mimgpreview').attr('src', dir + '/' + data.archivo);
                     $('#mimgpreview').show();
                 }
             }
@@ -719,7 +528,7 @@
                     video.setAttribute('data-setup', '{}');
                     video.style.cssText = 'width:100%; height: 300px';
                     $('#videovisor').html(video);
-                    addSourceToVideo(video, dir + '/' + producto + '/' + data.archivo, 'video/' + data.extension);
+                    addSourceToVideo(video, dir + '/' + data.archivo, 'video/' + data.extension);
                     $('#videovisor').show();
                 }
             }
@@ -742,8 +551,8 @@
                     icon = 'pdf';
                 }
 
-                $('#viewdocument').attr('onclick', "vistaprevia('" + dir + '/' + producto + '/' + data.archivo + "','" + data.extension + "')");
-                $('#docdownload').attr('href', dir + '/' + producto + '/' + data.archivo);
+                $('#viewdocument').attr('onclick', "vistaprevia('" + dir + '/' + data.archivo + "','" + data.extension + "')");
+                $('#docdownload').attr('href', dir + '/' + data.archivo);
                 $('#docextension').attr('src', '<?php echo asset("/images/icons/"); ?>/' + icon + '.png');
                 $('#docname').html(data.originalname);
                 $('#documentpreview').show();
@@ -752,76 +561,7 @@
             nuevoArchivoMultimedia(tipo);
         }
     }
-        function addSourceToVideo(element, src, type) {
-        var source = document.createElement('source');
 
-        source.src = src;
-        source.type = type;
-
-        element.appendChild(source);
-    }
-        function eliminarMultimedia(id, tipo) {
-        swal({
-            title: '¿Seguro desea eliminar el archivo multimedia seleccionado?',
-            type: 'warning',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            showCancelButton: true,
-            confirmButtonText: '¡Eliminar!',
-        }).then((result) => {
-            if (result.value) {
-                $.post('<?php echo url('eliminarmultimedia') ?>', {
-                    id: id,
-                    tipo: tipo
-                }, function(response) {
-
-                    swal({
-                        title: (response.status == 'S') ? '¡Eliminado!' : 'Operación Denegada',
-                        text: (response.status == 'S') ? 'El archivo ha sido eliminado.' : 'No se pudo eliminar el archivo',
-                        type: (response.status == 'S') ? 'success' : 'info',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
-                        if (response.status == 'S') {
-                            obtenerMultimedia(tipo);
-                            if (response.data.length > 0) {
-                                switch (tipo) {
-                                    case 'I':
-                                        imagenes = response.data;
-                                        $('#counter' + tipo).html(response.data.length);
-                                        seleccionarMultimedia(imagenes[0].id, tipo);
-                                        break;
-                                    case 'V':
-                                        videos = response.data;
-                                        $('#counter' + tipo).html(response.data.length);
-                                        seleccionarMultimedia(videos[0].id, tipo);
-                                        break;
-                                    case 'F':
-                                        documentos = response.data;
-                                        $('#counter' + tipo).html(response.data.length);
-                                        seleccionarMultimedia(documentos[0].id, tipo);
-                                        break;
-                                }
-                            } else {
-                                $('#counter' + tipo).html(response.data.length);
-                                nuevoArchivoMultimedia(tipo);
-                            }
-
-                        }
-                    });
-
-                }).fail(function() {
-                    swal({
-                        title: 'Operación Denegada',
-                        text: 'Ha ocurrido un problema en el proceso',
-                        type: 'error',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                });
-            }
-        });
-    }
     $(document).ready(function() {
         if (imagenes.length > 0) {
             seleccionarMultimedia(imagenes[0].id, 'I');
@@ -868,7 +608,7 @@
 
             var formImagenes = new FormData();
 
-            formImagenes.append('id', producto);
+            formImagenes.append('id', $('#id').val());
 
             $.each($(this), function(i, obj) {
                 $.each(obj.files, function(j, file) {
@@ -877,7 +617,7 @@
             });
 
             $.ajax({
-                url: '<?php echo url("cargararchivomasivos"); ?>',
+                url: '<?php echo url("cargararchivomasivosmulti"); ?>',
                 type: 'POST',
                 cache: false,
                 contentType: false,
@@ -941,10 +681,9 @@
         formData.append('adjunto', files[0]);
 
         formData.append('tipo', tipo);
-        formData.append('id', producto);
 
         $.ajax({
-            url: '<?php echo url("cargararchivo"); ?>',
+            url: '<?php echo url("cargarmedios"); ?>',
             type: 'POST',
             cache: false,
             contentType: false,
@@ -962,22 +701,5 @@
         });
 
     }
-    function vistaprevia(src, extension) {
 
-        if ($.inArray(extension, ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx']) != -1) {
-            var file = src + "&embedded=true";
-            src = "https://view.officeapps.live.com/op/embed.aspx?src=" + file;
-        }
-
-        $.fancybox.open({
-            src: src,
-            type: 'iframe',
-            buttons: ['fullScreen', 'close']
-        }, {
-            rotate: true
-        });
-
-        $('.fancybox-container').css('z-index', '999999999999');
-
-    }
 </script>

@@ -11,8 +11,7 @@ class CampanasVideosController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('auth');
-        $this->middleware('admin')->except('');
+        $this->middleware('auth');
     }
 
     public function index()

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BancoDatos;
-use App\Models\Servicios_consulares;
 use App\Models\Uploads;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,27 +12,45 @@ class MultimediaController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        //$this->middleware('admin')->except('');
     }
     public function index()
     {
         $objUploads = new Uploads();
         $lista = $objUploads->listar();
-        return view('multimedia.home', compact('lista'));
-    }
-    public function uploads_img(Request $request)
-    {
-        $objUploads = new Uploads();
 
         $imagenes = array();
         $videos = array();
         $documentos = array();
 
-        $data = $objUploads->obtener(array('id' => $request['id']));
+        return view('multimedia.home', compact('lista','imagenes', 'videos', 'documentos'));
+    }
+    public function uploads_img(Request $request)
+    {
+        $objUploads = new Uploads();
 
+
+        $data = $objUploads->obtener(array(
+            'id' => $request['id']
+        ));
+
+        $imagenes = $objUploads->listar(array('tipo' => 'I'));
+        $videos = $objUploads->listar(array('tipo' => 'V'));
+        $documentos = $objUploads->listar(array('tipo' => 'F'));
+        echo '<pre>';
+        echo $data;
+        echo '</pre>';
         return view('multimedia.form', compact('data','imagenes', 'videos', 'documentos'));
     }
+    public function nuevo_img(Request $request)
+    {
+        $objUploads = new Uploads();
+        $imagenes = array();
+        $videos = array();
+        $documentos = array();
+        $data = $objUploads->obtener(array('id' => $request['id']));
 
+        return view('multimedia.form1', compact('data','imagenes', 'videos', 'documentos'));
+    }
     public function obtenermultimediamedios(Request $request)
     {
 
@@ -42,13 +59,13 @@ class MultimediaController extends Controller
 
         switch ($request->tipo) {
             case 'I':
-                $partial = 'product._partial.imagenes';
+                $partial = 'multimedia._partial.imagenes';
                 break;
             case 'V':
-                $partial = 'product._partial.videos';
+                $partial = 'multimedia._partial.videos';
                 break;
             case 'F':
-                $partial = 'product._partial.documentos';
+                $partial = 'multimedia._partial.documentos';
                 break;
         }
 
@@ -75,13 +92,13 @@ class MultimediaController extends Controller
 
         switch ($request->tipo) {
             case 'I':
-                $direction = 'imagenes';
+                $direction = 'imagenes_medios';
                 break;
             case 'V':
-                $direction = 'videos';
+                $direction = 'videos_medios';
                 break;
             case 'F':
-                $direction = 'documentos';
+                $direction = 'documentos_medios';
                 break;
         }
 
@@ -121,6 +138,106 @@ class MultimediaController extends Controller
         }
 
         return $response;
+    }
+    public function cargararchivomasivosmedios(Request $request)
+    {
+
+        $response = array(
+            'status' => 'S'
+        );
+
+        $direction = 'imagenes_medios';
+
+        if ($direction != '') {
+            if ($request->imagenes) {
+                $adjunto = $request->file('imagenes');
+                foreach ($adjunto as $index => $file) {
+
+                    $objUploads = new Uploads();
+                    $objUploads->tipo = 'I';
+                    $objUploads->estado = 'A';
+                    $objUploads->exclusivo = 'N';
+                    $objUploads->usureg = auth()->user()->id;
+                    $objUploads->created_at = date('Y-m-d H:i:s');
+
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = "archivomedios" . $index . "_" . date('ymdhis') . "." . $extension;
+                    $file->move(base_path('archivos/' . $direction . '/' . $request->id), $fileName);
+                    $adjuntoFileName = $fileName;
+                    $objUploads->titulo = "Imagen " . ($index + 1);
+                    $objUploads->archivo = $adjuntoFileName;
+                    $objUploads->extension = $extension;
+                    $objUploads->originalname = $file->getClientOriginalName();
+
+                    $objUploads->save();
+                }
+            }
+        }
+
+        return $response;
+    }
+
+
+    public function updatefilemedios(Request $request)
+    {
+        $objUploads = new Uploads();
+
+        $params = array();
+
+        if (isset($request->exclusivo)) {
+            $params['exclusivo'] = $request->exclusivo;
+        }
+
+        if ($request->hasFile('adjunto')) {
+            $adjunto = $request->file('adjunto');
+            $extension = $adjunto->getClientOriginalExtension();
+            $fileName = "archivomedios" . date('ymdhis') . "." . $extension;
+            $adjunto->move(base_path('archivos/videosmedios/'), $fileName);
+            $adjuntoFileName = $fileName;
+            $params['preview'] = $adjuntoFileName;
+            $params['extension'] = $extension;
+        }
+
+        $update = $objUploads->actualizar($params, array('id' => $request->id));
+
+        return $update;
+    }
+    public function deletefilemedios(Request $request)
+    {
+        $objUploads = new Uploads();
+        $response = array(
+            'status' => 'N',
+        );
+
+        $delete = $objUploads->eliminar(array('id' => $request->id));
+
+        if ($delete) {
+            $response['status'] = 'S';
+        }
+
+
+        switch ($request->tipo) {
+            case 'I':
+                $response['data'] = $objUploads->listar(array('id' => $request->id, 'tipo' => 'I'));
+                break;
+            case 'V':
+                $response['data'] = $objUploads->listar(array('id' => $request->id, 'tipo' => 'V'));
+                break;
+            case 'F':
+                $response['data'] = $objUploads->listar(array('id' => $request->id, 'tipo' => 'F'));
+                break;
+        }
+
+
+        return $response;
+    }
+    public function obtenervideomedios(Request $request)
+    {
+         $objUploads = new Uploads();
+
+        $video = $objUploads->obtener(array('id' => $request->id));
+
+        return view('multimedia.video', compact('video'));
     }
 
 }

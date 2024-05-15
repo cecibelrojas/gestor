@@ -48,7 +48,7 @@
 
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.min.css">
-  
+
   <link rel="stylesheet" href="{{asset('css/tagsinput.css')}}">
   <link rel="icon" type="image/png" href="{{asset('img/guacafaviccs48.ico')}}">
 
@@ -124,6 +124,7 @@
   <script src="{{asset('AdminLTE-3.2.0/dist/js/rainbow.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/generic.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/html.js')}}"></script>
+     <script type="text/javascript" src="{{asset('js/loader.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/javascript.js')}}"></script>
 
 
@@ -408,7 +409,11 @@
                 @endif
 
                 @endforeach
+                @foreach ($administradores as $element)
 
+                @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "C" || $element->rol == "D" || $element->rol == "E")
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fa-solid fa-image"></i>
@@ -426,12 +431,16 @@
 
               </ul>
             </li>
+                @endif
 
+                @endif
+
+                @endforeach
             @foreach ($administradores as $element)
 
               @if ($_COOKIE["email_login"] == $element->email)
 
-                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "H")
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "H" || $element->rol == "C" || $element->rol == "D" || $element->rol == "I")
 
             <li class="nav-header" style="font-size: 12px;">{!! trans('messages.campanas') !!}</li>    
             <li class="nav-item">
@@ -480,7 +489,7 @@
 
               @if ($_COOKIE["email_login"] == $element->email)
 
-                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "I")
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "H" || $element->rol == "I")
 
 
             <li class="nav-header" style="font-size: 12px;">{!! trans('messages.galerias') !!}</li>
@@ -509,6 +518,17 @@
                 </li>
               </ul>
             </li>
+             @endif
+
+                @endif
+
+                @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A")
+
             <li class="nav-header" style="font-size: 12px;">{!! trans('messages.coleccion') !!}</li>    
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -656,7 +676,7 @@
 
               @if ($_COOKIE["email_login"] == $element->email)
 
-                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "C")
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "C" || $element->rol == "D")
 
 
             <li class="nav-header" style="font-size: 12px;">{!! trans('messages.servicioidentidad') !!}</li>
@@ -773,6 +793,12 @@
                 @endif
 
                 @endforeach
+            @foreach ($administradores as $element)
+
+              @if ($_COOKIE["email_login"] == $element->email)
+
+                @if ($element->rol == "A" || $element->rol == "E" || $element->rol == "F")
+
            <li class="nav-header" style="font-size: 12px;">{!! trans('messages.nimiportales') !!}</li>     
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -797,14 +823,18 @@
                 </li>
               </ul>
             </li>
+                @endif
 
+                @endif
+
+                @endforeach
 
             
             @foreach ($administradores as $element)
 
             @if ($_COOKIE["email_login"] == $element->email)
 
-            @if ($element->rol == "A" || $element->rol == "E")
+            @if ($element->rol == "A"  || $element->rol == "E")
 
             <li class="nav-header" style="font-size: 12px;"> {!! trans('messages.configuracion') !!} </li>
             <li class="nav-item">
@@ -929,6 +959,8 @@
   <script src="{{asset('AdminLTE-3.2.0/plugins/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
   <script src="{{asset('js/calendarioccs.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap-colorpicker.min.js')}}"></script>
+
+  <!-- Fileupload JS -->
   <script src="{{asset('js/codigo.js')}}"></script>
 
   <script>
@@ -993,72 +1025,7 @@
     })
 
   </script>
- <script>
-var xValues = ["día", "semana", "mes", "año"];
-var yValues = [55, 49, 44, 24];
-var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
-];
 
-new Chart("myChart", {
-  type: "pie",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "Notas creadas en el sistema"
-    }
-  }
-});
-
-/** */
-
-var xValues1 = ["Borrador", "Para Corrección", "Publicado"];
-var yValues1 = [107, 107, 107];
-var barColors1 = ["yellow", "purple","orange"];
-
-new Chart("myChart1", {
-  type: "bar",
-  data: {
-    labels: xValues1,
-    datasets: [{
-      backgroundColor: barColors1,
-      data: yValues1
-    }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-      text: "Estadísticas Generales"
-    }
-  }
-});
-  $(function () {
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-      event.preventDefault();
-      $(this).ekkoLightbox({
-        alwaysShowClose: true
-      });
-    });
-
-    $('.filter-container').filterizr({gutterPixels: 3});
-    $('.btn[data-filter]').on('click', function() {
-      $('.btn[data-filter]').removeClass('active');
-      $(this).addClass('active');
-    });
-  })
-</script>
 </body>
 @else
 
