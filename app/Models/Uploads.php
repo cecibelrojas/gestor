@@ -25,6 +25,10 @@ class Uploads extends Model
             $select->where('tipo', $params['tipo']);
         }
 
+        if (array_key_exists('id', $params)) {
+            $select->where('id', $params['id']);
+        }
+
         $select->orderByRaw('t.id');
 
         return $select->get();

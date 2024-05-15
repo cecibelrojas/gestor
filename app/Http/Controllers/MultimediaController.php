@@ -22,7 +22,7 @@ class MultimediaController extends Controller
         $videos = array();
         $documentos = array();
 
-        return view('multimedia.home', compact('lista','imagenes', 'videos', 'documentos'));
+        return view('multimedia.home', compact('lista', 'imagenes', 'videos', 'documentos'));
     }
     public function uploads_img(Request $request)
     {
@@ -33,13 +33,11 @@ class MultimediaController extends Controller
             'id' => $request['id']
         ));
 
-        $imagenes = $objUploads->listar(array('tipo' => 'I'));
-        $videos = $objUploads->listar(array('tipo' => 'V'));
-        $documentos = $objUploads->listar(array('tipo' => 'F'));
-        echo '<pre>';
-        echo $data;
-        echo '</pre>';
-        return view('multimedia.form', compact('data','imagenes', 'videos', 'documentos'));
+        $imagenes = $objUploads->listar(array('tipo' => 'I', 'id' => $request['id']));
+        $videos = $objUploads->listar(array('tipo' => 'V', 'id' => $request['id']));
+        $documentos = $objUploads->listar(array('tipo' => 'F', 'id' => $request['id']));
+
+        return view('multimedia.form', compact('data', 'imagenes', 'videos', 'documentos'));
     }
     public function nuevo_img(Request $request)
     {
@@ -49,7 +47,7 @@ class MultimediaController extends Controller
         $documentos = array();
         $data = $objUploads->obtener(array('id' => $request['id']));
 
-        return view('multimedia.form1', compact('data','imagenes', 'videos', 'documentos'));
+        return view('multimedia.form1', compact('data', 'imagenes', 'videos', 'documentos'));
     }
     public function obtenermultimediamedios(Request $request)
     {
@@ -233,11 +231,10 @@ class MultimediaController extends Controller
     }
     public function obtenervideomedios(Request $request)
     {
-         $objUploads = new Uploads();
+        $objUploads = new Uploads();
 
         $video = $objUploads->obtener(array('id' => $request->id));
 
         return view('multimedia.video', compact('video'));
     }
-
 }
