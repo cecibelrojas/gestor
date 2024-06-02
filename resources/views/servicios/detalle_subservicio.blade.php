@@ -51,10 +51,19 @@
                 <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Servicios</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Infografías</a>
+                <a class="nav-link" id="custom-content-below-ubicacion-tab" data-toggle="pill" href="#custom-content-below-ubicacion" role="tab" aria-controls="custom-content-below-ubicacion" aria-selected="false">Ubicación Oficinas</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill" href="#custom-content-below-settings" role="tab" aria-controls="custom-content-below-settings" aria-selected="false">Videos</a>
+                <a class="nav-link" id="custom-content-below-pagos-tab" data-toggle="pill" href="#custom-content-below-pagos" role="tab" aria-controls="custom-content-below-pagos" aria-selected="false">pagos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-content-below-extras-tab" data-toggle="pill" href="#custom-content-below-extras" role="tab" aria-controls="custom-content-below-extras" aria-selected="false">Otros (Inf Apostilla)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Documentos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill" href="#custom-content-below-settings" role="tab" aria-controls="custom-content-below-settings" aria-selected="false">Faq</a>
               </li>
             </ul>
             <div class="tab-content" id="custom-content-below-tabContent">
@@ -274,7 +283,7 @@
                       <div class="col-12">
                         <div class="card">
                           <div class="card-header">
-                            <h3 class="card-title">Infografías</h3>
+                            <h3 class="card-title">Documentos a apostillar</h3>
 
                             <div class="card-tools">
                               <button class="btn btn-sm btn-light" id="btnNuevo4"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
@@ -286,7 +295,7 @@
                               <thead>
                                 <tr>
                                   <th style="font-size: 12px;">Titulo</th>
-                                  <th style="font-size: 12px;">Infografía</th>
+                                  <th style="font-size: 12px;">Documento</th>
                                   <th style="font-size: 12px;">Orden</th>
                                   <th style="font-size: 12px;">{!! trans('messages.creadopor') !!}</th>
                                   <th style="font-size: 12px;">{!! trans('messages.estado') !!}</th>
@@ -323,6 +332,146 @@
               </section>
               </div>
               <!-- tab 5 Infografías -->
+              <div class="tab-pane fade" id="custom-content-below-ubicacion" role="tabpanel" aria-labelledby="custom-content-below-ubicacion-tab">
+              <section class="content" style="margin-top: 30px">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card">
+                      <?php if (count($detalle_apostilla) > 0) : ?>
+                        <?php foreach ($detalle_apostilla as $apostilla) : ?>
+
+                          <div class="card card-solid">
+                            <div class="card-body pb-0">
+                              <div class="row">
+                                <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
+                                  <div class="card bg-light d-flex flex-fill">
+                                    <div class="card-header text-muted border-bottom-0">
+                                      Ubicación de Oficinas
+                                    </div>
+                                    <div class="card-body pt-0">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <img src="<?php echo env('APP_ADMIN') . "" . $apostilla['imgmap']; ?>" onerror="this.src='<?php echo asset('archivos/apostilla_subservicios/img.png'); ?>'" class="imgpreview" width="100%">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card-footer">
+                                      <div class="text-right">
+                                        <button class="btn btn-sm btn-info" onclick="formulariooficinas(<?php echo $apostilla['id']; ?>)"><i class="fa fa-edit"></i></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <button class="btn btn-sm btn-info" id="btnNuevo4"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                        </div>
+                    </div>
+                 <?php endif; ?>
+
+                        </div>
+                        <!-- /.card -->
+                      </div>
+                    </div>
+              </section>
+              </div>
+              <div class="tab-pane fade" id="custom-content-below-pagos" role="tabpanel" aria-labelledby="custom-content-below-pagos-tab">
+              <section class="content" style="margin-top: 30px">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card">
+                      <?php if (count($detalle_apostilla) > 0) : ?>
+                        <?php foreach ($detalle_apostilla as $apostilla) : ?>
+
+                          <div class="card card-solid">
+                            <div class="card-body pb-0">
+                              <div class="row">
+                                <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
+                                  <div class="card bg-light d-flex flex-fill">
+                                    <div class="card-header text-muted border-bottom-0">
+                                      Métodos de pago
+                                    </div>
+                                    <div class="card-body pt-0">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <img src="<?php echo env('APP_ADMIN') . "" . $apostilla['imgpago']; ?>" onerror="this.src='<?php echo asset('archivos/apostilla_subservicios/img.png'); ?>'" class="imgpreview" width="100%">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="card-footer">
+                                      <div class="text-right">
+                                        <button class="btn btn-sm btn-info" onclick="formulariopagos(<?php echo $apostilla['id']; ?>)"><i class="fa fa-edit"></i></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <button class="btn btn-sm btn-info" id="btnNuevo4"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                        </div>
+                    </div>
+                 <?php endif; ?>
+
+                        </div>
+                        <!-- /.card -->
+                      </div>
+                    </div>
+              </section>
+              </div>
+              <div class="tab-pane fade" id="custom-content-below-extras" role="tabpanel" aria-labelledby="custom-content-below-extras-tab">
+                <section class="content">
+                  <?php if (count($detalle_apostilla) > 0) : ?>
+                    <?php foreach ($detalle_apostilla as $apostilla) : ?>
+                      <!-- Default box -->
+                      <div class="card card-solid">
+                        <div class="card-body pb-0">
+                          <div class="row">
+                            <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
+                              <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                  Información adicional apostillas
+                                </div>
+                                <div class="card-body pt-0">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <img src="<?php echo env('APP_ADMIN') . "" . $apostilla['imgextra']; ?>" onerror="this.src='<?php echo asset('archivos/apostilla_subservicios/img.png'); ?>'" class="imgpreview" width="100%">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="text-right">
+                                    <button class="btn btn-sm btn-info" onclick="formularioextra(<?php echo $apostilla['id']; ?>)"><i class="fa fa-edit"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                    <?php endforeach; ?>
+                    <?php else : ?>
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <button class="btn btn-sm btn-info" id="btnNuevo8"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
+                        </div>
+                    </div>
+                 <?php endif; ?>
+                </section>
+              </div>
               <!-- tab 6 Videos -->
               <div class="tab-pane fade" id="custom-content-below-settings" role="tabpanel" aria-labelledby="custom-content-below-settings-tab">
                 <div class="card-header">
@@ -330,58 +479,55 @@
                     <button class="btn btn-sm btn-info" id="btnNuevo3"><i class="fa fa-plus-circle"></i> {!! trans('messages.nuevo') !!}</button>
                   </div>
                 </div>
-                <div class="row" style="margin-top:30px"> 
-                  <?php if (count($detalle_videos) > 0) : ?>
-                    <?php foreach ($detalle_videos as $video) : ?>
-                      
-                  <div class="col-sm-4">
-                      <div class="card card-info card-outline">
-                        <div class="card-header">
-                          <h5 class="card-title" style="font-size: 12px"><?php echo $video['titulo']; ?></h5>
-                            <div class="card-tools">
-                                  <?php
-                                        if($video['tipo']=='SLA'){
-
-                                            echo "Tipo: <span class='right badge badge-success'> Apertura </span>";
-
-                                        }if($video['tipo']=='RJS'){
-
-                                            echo "<span class='right badge badge-danger'> Hijas e Hijos </span>";
-
-                                        }if($video['tipo']=='PRE'){
-
-                                             echo "<span class='right badge badge-warning'> Representantes </span>";
-
-                                        }if($video['tipo']=='DOC'){
-
-                                            echo "<span class='right badge badge-dark'> Documentos </span>";
-
-                                        }if($video['tipo']=='CIT'){
-
-                                            echo "<span class='right badge badge-info'> Citas </span>";
-
-                                        }
-                                   ?>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                          <div id="trailer" class="section d-flex justify-content-center embed-responsive embed-responsive-16by9">
-                            <video class="embed-responsive-item" controls autoplay loop muted>
-                               <source src="<?php echo env('APP_ADMIN') . "" . $video['video']; ?>" type="video/mp4">
-                            </video>
+                  <div class="card card-solid">
+                    <div class="card-body pb-0">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card">
+                          <!-- /.card-header -->
+                          <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                              <thead>
+                                <tr>
+                                  <th style="font-size: 12px;">Pregunta</th>
+                                  <th style="font-size: 12px;">{!! trans('messages.creadopor') !!}</th>
+                                  <th style="font-size: 12px;">{!! trans('messages.modificadopor') !!}</th>
+                                  <th style="font-size: 12px;">{!! trans('messages.estado') !!}</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                            <?php if (count($detalle_videos) > 0) : ?>
+                              <?php foreach ($detalle_videos as $video) : ?>
+                                  <tr>
+                                    <td style="font-size: 12px;"><?php echo $video['titulo']; ?></td>
+                                    <td style="font-size: 12px">
+                                      <?php echo $video['creador']; ?> / <span><?php echo $video['created_at']; ?>
+                                    </td>
+                                    <td style="font-size: 12px">
+                                      <?php echo $video['editor']; ?> / <span><?php echo $video['updated_at']; ?>
+                                    </td>
+                                    <td style="text-align: center;"><?php echo ($video['estado'] == 'A') ? 'Activo' : 'Inactivo'; ?>
+                                    </td>
+                                    <td>
+                                      <button class="btn btn-sm btn-info" onclick="formulariovideo(<?php echo $video['id']; ?>,<?php echo $video['subservicio_id']; ?>)"><i class="fa fa-edit"></i></button>
+                                      <button class="btn btn-sm btn-danger" onclick="eliminarvideos(<?php echo $video['id']; ?>)"><i class="fa fa-trash-o"></i></button>
+                                    </td>
+                                  </tr>
+                                <?php endforeach; ?>
+                             <?php endif; ?>
+                              </tbody>
+                            </table>
                           </div>
+                          <!-- /.card-body -->
                         </div>
-                      <div class="card-footer">
-                        <div class="text-right">
-                          <button class="btn btn-sm btn-success" onclick="formulariovideo(<?php echo $video['id']; ?>)"><i class="fa fa-edit"></i></button>
-                          <button class="btn btn-sm btn-danger" onclick="eliminarvideos(<?php echo $video['id']; ?>)"><i class="fa fa-trash-o"></i></button>
-                        </div>
-                      </div>
+                        <!-- /.card -->
                       </div>
                     </div>
-                  <?php endforeach; ?>
-                  <?php endif; ?>
-                </div>
+                    </div>
+                    <!-- /.card-footer -->
+                  </div>
+
   
               </div>
               <!-- tab 6 Videos -->
@@ -510,7 +656,7 @@
     </div>
 </div>
 <div class="modal fade" id="modal-nuevo5">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
@@ -532,6 +678,76 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-nuevo6">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                @foreach (array_keys(config('locale.languages')) as $lang)
+                    @if ($lang != App::getLocale() AND $lang == 'en')
+                       <?php echo $data['nombre_subservicio'];  ?> 
+                           @elseif ($lang != App::getLocale() AND $lang == 'es')
+                       <?php echo $data['nombre_subservicio_ingles'];  ?>  
+                   @endif
+                 @endforeach                   
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content6"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-nuevo7">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                @foreach (array_keys(config('locale.languages')) as $lang)
+                    @if ($lang != App::getLocale() AND $lang == 'en')
+                       <?php echo $data['nombre_subservicio'];  ?> 
+                           @elseif ($lang != App::getLocale() AND $lang == 'es')
+                       <?php echo $data['nombre_subservicio_ingles'];  ?>  
+                   @endif
+                 @endforeach                   
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content7"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-nuevo8">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                @foreach (array_keys(config('locale.languages')) as $lang)
+                    @if ($lang != App::getLocale() AND $lang == 'en')
+                       <?php echo $data['nombre_subservicio'];  ?> 
+                           @elseif ($lang != App::getLocale() AND $lang == 'es')
+                       <?php echo $data['nombre_subservicio_ingles'];  ?>  
+                   @endif
+                 @endforeach                   
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="form-content8"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     var subservicio_id = '<?php echo $subservicio_id; ?>';  
     $(document).ready(function() {
@@ -556,6 +772,10 @@
         $('#btnNuevo5').click(function() {
             formularioapostilla();
         });
+        $('#btnNuevo8').click(function() {
+            formularioaextra();
+        });
+
     });
 /*************** Contenido del servicio ***********************/
     function formulario(id = null) {
@@ -645,6 +865,72 @@
         });
     }
 /*************** Infografías ***********************/  
+/*************** ubicaciones ***********************/
+    function formulariooficinas(id = null) {
+        $.ajax({
+            url: '<?php echo url('/oficinasconsulares_subservicios') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                subservicio_id: subservicio_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo6').modal('show');
+                $('#form-content6').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content6').html(view);
+            },
+            error: function() {
+                $('#form-content6').html("Error al cargar ventana.");
+            }
+        });
+    }
+/*************** ubicaciones ***********************/ 
+/*************** pagos ***********************/
+    function formulariopagos(id = null) {
+        $.ajax({
+            url: '<?php echo url('/pagosconsulares-subservicio') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                subservicio_id: subservicio_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo7').modal('show');
+                $('#form-content7').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content7').html(view);
+            },
+            error: function() {
+                $('#form-content7').html("Error al cargar ventana.");
+            }
+        });
+    }
+/*************** pagos ***********************/ 
+/*************** extras ***********************/
+    function formularioextra(id = null) {
+        $.ajax({
+            url: '<?php echo url('/extraconsulares-subservicio') ?>',
+            type: 'POST',
+            data: {
+                id: id,
+                subservicio_id: subservicio_id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo8').modal('show');
+                $('#form-content8').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content8').html(view);
+            },
+            error: function() {
+                $('#form-content8').html("Error al cargar ventana.");
+            }
+        });
+    }
+/*************** extras ***********************/ 
 /*************** mp4 video tutorial ***********************/
     function formularioapostilla(id = null) {
         $.ajax({

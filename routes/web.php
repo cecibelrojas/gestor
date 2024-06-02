@@ -319,6 +319,15 @@ Route::post('/infografias_subservicios', 'ServiciosController@subs_infografias')
 Route::post('/infografia-subservicio', 'ServiciosController@guardar_infogra_subservicio');
 Route::post('/eliminarinfografia', 'ServiciosController@delete_infografia');
 
+Route::post('/oficinasconsulares_subservicios', 'ServiciosController@subs_oficinasconsulares');
+Route::post('/oficinasconsul-subservicio', 'ServiciosController@guardar_oficinaconsul_subservicio');
+
+Route::post('/pagosconsulares-subservicio', 'ServiciosController@subs_pagosconsulares');
+Route::post('/pagosconsul-subservicio', 'ServiciosController@guardar_pagosconsul_subservicio');
+
+Route::post('/extraconsulares-subservicio', 'ServiciosController@subs_extrasconsulares');
+Route::post('/extrasconsul-subservicio', 'ServiciosController@guardar_extrasconsul_subservicio');
+
 Route::post('/apostillas_subservicios', 'ServiciosController@subs_apostilla');
 Route::post('/guardar-apostillas_subservicio', 'ServiciosController@store_apostillas_subservicio');
 
@@ -379,6 +388,8 @@ Route::post('/guardar-ubicaciones', 'ConareController@guardar_ubigeo');
 Route::post('/eliminar_ubicacion_geo', 'ConareController@delete_ubicaciones');
 
 Route::get('/multimedia', 'MultimediaController@index');
+Route::get('/multimedia_todos', 'MultimediaController@medios_todos');
+
 Route::post('/medios_uploads', 'MultimediaController@uploads_img');
 Route::post('/medios_uploads_nuevo', 'MultimediaController@nuevo_img');
 Route::post('/cargarmedios', 'MultimediaController@upload_medios');
@@ -394,3 +405,5 @@ Route::post('/listado_publicaciones', 'ProductController@listado_publicaciones')
 Route::get('/rss-generator', 'RssfeedController@rss');
 Route::get('/rss-feed', 'RssfeedController@index');
 Route::get('/post_type/{id?}', 'RssfeedController@listado_rss');
+
+Route::post('/multimedia_productos', 'MultimediaController@listado_multimedia');

@@ -33,30 +33,68 @@
             <p class="card-description" style="font-size: 12px;">{!! trans('messages.des_multimedia') !!}</p>
             <div id="multimedia-content">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <?php if ($data['tipo']=='I') : ?>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="imagen-tab" data-toggle="tab" href="#imagen" role="tab" aria-controls="imagen" aria-selected="true">{!! trans('messages.imagenes') !!}</a>
                     </li>
+                    <?php endif; ?>
+                    <?php if ($data['tipo']=='V') : ?>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">{!! trans('messages.videos') !!}</a>
                     </li>
+                    <?php endif; ?>
+                    <?php if ($data['tipo']=='F') : ?>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="documento-tab" data-toggle="tab" href="#documento" role="tab" aria-controls="documento" aria-selected="false">{!! trans('messages.documentos') !!}</a>
                     </li>
+                    <?php endif; ?>
                 </ul>
                 <div class="tab-content" id="myTabContent" style="padding: 0px">
                     <!-- Tab de Imagenes-->
+                    <?php if ($data['tipo']=='I') : ?>
                     <div class="tab-pane fade show active" id="imagen" role="tabpanel" aria-labelledby="imagen-tab">
                         <div class="row">
 
                             <div class="col-lg-12" style="padding-right: 23px;">
                                 <input type="hidden" id='Iid'>
                                 <div class="row">
-                                    <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
-                                        <button type="button" class="btn btn-primary" onclick="$('#imagenmasiva').trigger('click')" style="margin-right: 5px;text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.cargar_imagen') !!}</button>
-                                        <input type="file" id="imagenmasiva" style="display: none;" multiple>
-                                        <i style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;" onclick="$('.example-image-link0').trigger('click');" class="mdi mdi-view-carousel"></i>
-                                    </div>
-                                    <div class="col-lg-12" style="padding-top: 10px;">
+
+                                                <div class="col-lg-4" id="imagenes-content" style="border-right: 1px solid #b9b9b9; max-height: 650px;overflow: auto;">
+                                                    <div class="row" style="margin-left: 0px;">
+                                                        <table class="table">
+                                                          <thead>
+                                                            <tr>
+                                                              <th scope="col">Atributos</th>
+                                                              <th scope="col">Detalle</th>
+                                                            </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                            <tr>
+                                                              <td width="10%">URL</td>
+                                                              <td><div style="width: 150px"><?php echo env('APP_ADMIN') . "/archivos/imagenes_medios/" . $data['archivo']; ?></div></td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td width="10%">Dimensiones</td>
+                                                              <td>
+                                                                <?php 
+
+                                                                    // Calling getimagesize() function 
+                                                                    list($width, $height) = getimagesize(env('APP_ADMIN') . "/archivos/imagenes_medios/" . $data['archivo']); 
+                                                                       
+                                                                    // Displaying dimensions of the image 
+                                                                    echo "Ancho: " . $width .' pixeles '. "<br>"; 
+                                                                      
+                                                                    echo "Alto: " . $height .' pixeles '. "<br>"; 
+                                                                                                                                        
+                                                                ?>
+                                                              </td>                                                         
+                                                            </tr>
+
+                                                          </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                    <div class="col-lg-8" style="padding-top: 10px;">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <label>{!! trans('messages.titulo') !!}</label>
@@ -73,25 +111,6 @@
                                                 <label>{!! trans('messages.descripcion') !!} </label>
                                                 <textarea style="resize: none;height: 100px" class="form-control" id="Idescripcion"></textarea>
                                             </div>
-
-                                            <div class="col-lg-4" style="margin-top: 10px;">
-                                                <label>{!! trans('messages.estado') !!}</label>
-                                                <select class="form-control" id="Iestado">
-                                                    <option value="A">{!! trans('messages.activo') !!} </option>
-                                                    <option value="I">{!! trans('messages.inactivo') !!}</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-4" style="margin-top: 10px;">
-                                                <label>{!! trans('messages.exclusivo') !!}</label>
-                                                <select class="form-control" id="Iexclusivo">
-                                                    <option value="S">{!! trans('messages.exclusivo') !!}</option>
-                                                    <option value="N">{!! trans('messages.no_exclusivo') !!}</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-4" style="margin-top: 10px;">
-                                                <label>{!! trans('messages.orden') !!}</label>
-                                                <input id="Iorden" value="1" type="number" class="form-control">
-                                            </div>
                                             <div class="col-lg-12" style="margin-bottom: 10px;">
                                                 <hr>
                                                 <input type="file" id="imgupload" style="display: none;">
@@ -104,41 +123,48 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <!-- Tab de Videos-->
-                    <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab">
+                    <?php if ($data['tipo']=='V') : ?>
+                    <div class="tab-pane fade show active" id="video" role="tabpanel" aria-labelledby="video-tab">
                         <div class="row">
-                            <div class="col-lg-3" id="videos-content" style="border-right: 1px solid #b9b9b9">
-                                <div class="row" style="margin-left: 0px;">
-                                    <?php if (count($videos) > 0) : ?>
-                                        <?php foreach ($videos as $index => $key) : ?>
-                                            <div onclick="seleccionarMultimedia(<?php echo $key['id']; ?>,'V')" class="col-lg-12 multiitem videositem videoitem<?php echo $key['id']; ?> <?php echo ($index == 0) ? "active" : ""; ?>" onclick="openimagen(<?php echo $key['id']; ?>);" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                <div class="text-center" style="padding-top: 25px;">
-                                                    <img style="width: 45px;" src="<?php echo asset('/images/icons/add-video.png'); ?>">
-                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;"><?php echo !empty($key['titulo']) ? $key['titulo'] : 'Imagen sin título'; ?><br>
-                                                        <?php if (!empty($key['extension'])) : ?>
-                                                            <em style="font-size: 9px;"><?php echo $key['extension']; ?></em>
-                                                        <?php endif; ?>
-                                                    </p>
+                                                <div class="col-lg-3" id="imagenes-content" style="border-right: 1px solid #b9b9b9; max-height: 650px;overflow: auto;">
+                                                    <div class="row" style="margin-left: 0px;">
+                                                        <table class="table">
+                                                          <thead>
+                                                            <tr>
+                                                              <th scope="col">Atributos</th>
+                                                              <th scope="col">Detalle</th>
+                                                            </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                            <tr>
+                                                              <td width="10%">URL</td>
+                                                              <td><div style="width: 120px"><?php echo env('APP_ADMIN') . "/archivos/videos_medios/" . $data['archivo']; ?></div></td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>Ancho</td>
+                                                              <td>---</td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>Alto</td>
+                                                              <td>---</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td>Extensión</td>
+                                                              <td><?php echo $data['extension']; ?></td>
+                                                            </tr>
 
+                                                          </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    <?php else : ?>
-                                        <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                            <div class="text-center" style="padding-top: 25px;">
-                                                <img style="width: 45px;" src="<?php echo asset('/images/icons/add-video.png'); ?>">
-                                                <p style="margin-top: 10px;font-size: 11px;line-height: 1;">{!! trans('messages.nuevo_video') !!}</p>
-                                            </div>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
                             <div class="col-lg-9" style="padding-right: 23px;">
                                 <input type="hidden" id='Vid'>
                                 <div class="row">
                                     <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
                                         <label style="margin-top: 10px;">{!! trans('messages.cant_videos') !!}(<span id="counterV"><?php echo count($videos); ?></span>)</label>
-                                        <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('V')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.nuevo_video') !!}</button>
+
                                     </div>
                                     <div class="col-lg-12" style="padding-top: 10px;">
                                         <div class="row">
@@ -193,40 +219,47 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <!-- Tab de Documentos-->
-                    <div class="tab-pane fade" id="documento" role="tabpanel" aria-labelledby="documento-tab">
+                    <?php if ($data['tipo']=='F') : ?>
+                    <div class="tab-pane fade show active " id="documento" role="tabpanel" aria-labelledby="documento-tab">
                         <div class="row">
-                            <div class="col-lg-3" id="documentos-content" style="border-right: 1px solid #b9b9b9">
-                                <div class="row" style="margin-left: 0px;">
-                                    <?php if (count($documentos) > 0) : ?>
-                                        <?php foreach ($documentos as $index => $key) : ?>
-                                            <div onclick="seleccionarMultimedia(<?php echo $key['id']; ?>,'F')" class="col-lg-12 multiitem documentoitem docitem<?php echo $key['id']; ?> <?php echo ($index == 0) ? "active" : ""; ?>" onclick="opendocumento(<?php echo $key['id']; ?>);" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                <div class="text-center" style="padding-top: 25px;">
-                                                    <img style="width: 45px;" src="<?php echo asset('/images/icons/document2.png'); ?>">
-                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;"><?php echo !empty($key['titulo']) ? $key['titulo'] : 'Documento sin título'; ?><br>
-                                                        <?php if (!empty($key['extension'])) : ?>
-                                                            <em style="font-size: 9px;"><?php echo $key['extension']; ?></em>
-                                                        <?php endif; ?>
-                                                    </p>
+                                                <div class="col-lg-3" id="imagenes-content" style="border-right: 1px solid #b9b9b9; max-height: 650px;overflow: auto;">
+                                                    <div class="row" style="margin-left: 0px;">
+                                                        <table class="table">
+                                                          <thead>
+                                                            <tr>
+                                                              <th scope="col">Atributos</th>
+                                                              <th scope="col">Detalle</th>
+                                                            </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                            <tr>
+                                                              <td width="10%">URL</td>
+                                                              <td><div style="width: 105px"><?php echo env('APP_ADMIN') . "/archivos/documentos_medios/" . $data['archivo']; ?></div></td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>Ancho</td>
+                                                              <td>---</td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>Alto</td>
+                                                              <td>---</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td>Extensión</td>
+                                                              <td><?php echo $data['extension']; ?></td>
+                                                            </tr>
+
+                                                          </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    <?php else : ?>
-                                        <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                            <div class="text-center" style="padding-top: 25px;">
-                                                <img style="width: 45px;" src="<?php echo asset('/images/icons/document2.png'); ?>">
-                                                <p style="margin-top: 10px;font-size: 11px;line-height: 1;">{!! trans('messages.nuevo_documento') !!}</p>
-                                            </div>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
                             <div class="col-lg-9" style="padding-right: 23px;">
                                 <input type="hidden" id='Fid'>
                                 <div class="row">
                                     <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
                                         <label style="margin-top: 10px;">{!! trans('messages.cant_documentos') !!}(<span id="counterD"><?php echo count($documentos); ?></span>)</label>
-                                        <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('F')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.nuevo_documento') !!}</button>
                                         <a id="docdownload" style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;" download target="_blank"><i class="mdi mdi-download"></i></a>
                                         <a id="viewdocument" style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;"><i class="mdi mdi-window-maximize"></i></a>
                                     </div>
@@ -285,6 +318,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -674,7 +708,14 @@
         });
 
     });
+    function addSourceToVideo(element, src, type) {
+        var source = document.createElement('source');
 
+        source.src = src;
+        source.type = type;
+
+        element.appendChild(source);
+    }
     function subirdocumento(element, tipo) {
 
         var formData = new FormData();
@@ -702,5 +743,68 @@
             }
         });
 
+    }
+
+        function eliminarMultimedia(id, tipo) {
+        swal({
+            title: '¿Seguro desea eliminar el archivo multimedia seleccionado?',
+            type: 'warning',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            showCancelButton: true,
+            confirmButtonText: '¡Eliminar!',
+        }).then((result) => {
+            if (result.value) {
+                $.post('<?php echo url('eliminarmultimedio') ?>', {
+                    id: id,
+                    tipo: tipo
+                }, function(response) {
+
+                    swal({
+                        title: (response.status == 'S') ? '¡Eliminado!' : 'Operación Denegada',
+                        text: (response.status == 'S') ? 'El archivo ha sido eliminado.' : 'No se pudo eliminar el archivo',
+                        type: (response.status == 'S') ? 'success' : 'info',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        if (response.status == 'S') {
+                            obtenerMultimedia(tipo);
+                            if (response.data.length > 0) {
+                                switch (tipo) {
+                                    case 'I':
+                                        imagenes = response.data;
+                                        $('#counter' + tipo).html(response.data.length);
+                                        seleccionarMultimedia(imagenes[0].id, tipo);
+                                        break;
+                                    case 'V':
+                                        videos = response.data;
+                                        $('#counter' + tipo).html(response.data.length);
+                                        seleccionarMultimedia(videos[0].id, tipo);
+                                        break;
+                                    case 'F':
+                                        documentos = response.data;
+                                        $('#counter' + tipo).html(response.data.length);
+                                        seleccionarMultimedia(documentos[0].id, tipo);
+                                        break;
+                                }
+                            } else {
+                                $('#counter' + tipo).html(response.data.length);
+                                nuevoArchivoMultimedia(tipo);
+                            }
+
+                        }
+                    });
+
+                }).fail(function() {
+                    swal({
+                        title: 'Operación Denegada',
+                        text: 'Ha ocurrido un problema en el proceso',
+                        type: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            }
+        });
     }
 </script>

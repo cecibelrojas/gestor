@@ -9,7 +9,7 @@ class Detalle_infografias extends Model
 {
     protected $table = 'detalle_infografias';
 
-    protected $fillable = ['id','subservicio_id','infografia','titulo','titulo_ingles','estado','usureg','created_at','usumod','updated_at'];
+    protected $fillable = ['id','subservicio_id','infografia','titulo','titulo_ingles','estado','orden','link1','subtitulo','subtitulo_ingles','usureg','created_at','usumod','updated_at'];
 
     protected $hidden = [
         '_token'

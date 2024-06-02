@@ -17,20 +17,25 @@ class Uploads extends Model
 
     public function listar(array $params = array())
     {
-
         $select = $this->from('medios as t')
-            ->select('t.*');
+            ->select('t.*')
+            ->selectRaw("(select name from users as u where u.id = t.usureg) as creador")
+            ->orderBy('t.id', 'desc');
+
 
         if (array_key_exists('tipo', $params)) {
             $select->where('tipo', $params['tipo']);
         }
-
+        if (array_key_exists('fecini', $params) && array_key_exists('fecfin', $params)) {
+            $select->whereBetween('p.created_at', array($params['fecini'], $params['fecfin']));
+        }
         if (array_key_exists('id', $params)) {
             $select->where('id', $params['id']);
         }
-
-        $select->orderByRaw('t.id');
-
+        if (array_key_exists('limite', $params)) {
+            $select->limit($params['limite']);
+        }
+ 
         return $select->get();
     }
 

@@ -2,15 +2,6 @@
 <input type="hidden" id="detalleservicio_id" value="<?php echo $data ? $data['id'] : ''; ?>">
 <input type="hidden" id="subservicio_id" value="<?php echo $subservicio_id; ?>">
 <!-- -->
-
-<div class="row">
-    <div class="col-lg-12 text-center">
-    <img onclick="$('#tapa').trigger('click');" src="<?php echo ($data && !empty($data['tapa'])) ? url('/') . $data['tapa'] : asset('archivos/video_detalleservicio/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer;" class="imgpreview">
-    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 500px * 350px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
-    <input type="file" id="tapa" name="tapa" style="display: none;">
-    </div>
-</div>
-
 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="custom-content-below-videoes-tab" data-toggle="pill" href="#custom-content-below-videoes" role="tab" aria-controls="custom-content-below-videoes" aria-selected="true">{{ __("Spanish") }}</a>
@@ -23,49 +14,30 @@
               <div class="tab-pane fade show active" id="custom-content-below-videoes" role="tabpanel" aria-labelledby="custom-content-below-videoes-tab">
 				 <div class="row">   
 				    <div class="col-lg-12">
-				        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.titulo') !!}</label>
+				        <label style="font-size: 12px;font-weight: bold;">Pregunta</label>
 				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo'] : ''; ?>" maxlength="255" id="titulo" style="border: 1px solid #b9b9b9;">
 				    </div>
 				    <div class="col-lg-12">
-				        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.descripcion') !!}<span style="color: red;">*</span></label>
-				        <textarea class="form-control" id="descripcion" rows="3"><?php echo $data ? $data['descripcion'] : ''; ?></textarea>
+				        <label style="font-size: 12px;font-weight: bold;">Respuesta<span style="color: red;">*</span></label>
+				        <textarea class="form-control summernote" id="descripcion" rows="3"><?php echo $data ? $data['descripcion'] : ''; ?></textarea>
 				    </div>
 				</div>
               </div>
               <div class="tab-pane fade" id="custom-content-below-videoin" role="tabpanel" aria-labelledby="custom-content-below-videoin-tab">
 				 <div class="row">   
 				    <div class="col-lg-12">
-				        <label style="font-size: 12px;font-weight: bold;">Title</label>
+				        <label style="font-size: 12px;font-weight: bold;">Ask</label>
 				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo_ingles'] : ''; ?>" maxlength="255" id="titulo_ingles" style="border: 1px solid #b9b9b9;">
 				    </div>
 				    <div class="col-lg-12">
-				        <label style="font-size: 12px;font-weight: bold;">Description<span style="color: red;">*</span></label>
-				        <textarea class="form-control" id="descripcion_ingles" rows="3"><?php echo $data ? $data['descripcion_ingles'] : ''; ?></textarea>
+				        <label style="font-size: 12px;font-weight: bold;">Answer<span style="color: red;">*</span></label>
+				        <textarea class="form-control summernote" id="descripcion_ingles" rows="3"><?php echo $data ? $data['descripcion_ingles'] : ''; ?></textarea>
 				    </div>
 				</div>
               </div>
              </div> 
               <div class="row">
-              		<div class="col-lg-12">
-				        <label style="font-size: 12px;font-weight: bold;">URL de Sistema de Legalización y Apostilla Electrónica </label>
-				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['link'] : ''; ?>" maxlength="255" id="link" style="border: 1px solid #b9b9b9;">
-				    </div>
-				    <div class="col-lg-4">
-				        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.video') !!}</label>
-				        <input type="file" class="form-control input-sm" value="<?php echo $data ? $data['video'] : ''; ?>"  id="video" style="border: 1px solid #b9b9b9;">
-				    </div>
-                    <div class="col-lg-4">
-                        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.tipo') !!}</label>
-                            <select class="form-control" id="tipo" style="font-size: 12px;font-weight: bold;">
-                                <option value="">{!! trans('messages.seleccionar') !!}</option>
-                                <?php if (count($listaTipos) > 0) : ?>
-                                    <?php foreach ($listaTipos as $key) : ?>
-                                        <option <?php echo (isset($data['tipo']) && $data['tipo'] == $key['item']) ? "selected" : ""; ?> value="<?php echo $key['item']; ?>"><?php echo $key['nombre']; ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
-                    </div>
-				    <div class="col-lg-4">
+				    <div class="col-lg-12">
 				        <label style="font-size: 12px;font-weight: bold;">Estado<span style="color: red;">*</span></label>
 				        <select class="form-control form-select" aria-label="estado" id="estado">
 				            <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>Activo</option>
@@ -78,34 +50,25 @@
                     </div>
             </div>
 <script>
-        $("#tapa").change(function() {
+            $(".summernote").summernote({
+            height: 300,
+            onImageUpload: function(files){
 
-        var imagen = this.files[0];
-        var documento = this.files[0];
-        var tipo = $(this).attr("name");
+            for(var i = 0; i < files.length; i++){
 
-        /*=============================================
-        VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
-        =============================================*/
+                upload_sm(files[i]);
 
+            }
 
-        var datosImagen = new FileReader;
-        datosImagen.readAsDataURL(imagen);
+        }
 
-        $(datosImagen).on("load", function(event) {
-
-            var rutaImagen = event.target.result;
-
-            $(".imgpreview").attr("src", rutaImagen);
-
-        })
-    })
+        });
     $('#btnSave').click(function() {
         
         if ($('#titulo').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo Título es requerido!",
+                title: "¡El campo Pregunta es requerido!",
                 showConfirmButton: true
             });
             return false;
@@ -113,7 +76,7 @@
         if ($('#descripcion').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo Descripción es requerido!",
+                title: "¡El campo Respuesta es requerido!",
                 showConfirmButton: true
             });
             return false;
@@ -135,17 +98,7 @@
         formData.append('descripcion', $('#descripcion').val());
         formData.append('titulo_ingles', $('#titulo_ingles').val());
         formData.append('descripcion_ingles', $('#descripcion_ingles').val());
-        formData.append('link', $('#link').val());
-        formData.append('video', $('#video').val());
         formData.append('estado', $('#estado').val());
-        formData.append('tipo', $('#tipo').val());
-        formData.append('tapa', $('#tapa').val());
-
-        var files = $('#tapa').get(0).files;
-        formData.append('tapa', files[0]);
-
-        var files1 = $('#video').get(0).files;
-        formData.append('video', files1[0]);
 
         $.ajax({
             url: '<?php echo url('/guardar-video_subservicio') ?>',

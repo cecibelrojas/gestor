@@ -45,7 +45,7 @@
                                 <?php if (count($lista) > 0) : ?>
                                     <?php foreach ($lista as $key) : ?>
                                         <tr>
-                                            <td><img src="{{asset('images/icons/imagen2.png')}}" style="width: 40px;height: 40px;" class="imgpreview"></td>
+                                            <td><img src="{{asset('images/icons/imagen2.png')}}" style="width: 40px;height: 40p;"x class="imgpreview"></td>
                                             <td><?php echo $key['url']; ?></td>
                                             <td style="font-size: 12px">
                                             <?php echo $key['creador']; ?> / <span><?php echo $key['created_at']; ?>

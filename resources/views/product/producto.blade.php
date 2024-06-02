@@ -94,7 +94,7 @@
                     <h4 class="card-title" style="margin: 0px">{!! trans('messages.sumario') !!}</h4>
                     <input type="text" name="sumario" id="sumario" class="form-control" value="{{ @$data->sumario }}" style="border: 1px solid #b9b9b9;" maxlength="320" onkeyup="countCharsSumario(this);">
                     <p id="charNumSumario" style="text-align: right;">320 {!! trans('messages.caracteres') !!}</p>
-                    <button class="btn btn-sm btn-info">Cargar Imagen <i class="fa-solid fa-upload"></i></button>
+                    <a href="#" class="btn btn-sm btn-info" style="margin-bottom: 10px" id="btnImagen">Cargar Imagen <i class="fa-solid fa-upload"></i></a>
                     <textarea id="descripcion" class="form-control" name="descripcion">{{ @$data->descripcion }}</textarea>
                 @elseif ($lang != App::getLocale() AND $lang == 'es')
 
@@ -599,6 +599,24 @@
         </div>
     </div>
 </form>
+    <div class="modal fade" id="modal-nuevo">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Biblioteca de medios</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="form-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 <div class="modal" id="videow" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -1464,7 +1482,7 @@
             autosave_restore_when_empty: false,
             autosave_retention: "2m",
             image_advtab: true,
-            content_css: '../css/codepen.min.css',
+            content_css: 'css/codepen.min.css',
             extended_valid_elements: "a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|class=img-responsive|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
             importcss_append: true,
             file_picker_callback: function(callback, value, meta) {
@@ -1724,6 +1742,34 @@ $(function() {
   })
 
 });    
+
+    $(document).ready(function() {
+
+        $('#btnImagen').click(function() {
+            formularioimagen();
+        });
+
+    });
+
+    function formularioimagen(id = null) {
+        $.ajax({
+            url: '<?php echo url('/multimedia_productos') ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            beforeSend: function() {
+                $('#modal-nuevo').modal('show');
+                $('#form-content').html("Cargando <i class='fa fa-spinner fa-pulse'></i>");
+            },
+            success: function(view) {
+                $('#form-content').html(view);
+            },
+            error: function() {
+                $('#form-content').html("Error al cargar ventana.");
+            }
+        });
+    }
 </script>
 
 

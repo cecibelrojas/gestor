@@ -7,6 +7,7 @@ use App\Models\Parroquias;
 use App\Models\Producto;
 use App\Models\Productolog;
 use App\Models\ProductoMultimedia;
+use App\Models\Uploads;
 use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -611,4 +612,6 @@ class ProductController extends Controller
 
         return view('product.video', compact('video'));
     }
+
+    
 }

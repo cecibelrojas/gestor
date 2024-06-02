@@ -4,9 +4,9 @@
 <!-- -->
 <div class="row">
     <div class="col-lg-12 text-center">
-    <img onclick="$('#infografia').trigger('click');" src="<?php echo ($data && !empty($data['infografia'])) ? url('/') . $data['infografia'] : asset('archivos/infografia_detalleservicio/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 40%" class="imgpreview">
-    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 430px * 578px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
-    <input type="file" id="infografia" name="infografia" style="display: none;">
+    <img onclick="$('#imgmap').trigger('click');" src="<?php echo ($data && !empty($data['imgmap'])) ? url('/') . $data['imgmap'] : asset('archivos/oficinas_detalleservicio/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 40%" class="imgpreview">
+    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 1600px * 1100px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
+    <input type="file" id="imgmap" name="imgmap" style="display: none;">
     </div>
 </div>
 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
@@ -22,50 +22,60 @@
 				 <div class="row">   
 				    <div class="col-lg-12">
 				        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.titulo') !!}</label>
-				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo'] : ''; ?>" maxlength="255" id="titulo" style="border: 1px solid #b9b9b9;">
+				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulomap'] : ''; ?>" maxlength="255" id="titulomap" style="border: 1px solid #b9b9b9;">
 				    </div>
                     <div class="col-lg-12">
-                        <label style="font-size: 12px;font-weight: bold;">Subtítulo</label>
-                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['subtitulo'] : ''; ?>" maxlength="255" id="subtitulo" style="border: 1px solid #b9b9b9;">
+                        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.descripcion') !!}<span style="color: red;">*</span></label>
+                        <textarea class="form-control summernote" id="desmapa" rows="3" required><?php echo $data ? $data['desmapa'] : ''; ?></textarea>
                     </div>
-				    </div>
+				</div>
               </div>
               <div class="tab-pane fade" id="custom-content-below-videoin" role="tabpanel" aria-labelledby="custom-content-below-videoin-tab">
 				 <div class="row">   
 				    <div class="col-lg-12">
 				        <label style="font-size: 12px;font-weight: bold;">Title</label>
-				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo_ingles'] : ''; ?>" maxlength="255" id="titulo_ingles" style="border: 1px solid #b9b9b9;">
+				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulomap_ingles'] : ''; ?>" maxlength="255" id="titulomap_ingles" style="border: 1px solid #b9b9b9;">
 				    </div>
                     <div class="col-lg-12">
-                        <label style="font-size: 12px;font-weight: bold;">Subtítulo</label>
-                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['subtitulo_ingles'] : ''; ?>" maxlength="255" id="subtitulo_ingles" style="border: 1px solid #b9b9b9;">
+                        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.descripcion') !!}<span style="color: red;">*</span></label>
+                        <textarea class="form-control summernote" id="desmapa_ingles" rows="3" required><?php echo $data ? $data['desmapa_ingles'] : ''; ?></textarea>
                     </div>
+
 				</div>
               </div>
              </div> 
              <div class="row">
-                <div class="col-lg-12">
-                        <label style="font-size: 12px;font-weight: bold;">Botón</label>
-                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['link1'] : ''; ?>" maxlength="255" id="link1" style="border: 1px solid #b9b9b9;">
-                </div>
-				<div class="col-lg-10">
-					    <label style="font-size: 12px;font-weight: bold;">Estado<span style="color: red;">*</span></label>
-					    <select class="form-control form-select" aria-label="estado" id="estado">
-					        <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>Activo</option>
-					        <option value="I" <?php if ($data && 'I' == $data['estado']) { ?> selected <?php } ?>>Inactivo</option>
-					    </select>
-				</div>
-                    <div class="col-lg-2">
-                        <label style="font-size: 12px;font-weight: bold;">Orden</label>
-                        <input type="number" class="form-control input-sm" value="<?php echo $data ? $data['orden'] : ''; ?>" maxlength="2" id="orden" style="border: 1px solid #b9b9b9;">
+                    <div class="col-lg-6">
+                        <label style="font-size: 12px;font-weight: bold;">Botón 1 Nacional</label>
+                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['linkna'] : ''; ?>" maxlength="255" id="linkna" style="border: 1px solid #b9b9b9;">
                     </div>
+                    <div class="col-lg-6">
+                        <label style="font-size: 12px;font-weight: bold;">Botón 2 Internacional</label>
+                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['linkin'] : ''; ?>" maxlength="255" id="linkin" style="border: 1px solid #b9b9b9;">
+                    </div>
+
                 <div class="col-lg-12 text-right">
                     <hr>
                     <button id="btnSave" class="btn btn-sm btn-success">{!! trans('messages.guardar') !!}</button>
                 </div>
             </div>
 <script>
-        $("#infografia").change(function() {
+            $(".summernote").summernote({
+            height: 200,
+            onImageUpload: function(files){
+
+            for(var i = 0; i < files.length; i++){
+
+                upload_sm(files[i]);
+
+            }
+
+        }
+
+        });
+
+
+        $("#imgmap").change(function() {
 
         var imagen = this.files[0];
         var documento = this.files[0];
@@ -89,7 +99,7 @@
     })
     $('#btnSave').click(function() {
         
-        if ($('#titulo').val() == '') {
+        if ($('#titulomap').val() == '') {
             swal({
                 type: "info",
                 title: "¡El campo Título es requerido!",
@@ -97,18 +107,10 @@
             });
             return false;
         }
-        if ($('#link1').val() == '') {
+        if ($('#desmapa').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo link es requerido!",
-                showConfirmButton: true
-            });
-            return false;
-        }
-        if ($('#estado').val() == '') {
-            swal({
-                type: "info",
-                title: "¡El campo estado es requerido!",
+                title: "¡El campo Descripción es requerido!",
                 showConfirmButton: true
             });
             return false;
@@ -118,20 +120,20 @@
         
         formData.append('id', $('#detalleservicio_id').val());
         formData.append('subservicio_id', $('#subservicio_id').val());
-        formData.append('titulo', $('#titulo').val());
-        formData.append('titulo_ingles', $('#titulo_ingles').val());
-        formData.append('subtitulo', $('#subtitulo').val());
-        formData.append('subtitulo_ingles', $('#subtitulo_ingles').val());
-        formData.append('link1', $('#link1').val());
-        formData.append('estado', $('#estado').val());
-        formData.append('orden', $('#orden').val());
-        formData.append('infografia', $('#infografia').val());
+        formData.append('titulomap', $('#titulomap').val());
+        formData.append('titulomap_ingles', $('#titulomap_ingles').val());
+        formData.append('desmapa', $('#desmapa').val());
+        formData.append('desmapa_ingles', $('#desmapa_ingles').val());
+        formData.append('linkna', $('#linkna').val());
+        formData.append('linkin', $('#linkin').val());
+        
+        formData.append('imgmap', $('#imgmap').val());
 
-        var files = $('#infografia').get(0).files;
-        formData.append('infografia', files[0]);
+        var files = $('#imgmap').get(0).files;
+        formData.append('imgmap', files[0]);
 
         $.ajax({
-            url: '<?php echo url('/infografia-subservicio') ?>',
+            url: '<?php echo url('/oficinasconsul-subservicio') ?>',
             type: 'POST',
             cache: false,
             contentType: false,

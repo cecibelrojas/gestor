@@ -17,12 +17,13 @@
     }
 </style>
 <!-- -->
-                    
+                                    <!-- Start:: row-2 -->
+                <!-- End:: row-2 -->
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title" style="margin: 0px">{!! trans('messages.material_multimedia') !!}</h4><br>
-                                <p class="card-description" style="font-size: 12px;">{!! trans('messages.des_multimedia') !!}</p>
+                                <p class="card-description" style="font-size: 12px;">Agrega videos, imagenes o documentos</p>
                                 <div id="multimedia-content">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item" role="presentation">
@@ -40,17 +41,30 @@
                                         <!-- Tab de Imagenes-->
                                         <div class="tab-pane fade show active" id="imagen" role="tabpanel" aria-labelledby="imagen-tab">
                                             <div class="row">
+
                                                 <div class="col-lg-12" style="padding-right: 23px;">
                                                     <input type="hidden" id='Iid'>
                                                     <div class="row">
                                                         <div class="col-lg-12" style="padding-bottom: 10px;padding-top: 10px;">
-                                                        <div class="form-group">
-                                                            <div class="custom-file" style="margin-top: 30px">
-                                                              <input type="file" class="custom-file-input" id="imagenmasiva" multiple>
-                                                              <label class="custom-file-label" for="customFile">{!! trans('messages.cargar_imagen') !!}</label>
-                                                            </div>
-                                                          </div>
+                                                            <button type="button" class="btn btn-primary" onclick="$('#imagenmasiva').trigger('click')" style="margin-right: 5px;text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i>Insertar multiples imagenes</button>
+                                                            <input type="file" id="imagenmasiva" style="display: none;" multiple>
                                                             <i style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;" onclick="$('.example-image-link0').trigger('click');" class="mdi mdi-view-carousel"></i>
+                                                        </div>
+                                                        <div class="col-lg-12" style="padding-top: 10px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 text-center">
+                                                                    <div onclick="$('#imgupload').trigger('click');" id="mimgcontent" style="margin-top: 10px;border-radius: 4px;border: 3px dotted #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
+                                                                        <img style="width: 5%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/add-image.png'); ?>"><br>
+                                                                        <span style="font-size: 12px;">Subir Imagen <br> <span style="font-size: 10px;">{!! trans('messages.formatos_recomendados') !!} </span></span>
+                                                                    </div>
+                                                                    <img onclick="$('#imgupload').trigger('click');" id="mimgpreview" style="display: none;width: 20%;margin-bottom: 10px;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;cursor: pointer;" src="<?php echo asset('/images/icons/add-image.png'); ?>">
+                                                                </div>
+                                                                <div class="col-lg-12" style="margin-bottom: 10px;">
+                                                                    <hr>
+                                                                    <input type="file" id="imgupload" style="display: none;">
+                                                                    <button type="button" id="btnSaveI" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.guardar') !!}</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -59,77 +73,40 @@
                                         <!-- Tab de Videos-->
                                         <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab">
                                             <div class="row">
-                                                <div class="col-lg-3" id="videos-content" style="border-right: 1px solid #b9b9b9">
-                                                    <div class="row" style="margin-left: 0px;">
-                                                        <?php if (count($videos) > 0) : ?>
-                                                            <?php foreach ($videos as $index => $key) : ?>
-                                                                <div onclick="seleccionarMultimedia(<?php echo $key['id']; ?>,'V')" class="col-lg-12 multiitem videositem videoitem<?php echo $key['id']; ?> <?php echo ($index == 0) ? "active" : ""; ?>" onclick="openimagen(<?php echo $key['id']; ?>);" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                                    <div class="text-center" style="padding-top: 25px;">
-                                                                        <img style="width: 45px;" src="<?php echo asset('/images/icons/add-video.png'); ?>">
-                                                                        <p style="margin-top: 10px;font-size: 11px;line-height: 1;"><?php echo !empty($key['titulo']) ? $key['titulo'] : 'Imagen sin título'; ?><br>
-                                                                            <?php if (!empty($key['extension'])) : ?>
-                                                                                <em style="font-size: 9px;"><?php echo $key['extension']; ?></em>
-                                                                            <?php endif; ?>
-                                                                        </p>
-
-                                                                    </div>
-                                                                </div>
-                                                            <?php endforeach; ?>
-                                                        <?php else : ?>
-                                                            <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                                <div class="text-center" style="padding-top: 25px;">
-                                                                    <img style="width: 45px;" src="<?php echo asset('/images/icons/add-video.png'); ?>">
-                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">{!! trans('messages.nuevo_video') !!}</p>
-                                                                </div>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-9" style="padding-right: 23px;">
+                                                <div class="col-lg-12" style="padding-right: 23px;">
                                                     <input type="hidden" id='Vid'>
                                                     <div class="row">
-                                                        <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
-                                                            <label style="margin-top: 10px;">{!! trans('messages.cant_videos') !!}(<span id="counterV"><?php echo count($videos); ?></span>)</label>
-                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('V')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.nuevo_video') !!}</button>
-                                                        </div>
                                                         <div class="col-lg-12" style="padding-top: 10px;">
                                                             <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <label>{!! trans('messages.titulo') !!}</label>
-                                                                    <input type="text" class="form-control" id="Vtitulo">
-                                                                </div>
                                                                 <div class="col-lg-12 text-center">
-                                                                    <div onclick="$('#videoupload').trigger('click');" id="videocontent" style="margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
-                                                                        <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/video.png'); ?>"><br>
+                                                                    <div onclick="$('#videoupload').trigger('click');" id="videocontent" style="margin-top: 10px;border-radius: 4px;border: 3px dotted #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
+                                                                        <img style="width: 5%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/video.png'); ?>"><br>
                                                                         <span style="font-size: 12px;">Subir Video <br> <span style="font-size: 10px;">{!! trans('messages.formatos_videos') !!} </span></span>
                                                                     </div>
-                                                                    <div onclick="$('#videoupload').trigger('click');" id="uploadedvideo" style="display:none;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
-                                                                        <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/uploadedvideo.png'); ?>"><br>
+                                                                    <div onclick="$('#videoupload').trigger('click');" id="uploadedvideo" style="display:none;margin-top: 10px;border-radius: 4px;border: 3px dotted #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
+                                                                        <img style="width: 5%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/uploadedvideo.png'); ?>"><br>
                                                                         <span style="font-size: 12px;">Video Cargado <br> <span style="font-size: 10px;">{!! trans('messages.des_video') !!} </span></span>
                                                                     </div>
                                                                     <!--video id="videovisor" class="video-js" controls preload="auto" style="width: 100%;height: 400px;display: none;" width="400" height="400" poster="" data-setup="{}"></video-->
                                                                     <div id="videovisor" style="margin-top: 10px;"></div>
                                                                 </div>
-                                                                <div class="col-lg-12" style="margin-top: 10px;">
-                                                                    <label>{!! trans('messages.descripcion') !!} </label>
-                                                                    <textarea style="resize: none;height: 100px" class="form-control" id="Vdescripcion"></textarea>
-                                                                </div>
 
-                                                                <div class="col-lg-4" style="margin-top: 10px;">
+
+                                                                <div class="col-lg-4" style="margin-top: 10px; display: none;">
                                                                     <label>{!! trans('messages.estado') !!} </label>
                                                                     <select class="form-control" id="Vestado">
                                                                         <option value="A">{!! trans('messages.activo') !!}</option>
                                                                         <option value="I">{!! trans('messages.inactivo') !!}</option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-lg-4" style="margin-top: 10px;">
+                                                                <div class="col-lg-4" style="margin-top: 10px; display: none;">
                                                                     <label>{!! trans('messages.exclusivo') !!} </label>
                                                                     <select class="form-control" id="Vexclusivo">
                                                                         <option value="S">{!! trans('messages.exclusivo') !!} </option>
                                                                         <option value="N">{!! trans('messages.no_exclusivo') !!} </option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-lg-4" style="margin-top: 10px;">
+                                                                <div class="col-lg-4" style="margin-top: 10px; display: none;">
                                                                     <label>{!! trans('messages.orden') !!} </label>
                                                                     <input id="Vorden" value="1" type="number" class="form-control">
                                                                 </div>
@@ -148,52 +125,21 @@
                                         <!-- Tab de Documentos-->
                                         <div class="tab-pane fade" id="documento" role="tabpanel" aria-labelledby="documento-tab">
                                             <div class="row">
-                                                <div class="col-lg-3" id="documentos-content" style="border-right: 1px solid #b9b9b9">
-                                                    <div class="row" style="margin-left: 0px;">
-                                                        <?php if (count($documentos) > 0) : ?>
-                                                            <?php foreach ($documentos as $index => $key) : ?>
-                                                                <div onclick="seleccionarMultimedia(<?php echo $key['id']; ?>,'F')" class="col-lg-12 multiitem documentoitem docitem<?php echo $key['id']; ?> <?php echo ($index == 0) ? "active" : ""; ?>" onclick="opendocumento(<?php echo $key['id']; ?>);" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                                    <div class="text-center" style="padding-top: 25px;">
-                                                                        <img style="width: 45px;" src="<?php echo asset('/images/icons/document2.png'); ?>">
-                                                                        <p style="margin-top: 10px;font-size: 11px;line-height: 1;"><?php echo !empty($key['titulo']) ? $key['titulo'] : 'Documento sin título'; ?><br>
-                                                                            <?php if (!empty($key['extension'])) : ?>
-                                                                                <em style="font-size: 9px;"><?php echo $key['extension']; ?></em>
-                                                                            <?php endif; ?>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            <?php endforeach; ?>
-                                                        <?php else : ?>
-                                                            <div class="col-lg-12 multiitem imagenitem active" style="cursor: pointer;border-bottom: 1px solid #b9b9b9;">
-                                                                <div class="text-center" style="padding-top: 25px;">
-                                                                    <img style="width: 45px;" src="<?php echo asset('/images/icons/document2.png'); ?>">
-                                                                    <p style="margin-top: 10px;font-size: 11px;line-height: 1;">{!! trans('messages.nuevo_documento') !!}</p>
-                                                                </div>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-9" style="padding-right: 23px;">
+                                                <div class="col-lg-12" style="padding-right: 23px;">
                                                     <input type="hidden" id='Fid'>
                                                     <div class="row">
-                                                        <div class="col-lg-12" style="border-bottom: 1px solid #b9b9b9;padding-bottom: 10px;padding-top: 10px;">
-                                                            <label style="margin-top: 10px;">{!! trans('messages.cant_documentos') !!}(<span id="counterD"><?php echo count($documentos); ?></span>)</label>
-                                                            <button type="button" class="btn btn-primary" onclick="nuevoArchivoMultimedia('F')" style="text-decoration: none;cursor: pointer;color: #0090e7;font-size: 13px;padding: 10px;border: 1px solid #0090e7;border-radius: 4px;font-weight: bold;background-color: transparent;float: right;"><i class="mdi mdi-plus-circle-outline" style="vertical-align: middle;margin-right: 0px;"></i> {!! trans('messages.nuevo_documento') !!}</button>
+                                                        <div class="col-lg-12" style="padding-bottom: 10px;padding-top: 10px;">
                                                             <a id="docdownload" style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;" download target="_blank"><i class="mdi mdi-download"></i></a>
                                                             <a id="viewdocument" style="float: right;margin-right: 10px;font-size: 23px;cursor: pointer;"><i class="mdi mdi-window-maximize"></i></a>
                                                         </div>
                                                         <div class="col-lg-12" style="padding-top: 10px;">
                                                             <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <label>{!! trans('messages.titulo') !!}</label>
-                                                                    <input type="text" class="form-control" id="Ftitulo">
-                                                                </div>
                                                                 <div class="col-lg-12 text-center">
-                                                                    <div onclick="$('#docupload').trigger('click');" id="doccontent" style="margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
-                                                                        <img style="width: 20%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/paper.png'); ?>"><br>
+                                                                    <div onclick="$('#docupload').trigger('click');" id="doccontent" style="margin-top: 10px;border-radius: 4px;border: 3px dotted #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
+                                                                        <img style="width: 5%;margin-bottom: 10px;" src="<?php echo asset('/images/icons/paper.png'); ?>"><br>
                                                                         <span style="font-size: 12px;">Subir Documento <br> <span style="font-size: 10px;">{!! trans('messages.formatos_recomendados') !!}</span></span>
                                                                     </div>
-                                                                    <div onclick="$('#docupload').trigger('click');" id="uploadeddocument" style="display: none;margin-top: 10px;border-radius: 4px;border: 1px solid #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
+                                                                    <div onclick="$('#docupload').trigger('click');" id="uploadeddocument" style="display: none;margin-top: 10px;border-radius: 4px;border: 1px dotted #15d0c2;padding: 15px;line-height: 1;cursor: pointer;">
                                                                         <img style="width: 71px;margin-bottom: 10px;" src="<?php echo asset('/images/icons/document3.png'); ?>"><br>
                                                                         <span style="font-size: 12px;">{!! trans('messages.documento_cargando') !!}<br> <span style="font-size: 10px;">{!! trans('messages.formatos_documento') !!}</span></span>
                                                                     </div>
@@ -202,34 +148,11 @@
                                                                         <span style="font-size: 12px;"><span id="docname"></span><br> <span style="font-size: 10px;">{!! trans('messages.formatos_documento') !!}</span></span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-12" style="margin-top: 10px;">
-                                                                    <label>{!! trans('messages.descripcion') !!}</label>
-                                                                    <textarea style="resize: none;height: 100px" class="form-control" id="Fdescripcion"></textarea>
-                                                                </div>
 
-                                                                <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>{!! trans('messages.estado') !!}</label>
-                                                                    <select class="form-control" id="Festado">
-                                                                        <option value="A">{!! trans('messages.activo') !!}</option>
-                                                                        <option value="I">{!! trans('messages.inactivo') !!}</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>{!! trans('messages.exclusivo') !!}</label>
-                                                                    <select class="form-control" id="Fexclusivo">
-                                                                        <option value="S">{!! trans('messages.exclusivo') !!}</option>
-                                                                        <option value="N">{!! trans('messages.no_exclusivo') !!}</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-lg-4" style="margin-top: 10px;">
-                                                                    <label>{!! trans('messages.orden') !!}</label>
-                                                                    <input id="Forden" value="1" type="number" class="form-control">
-                                                                </div>
                                                                 <div class="col-lg-12" style="margin-bottom: 10px;">
                                                                     <hr>
                                                                     <input type="file" id="docupload" style="display: none;">
                                                                     <button type="button" id="btnSaveF" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #4caf50;font-size: 13px;padding: 10px;border: 1px solid #4caf50;border-radius: 4px;font-weight: bold;background-color: transparent;"><i class="mdi mdi-content-save" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.guardar') !!}</button>
-                                                                    <button type="button" id="btnDelF" class="btn btn-success" style="text-decoration: none;cursor: pointer;color: #ff766d;font-size: 13px;padding: 10px;border: 1px solid #ff766d;border-radius: 4px;font-weight: bold;background-color: transparent;display: none;"><i class="mdi mdi-delete" style="vertical-align: middle;margin-left: 0px;"></i>{!! trans('messages.eliminar') !!}</button>
                                                                 </div>
                                                             </div>
                                                         </div>

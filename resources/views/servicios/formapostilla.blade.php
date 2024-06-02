@@ -2,16 +2,22 @@
 <input type="hidden" id="detalleservicio_id" value="<?php echo $data ? $data['id'] : ''; ?>">
 <input type="hidden" id="subservicio_id" value="<?php echo $subservicio_id; ?>">
 <div class="row">
-    <div class="col-lg-12 text-center">
+    <div class="col-lg-4 text-center">
     <img onclick="$('#parallax').trigger('click');" src="<?php echo ($data && !empty($data['parallax'])) ? url('/') . $data['parallax'] : asset('archivos/apostilla_subservicios/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 100%" class="imgpreview">
-    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 1280px * 800px | Peso Max. 1MB  <br> Formato: JPG o PNG</p>
+    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 1184px * 723px | Peso Max. 1MB  <br> Formato: JPG o PNG</p>
     <input type="file" id="parallax" name="parallax" style="display: none;">
     </div>
-    <div class="col-lg-12 text-center">
-    <img onclick="$('#infografia').trigger('click');" src="<?php echo ($data && !empty($data['infografia'])) ? url('/') . $data['infografia'] : asset('archivos/apostilla_subservicios/img1.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 60%;" class="imgpreview1">
+    <div class="col-lg-4 text-center">
+    <img onclick="$('#infografia').trigger('click');" src="<?php echo ($data && !empty($data['infografia'])) ? url('/') . $data['infografia'] : asset('archivos/apostilla_subservicios/img1.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 100%;" class="imgpreview1">
     <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 1280px * 800px | Peso Max. 1MB  <br> Formato: JPG o PNG</p>
     <input type="file" id="infografia" name="infografia" style="display: none;">
     </div>
+    <div class="col-lg-4 text-center">
+    <img onclick="$('#fotoslae').trigger('click');" src="<?php echo ($data && !empty($data['fotoslae'])) ? url('/') . $data['fotoslae'] : asset('archivos/apostilla_subservicios/img1.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 100%;" class="imgpreview2">
+    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 1280px * 800px | Peso Max. 1MB  <br> Formato: JPG o PNG</p>
+    <input type="file" id="fotoslae" name="fotoslae" style="display: none;">
+    </div>
+
 </div>
 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
     <li class="nav-item">
@@ -41,11 +47,11 @@
 				        <textarea class="form-control summernote" id="descripcion2" rows="3" required><?php echo $data ? $data['descripcion2'] : ''; ?></textarea>
 				    </div>
 				    <div class="col-lg-12">
-				        <label style="font-size: 12px;font-weight: bold;">Título Infografía</label>
+				        <label style="font-size: 12px;font-weight: bold;">Título SLAE</label>
 				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo_infografia'] : ''; ?>" maxlength="150" id="titulo_infografia" style="border: 1px solid #b9b9b9;" required>
 				    </div>
 				    <div class="col-lg-8">
-				        <label style="font-size: 12px;font-weight: bold;">Título Parallax</label>
+				        <label style="font-size: 12px;font-weight: bold;">Título Sección 2</label>
 				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo_parallax'] : ''; ?>" maxlength="150" id="titulo_parallax" style="border: 1px solid #b9b9b9;" required>
 				    </div>
 				    <div class="col-lg-4">
@@ -54,7 +60,7 @@
 				    </div>
 				    <div class="col-lg-12">
 				        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.descripcion') !!}<span style="color: red;">*</span></label>
-				        <textarea class="form-control" id="des_parallax" rows="3" required><?php echo $data ? $data['des_parallax'] : ''; ?></textarea>
+				        <textarea class="form-control summernote" id="des_parallax" rows="3" required><?php echo $data ? $data['des_parallax'] : ''; ?></textarea>
 				    </div>
 
 				</div>
@@ -78,11 +84,11 @@
 				        <textarea class="form-control summernote" id="descripcion2_ingles" rows="3"><?php echo $data ? $data['descripcion2_ingles'] : ''; ?></textarea>
 				    </div>
 				    <div class="col-lg-12">
-				        <label style="font-size: 12px;font-weight: bold;">Title Infographic</label>
+				        <label style="font-size: 12px;font-weight: bold;">Title SLAE</label>
 				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo_infografia_ingles'] : ''; ?>" maxlength="150" id="titulo_infografia_ingles" style="border: 1px solid #b9b9b9;">
 				    </div>
 				    <div class="col-lg-8">
-				        <label style="font-size: 12px;font-weight: bold;">Parallax Title</label>
+				        <label style="font-size: 12px;font-weight: bold;">Section 2 Title</label>
 				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo_parallax_ingles'] : ''; ?>" maxlength="150" id="titulo_parallax_ingles" style="border: 1px solid #b9b9b9;">
 				    </div>
 				    <div class="col-lg-4">
@@ -91,7 +97,7 @@
 				    </div>
 				    <div class="col-lg-12">
 				        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.descripcion') !!}<span style="color: red;">*</span></label>
-				        <textarea class="form-control" id="des_parallax_ingles" rows="3"><?php echo $data ? $data['des_parallax_ingles'] : ''; ?></textarea>
+				        <textarea class="form-control summernote" id="des_parallax_ingles" rows="3"><?php echo $data ? $data['des_parallax_ingles'] : ''; ?></textarea>
 				    </div>
 				</div>
               </div>
@@ -160,7 +166,28 @@
 
         })
     })
+        $("#fotoslae").change(function() {
 
+        var imagen = this.files[0];
+        var documento = this.files[0];
+        var tipo = $(this).attr("name");
+
+        /*=============================================
+        VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
+        =============================================*/
+
+
+        var datosImagen = new FileReader;
+        datosImagen.readAsDataURL(imagen);
+
+        $(datosImagen).on("load", function(event) {
+
+            var rutaImagen = event.target.result;
+
+            $(".imgpreview2").attr("src", rutaImagen);
+
+        })
+    })
     $('#btnSave').click(function() {
         
         var formData = new FormData();
@@ -184,12 +211,16 @@
         formData.append('des_parallax_ingles', $('#des_parallax_ingles').val());
         formData.append('parallax', $('#parallax').val());
         formData.append('infografia', $('#infografia').val());
+        formData.append('fotoslae', $('#fotoslae').val());
 
         var files = $('#parallax').get(0).files;
         formData.append('parallax', files[0]);
 
         var files1 = $('#infografia').get(0).files;
         formData.append('infografia', files1[0]);
+
+        var files2 = $('#fotoslae').get(0).files;
+        formData.append('fotoslae', files2[0]);
 
         $.ajax({
             url: '<?php echo url('/guardar-apostillas_subservicio') ?>',

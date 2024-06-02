@@ -4,9 +4,16 @@
 <!-- -->
 <div class="row">
     <div class="col-lg-12 text-center">
-    <img onclick="$('#infografia').trigger('click');" src="<?php echo ($data && !empty($data['infografia'])) ? url('/') . $data['infografia'] : asset('archivos/infografia_detalleservicio/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 40%" class="imgpreview">
-    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 430px * 578px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
-    <input type="file" id="infografia" name="infografia" style="display: none;">
+    <img onclick="$('#imgextra').trigger('click');" src="<?php echo ($data && !empty($data['imgextra'])) ? url('/') . $data['imgextra'] : asset('archivos/oficinas_detalleservicio/img.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 40%" class="imgpreview">
+    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 1094px * 350px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
+    <input type="file" id="imgextra" name="imgextra" style="display: none;">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 text-center">
+    <img onclick="$('#imgfaq').trigger('click');" src="<?php echo ($data && !empty($data['imgfaq'])) ? url('/') . $data['imgfaq'] : asset('archivos/oficinas_detalleservicio/img1.png'); ?>" style="object-fit: cover;box-shadow: 1px 1px 8px 0px #7e7e7e;cursor: pointer; width: 40%" class="imgpreview1">
+    <p class="help-block small" style="font-size: 11px;margin-top: 10px;line-height: 1.1;">Dimensiones: 900px * 670px | Peso Max. 1MB <br> Formato: JPG o PNG</p>
+    <input type="file" id="imgfaq" name="imgfaq" style="display: none;">
     </div>
 </div>
 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
@@ -22,42 +29,23 @@
 				 <div class="row">   
 				    <div class="col-lg-12">
 				        <label style="font-size: 12px;font-weight: bold;">{!! trans('messages.titulo') !!}</label>
-				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo'] : ''; ?>" maxlength="255" id="titulo" style="border: 1px solid #b9b9b9;">
+				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['textoextra'] : ''; ?>" maxlength="255" id="textoextra" style="border: 1px solid #b9b9b9;">
 				    </div>
-                    <div class="col-lg-12">
-                        <label style="font-size: 12px;font-weight: bold;">Subtítulo</label>
-                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['subtitulo'] : ''; ?>" maxlength="255" id="subtitulo" style="border: 1px solid #b9b9b9;">
-                    </div>
-				    </div>
+				</div>
               </div>
               <div class="tab-pane fade" id="custom-content-below-videoin" role="tabpanel" aria-labelledby="custom-content-below-videoin-tab">
 				 <div class="row">   
 				    <div class="col-lg-12">
 				        <label style="font-size: 12px;font-weight: bold;">Title</label>
-				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['titulo_ingles'] : ''; ?>" maxlength="255" id="titulo_ingles" style="border: 1px solid #b9b9b9;">
+				        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['textoextra_ingles'] : ''; ?>" maxlength="255" id="textoextra_ingles" style="border: 1px solid #b9b9b9;">
 				    </div>
-                    <div class="col-lg-12">
-                        <label style="font-size: 12px;font-weight: bold;">Subtítulo</label>
-                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['subtitulo_ingles'] : ''; ?>" maxlength="255" id="subtitulo_ingles" style="border: 1px solid #b9b9b9;">
-                    </div>
 				</div>
               </div>
              </div> 
              <div class="row">
-                <div class="col-lg-12">
+                    <div class="col-lg-12">
                         <label style="font-size: 12px;font-weight: bold;">Botón</label>
-                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['link1'] : ''; ?>" maxlength="255" id="link1" style="border: 1px solid #b9b9b9;">
-                </div>
-				<div class="col-lg-10">
-					    <label style="font-size: 12px;font-weight: bold;">Estado<span style="color: red;">*</span></label>
-					    <select class="form-control form-select" aria-label="estado" id="estado">
-					        <option value="A" <?php if ($data && 'A' == $data['estado']) { ?> selected <?php } ?>>Activo</option>
-					        <option value="I" <?php if ($data && 'I' == $data['estado']) { ?> selected <?php } ?>>Inactivo</option>
-					    </select>
-				</div>
-                    <div class="col-lg-2">
-                        <label style="font-size: 12px;font-weight: bold;">Orden</label>
-                        <input type="number" class="form-control input-sm" value="<?php echo $data ? $data['orden'] : ''; ?>" maxlength="2" id="orden" style="border: 1px solid #b9b9b9;">
+                        <input type="text" class="form-control input-sm" value="<?php echo $data ? $data['link3'] : ''; ?>" maxlength="255" id="link3" style="border: 1px solid #b9b9b9;">
                     </div>
                 <div class="col-lg-12 text-right">
                     <hr>
@@ -65,7 +53,8 @@
                 </div>
             </div>
 <script>
-        $("#infografia").change(function() {
+
+        $("#imgextra").change(function() {
 
         var imagen = this.files[0];
         var documento = this.files[0];
@@ -87,9 +76,31 @@
 
         })
     })
+    $("#imgfaq").change(function() {
+
+        var imagen = this.files[0];
+        var documento = this.files[0];
+        var tipo = $(this).attr("name");
+
+        /*=============================================
+        VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
+        =============================================*/
+
+
+        var datosImagen = new FileReader;
+        datosImagen.readAsDataURL(imagen);
+
+        $(datosImagen).on("load", function(event) {
+
+            var rutaImagen = event.target.result;
+
+            $(".imgpreview1").attr("src", rutaImagen);
+
+        })
+    })    
     $('#btnSave').click(function() {
         
-        if ($('#titulo').val() == '') {
+        if ($('#textoextra').val() == '') {
             swal({
                 type: "info",
                 title: "¡El campo Título es requerido!",
@@ -97,41 +108,32 @@
             });
             return false;
         }
-        if ($('#link1').val() == '') {
+        if ($('#link3').val() == '') {
             swal({
                 type: "info",
-                title: "¡El campo link es requerido!",
+                title: "¡El campo descripción es requerido!",
                 showConfirmButton: true
             });
             return false;
         }
-        if ($('#estado').val() == '') {
-            swal({
-                type: "info",
-                title: "¡El campo estado es requerido!",
-                showConfirmButton: true
-            });
-            return false;
-        }
-
         var formData = new FormData();
         
         formData.append('id', $('#detalleservicio_id').val());
         formData.append('subservicio_id', $('#subservicio_id').val());
-        formData.append('titulo', $('#titulo').val());
-        formData.append('titulo_ingles', $('#titulo_ingles').val());
-        formData.append('subtitulo', $('#subtitulo').val());
-        formData.append('subtitulo_ingles', $('#subtitulo_ingles').val());
-        formData.append('link1', $('#link1').val());
-        formData.append('estado', $('#estado').val());
-        formData.append('orden', $('#orden').val());
-        formData.append('infografia', $('#infografia').val());
+        formData.append('textoextra', $('#textoextra').val());
+        formData.append('textoextra_ingles', $('#textoextra_ingles').val());
+        formData.append('link3', $('#link3').val());
+        formData.append('imgextra', $('#imgextra').val());
+        formData.append('imgfaq', $('#imgfaq').val());
 
-        var files = $('#infografia').get(0).files;
-        formData.append('infografia', files[0]);
+        var files = $('#imgextra').get(0).files;
+        formData.append('imgextra', files[0]);
+
+        var files1 = $('#imgfaq').get(0).files;
+        formData.append('imgfaq', files1[0]);
 
         $.ajax({
-            url: '<?php echo url('/infografia-subservicio') ?>',
+            url: '<?php echo url('/extrasconsul-subservicio') ?>',
             type: 'POST',
             cache: false,
             contentType: false,

@@ -16,7 +16,9 @@ class MultimediaController extends Controller
     public function index()
     {
         $objUploads = new Uploads();
-        $lista = $objUploads->listar();
+        $lista = $objUploads->listar(array(
+            'limite' => 30
+        ));
 
         $imagenes = array();
         $videos = array();
@@ -24,6 +26,43 @@ class MultimediaController extends Controller
 
         return view('multimedia.home', compact('lista', 'imagenes', 'videos', 'documentos'));
     }
+    public function listado_multimedia(Request $request)
+    {
+        $objUploads = new Uploads();
+
+        $params = array();
+
+        if(isset($request->fecini) && !empty($request->fecini)){
+            $params['fecini'] = $request->fecini;
+        }
+
+        if(isset($request->fecfin) && !empty($request->fecfin)){
+            $params['fecfin'] = $request->fecfin;
+        }
+        
+        if(isset($request->limite) && !empty($request->limite)){
+            $params['limite'] = $request->limite;
+        }
+
+        $lista = $objUploads->listar($params);
+
+
+        return view('multimedia._partial.publicaciones', compact('lista'));
+    }
+
+    public function medios_todos()
+    {
+        $objUploads = new Uploads();
+        $lista = $objUploads->listar();
+
+        $imagenes = array();
+        $videos = array();
+        $documentos = array();
+
+        return view('multimedia.todos', compact('lista', 'imagenes', 'videos', 'documentos'));
+    }
+
+
     public function uploads_img(Request $request)
     {
         $objUploads = new Uploads();
@@ -85,7 +124,8 @@ class MultimediaController extends Controller
             'estado' => $request->estado,
             'exclusivo' => $request->exclusivo,
             'usureg' => auth()->user()->id,
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'fecini' => NOW()
         );
 
         switch ($request->tipo) {
@@ -229,6 +269,7 @@ class MultimediaController extends Controller
 
         return $response;
     }
+
     public function obtenervideomedios(Request $request)
     {
         $objUploads = new Uploads();
@@ -237,4 +278,19 @@ class MultimediaController extends Controller
 
         return view('multimedia.video', compact('video'));
     }
+
+    public function multimedia_general_producto()
+    {
+        $objUploads = new Uploads();
+        $lista = $objUploads->listar(array(
+            'limite' => 30
+        ));
+
+        $imagenes = array();
+        $videos = array();
+        $documentos = array();
+
+        return view('multimedia.form2', compact('lista', 'imagenes', 'videos', 'documentos'));
+    }
+
 }

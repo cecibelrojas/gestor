@@ -124,7 +124,7 @@
   <script src="{{asset('AdminLTE-3.2.0/dist/js/rainbow.min.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/generic.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/html.js')}}"></script>
-     <script type="text/javascript" src="{{asset('js/loader.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/loader.js')}}"></script>
   <script src="{{asset('AdminLTE-3.2.0/dist/js/javascript.js')}}"></script>
 
 
@@ -959,8 +959,6 @@
   <script src="{{asset('AdminLTE-3.2.0/plugins/ekko-lightbox/ekko-lightbox.min.js')}}"></script>
   <script src="{{asset('js/calendarioccs.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap-colorpicker.min.js')}}"></script>
-
-  <!-- Fileupload JS -->
   <script src="{{asset('js/codigo.js')}}"></script>
 
   <script>

@@ -391,6 +391,34 @@ class ServiciosController extends Controller
         ));
         return view('servicios.forminfografia', compact('data','subservicio_id'));
     }
+    public function subs_oficinasconsulares(Request $request)
+    {
+        $objDetalleApostilla = new Detalle_apostilla();
+        $subservicio_id = $request['subservicio_id'];
+        $data = $objDetalleApostilla->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('servicios.formoficinas', compact('data','subservicio_id'));
+    }
+    public function subs_pagosconsulares(Request $request)
+    {
+        $objDetallePagos = new Detalle_apostilla();
+        $subservicio_id = $request['subservicio_id'];
+        $data = $objDetallePagos->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('servicios.formopagos', compact('data','subservicio_id'));
+    }
+    public function subs_extrasconsulares(Request $request)
+    {
+        $objDetallePagos = new Detalle_apostilla();
+        $subservicio_id = $request['subservicio_id'];
+        $data = $objDetallePagos->obtener(array(
+            'id' => $request['id']
+        ));
+        return view('servicios.formextra', compact('data','subservicio_id'));
+    }
+
     public function subs_apostilla(Request $request)
     {
         $objDetalleApostilla = new Detalle_apostilla();
@@ -542,26 +570,8 @@ class ServiciosController extends Controller
                 'descripcion' => $request['descripcion'],
                 'titulo_ingles' => $request['titulo_ingles'],
                 'descripcion_ingles' => $request['descripcion_ingles'],
-                'link' => $request['link'],
-                'tipo' => $request['tipo'],
                 'estado' => $request['estado']
             );
-
-            if ($request->hasFile('tapa')) {
-                $adjuntotp = $request->file('tapa');
-                $extensiontp = $adjuntotp->getClientOriginalExtension();
-                $fileNametp = "tapa_" . date('ymdhis') . "." . $extensiontp;
-                $adjuntotp->move(base_path('archivos/video_detalleservicio'), $fileNametp);
-                $params['tapa'] = "/archivos/video_detalleservicio/" . $fileNametp;
-            }
-
-            if ($request->hasFile('video')) {
-                $adjuntov = $request->file('video');
-                $extensionv = $adjuntov->getClientOriginalExtension();
-                $fileNamev = "mp4consol_" . date('ymdhis') . "." . $extensionv;
-                $adjuntov->move(base_path('archivos/video_detalleservicio'), $fileNamev);
-                $params['video'] = "/archivos/video_detalleservicio/" . $fileNamev;
-            }
 
             if (isset($request['id']) && !empty($request['id'])) {
                 $params['usumod'] = auth()->user()->id;
@@ -628,6 +638,14 @@ class ServiciosController extends Controller
                 $params['infografia'] = "/archivos/apostilla_subservicios/" . $fileNameinf;
             }
 
+            if ($request->hasFile('fotoslae')) {
+                $adjuntoslae = $request->file('fotoslae');
+                $extensionslae = $adjuntoslae->getClientOriginalExtension();
+                $fileNameslae = "fotoslae_" . date('ymdhis') . "." . $extensionslae;
+                $adjuntoslae->move(base_path('archivos/apostilla_subservicios'), $fileNameslae);
+                $params['fotoslae'] = "/archivos/apostilla_subservicios/" . $fileNameslae;
+            }
+
             if (isset($request['id']) && !empty($request['id'])) {
                 $params['usumod'] = auth()->user()->id;
                 $params['updated_at'] = date('Y-m-d H:i:s');
@@ -664,6 +682,9 @@ class ServiciosController extends Controller
                 'subservicio_id' => $request['subservicio_id'],
                 'titulo' => $request['titulo'],
                 'titulo_ingles' => $request['titulo_ingles'],
+                'subtitulo' => $request['subtitulo'],
+                'subtitulo_ingles' => $request['subtitulo_ingles'],
+                'link1' => $request['link1'],
                 'orden' => $request['orden'],
                 'estado' => $request['estado']
             );
@@ -697,6 +718,159 @@ class ServiciosController extends Controller
 
         return $response;
     }
+
+    public function guardar_oficinaconsul_subservicio(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objDetalleApostilla = new Detalle_apostilla();
+
+            $params = array( 
+                'subservicio_id' => $request['subservicio_id'],
+                'titulomap' => $request['titulomap'],
+                'titulomap_ingles' => $request['titulomap_ingles'],
+                'desmapa' => $request['desmapa'],
+                'desmapa_ingles' => $request['desmapa_ingles'],
+                'linkna' => $request['linkna'],
+                'linkin' => $request['linkin']
+            );
+
+            if ($request->hasFile('imgmap')) {
+                $adjuntomap = $request->file('imgmap');
+                $extensionmap = $adjuntomap->getClientOriginalExtension();
+                $fileNamemap = "ubicacion_" . date('ymdhis') . "." . $extensionmap;
+                $adjuntomap->move(base_path('archivos/oficinas_detalleservicio'), $fileNamemap);
+                $params['imgmap'] = "/archivos/oficinas_detalleservicio/" . $fileNamemap;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objDetalleApostilla->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objDetalleApostilla->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+    public function guardar_pagosconsul_subservicio(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objDetalleApostilla = new Detalle_apostilla();
+
+            $params = array( 
+                'subservicio_id' => $request['subservicio_id'],
+                'titulopago' => $request['titulopago'],
+                'titulopago_ingles' => $request['titulopago_ingles'],
+                'despago' => $request['despago'],
+                'despago_ingles' => $request['despago_ingles'],
+                'linkpago' => $request['linkpago'],
+                'infopagos' => $request['infopagos'],
+                'infopagos_ingles' => $request['infopagos_ingles'],
+                'infopagos1' => $request['infopagos1'],
+                'infopagos1_ingles' => $request['infopagos1_ingles']
+
+            );
+
+            if ($request->hasFile('imgpago')) {
+                $adjuntopag = $request->file('imgpago');
+                $extensionpag = $adjuntopag->getClientOriginalExtension();
+                $fileNamepag = "pagos_" . date('ymdhis') . "." . $extensionpag;
+                $adjuntopag->move(base_path('archivos/oficinas_detalleservicio'), $fileNamepag);
+                $params['imgpago'] = "/archivos/oficinas_detalleservicio/" . $fileNamepag;
+            }
+
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objDetalleApostilla->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objDetalleApostilla->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+    public function guardar_extrasconsul_subservicio(Request $request)
+    {
+
+        $response = array();
+
+        try {
+            
+            $objDetalleApostilla = new Detalle_apostilla();
+
+            $params = array( 
+                'subservicio_id' => $request['subservicio_id'],
+                'textoextra' => $request['textoextra'],
+                'textoextra_ingles' => $request['textoextra_ingles'],
+                'link3' => $request['link3']
+            );
+
+            if ($request->hasFile('imgextra')) {
+                $adjuntoext = $request->file('imgextra');
+                $extensionext = $adjuntoext->getClientOriginalExtension();
+                $fileNameext = "extras_" . date('ymdhis') . "." . $extensionext;
+                $adjuntoext->move(base_path('archivos/oficinas_detalleservicio'), $fileNameext);
+                $params['imgextra'] = "/archivos/oficinas_detalleservicio/" . $fileNameext;
+            }
+            if ($request->hasFile('imgfaq')) {
+                $adjuntofaq = $request->file('imgfaq');
+                $extensionfaq = $adjuntofaq->getClientOriginalExtension();
+                $fileNamefaq = "faq_" . date('ymdhis') . "." . $extensionfaq;
+                $adjuntofaq->move(base_path('archivos/oficinas_detalleservicio'), $fileNamefaq);
+                $params['imgfaq'] = "/archivos/oficinas_detalleservicio/" . $fileNamefaq;
+            }
+            if (isset($request['id']) && !empty($request['id'])) {
+                $params['usumod'] = auth()->user()->id;
+                $params['updated_at'] = date('Y-m-d H:i:s');
+                $update = $objDetalleApostilla->actualizar($params, array('id' => $request['id']));
+                if (!is_numeric($update)) {
+                    throw new Exception($update);
+                }
+            } else {
+                $params['usureg'] = auth()->user()->id;
+                $params['created_at'] = date('Y-m-d H:i:s');
+                $insert = $objDetalleApostilla->insertar($params);
+                if (!is_numeric($insert)) {
+                    throw new Exception($insert);
+                }
+            }
+        } catch (\Exception $e) {
+            $response['errorMessage'] = $e->getMessage();
+        }
+
+        return $response;
+    }
+
     public function delete_videos(Request $request)
     {
         $response = array();
